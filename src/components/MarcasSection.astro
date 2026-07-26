@@ -15,43 +15,43 @@ interface BrandLogo {
   svgContent: string;
 }
 
-// Clean monochrome SVG logo marks for cosmetic brands
+// Clean monochrome SVG logo marks with explicit width & height attributes
 const brands: BrandLogo[] = [
   {
     id: 'natura-bisse',
     name: 'Natura Bissé',
-    svgContent: `<svg viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="100" y="38" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="22" font-weight="600" letter-spacing="4" fill="#1A1A1A">NATURA BISSÉ</text><text x="100" y="52" text-anchor="middle" font-family="'Inter', sans-serif" font-size="8" letter-spacing="6" fill="#6B6B6B">BARCELONA</text></svg>`,
+    svgContent: `<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="100" y="34" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="22" font-weight="600" letter-spacing="4" fill="#1A1A1A">NATURA BISSÉ</text><text x="100" y="48" text-anchor="middle" font-family="'Inter', sans-serif" font-size="8" letter-spacing="6" fill="#6B6B6B">BARCELONA</text></svg>`,
   },
   {
     id: 'germaine-de-capuccini',
     name: 'Germaine de Capuccini',
-    svgContent: `<svg viewBox="0 0 260 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="130" y="34" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="18" font-weight="600" letter-spacing="3" fill="#1A1A1A">GERMAINE DE CAPUCCINI</text><text x="130" y="48" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="5" fill="#6B6B6B">ALTA COSMÉTICA</text></svg>`,
+    svgContent: `<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="120" y="32" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="18" font-weight="600" letter-spacing="3" fill="#1A1A1A">GERMAINE DE CAPUCCINI</text><text x="120" y="46" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="5" fill="#6B6B6B">ALTA COSMÉTICA</text></svg>`,
   },
   {
     id: 'alan-coar',
     name: 'Alan Coar',
-    svgContent: `<svg viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="90" y="38" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="24" font-weight="400" letter-spacing="5" fill="#1A1A1A">ALAN COAR</text><text x="90" y="52" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="4" fill="#6B6B6B">SPECIALIST SKINCARE</text></svg>`,
+    svgContent: `<svg width="180" height="60" viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="90" y="34" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="24" font-weight="400" letter-spacing="5" fill="#1A1A1A">ALAN COAR</text><text x="90" y="48" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="4" fill="#6B6B6B">SPECIALIST SKINCARE</text></svg>`,
   },
   {
     id: 'artdeco',
     name: 'Artdeco',
-    svgContent: `<svg viewBox="0 0 160 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="80" y="38" text-anchor="middle" font-family="'Inter', sans-serif" font-size="22" font-weight="600" letter-spacing="6" fill="#1A1A1A">ARTDECO</text><text x="80" y="52" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="5" fill="#6B6B6B">GERMANY</text></svg>`,
+    svgContent: `<svg width="160" height="60" viewBox="0 0 160 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="80" y="34" text-anchor="middle" font-family="'Inter', sans-serif" font-size="22" font-weight="600" letter-spacing="6" fill="#1A1A1A">ARTDECO</text><text x="80" y="48" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="5" fill="#6B6B6B">GERMANY</text></svg>`,
   },
   {
     id: 'mesoestetic',
     name: 'Mesoestetic',
-    svgContent: `<svg viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="100" y="38" text-anchor="middle" font-family="'Inter', sans-serif" font-size="20" font-weight="500" letter-spacing="3" fill="#1A1A1A">mesoestetic®</text><text x="100" y="52" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="4" fill="#6B6B6B">MEDICAL COSMETICS</text></svg>`,
+    svgContent: `<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="100" y="34" text-anchor="middle" font-family="'Inter', sans-serif" font-size="20" font-weight="500" letter-spacing="3" fill="#1A1A1A">mesoestetic®</text><text x="100" y="48" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="4" fill="#6B6B6B">MEDICAL COSMETICS</text></svg>`,
   },
 ];
 
 // Duplicate list to achieve seamless infinite loop
-const doubleBrands = [...brands, ...brands, ...brands];
+const doubleBrands = [...brands, ...brands, ...brands, ...brands];
 ---
 
 <section class="marcas-ticker" id="firmas">
   <div class="marcas-ticker__viewport" id="ticker-viewport">
     <div class="marcas-ticker__track" id="ticker-track">
-      {doubleBrands.map((brand, i) => (
+      {doubleBrands.map((brand) => (
         <div class="marcas-ticker__item" data-brand={brand.id}>
           <div class="marcas-ticker__logo" title={brand.name}>
             <Fragment set:html={brand.svgContent} />
@@ -72,15 +72,10 @@ const doubleBrands = [...brands, ...brands, ...brands];
 
     let isDragging = false;
     let startX = 0;
-    let currentTranslate = 0;
-    let prevTranslate = 0;
-    let animationId = 0;
 
-    // Mouse & Touch Drag Handlers
     function onPointerDown(e: PointerEvent): void {
       isDragging = true;
       startX = e.clientX;
-      track!.classList.add('marcas-ticker__track--dragging');
       viewport!.style.cursor = 'grabbing';
       track!.style.animationPlayState = 'paused';
     }
@@ -89,13 +84,12 @@ const doubleBrands = [...brands, ...brands, ...brands];
       if (!isDragging) return;
       const currentX = e.clientX;
       const diffX = currentX - startX;
-      track!.style.transform = `translateX(calc(-33.333% + ${diffX}px))`;
+      track!.style.transform = `translateX(calc(-25% + ${diffX}px))`;
     }
 
     function onPointerUp(): void {
       if (!isDragging) return;
       isDragging = false;
-      track!.classList.remove('marcas-ticker__track--dragging');
       viewport!.style.cursor = 'grab';
       track!.style.transform = '';
       track!.style.animationPlayState = 'running';
@@ -116,7 +110,7 @@ const doubleBrands = [...brands, ...brands, ...brands];
     background-color: var(--color-bg-alt);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
-    padding-block: 1.5rem;
+    padding-block: 1.75rem;
     overflow: hidden;
     user-select: none;
     -webkit-user-select: none;
@@ -137,7 +131,7 @@ const doubleBrands = [...brands, ...brands, ...brands];
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 4rem;
+    width: 5rem;
     z-index: 2;
     pointer-events: none;
   }
@@ -156,42 +150,37 @@ const doubleBrands = [...brands, ...brands, ...brands];
   .marcas-ticker__track {
     display: flex;
     align-items: center;
-    gap: 4rem;
+    gap: 3.5rem;
     width: max-content;
-    animation: infiniteMarquee 35s linear infinite;
+    animation: infiniteMarquee 30s linear infinite;
     will-change: transform;
   }
 
-  .marcas-ticker__track--dragging {
-    animation-play-state: paused !style;
-  }
-
   .marcas-ticker__item {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    padding-inline: 1rem;
-    opacity: 0.65;
+    opacity: 0.75;
     transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
   }
 
   .marcas-ticker__item:hover {
     opacity: 1;
-    transform: scale(1.04);
+    transform: scale(1.05);
   }
 
   .marcas-ticker__logo {
-    height: 2.75rem;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .marcas-ticker__logo svg {
-    height: 100%;
+    height: 50px;
     width: auto;
-    max-width: 180px;
+    display: block;
   }
 
   /* Continuous right-to-left movement animation */
@@ -200,7 +189,7 @@ const doubleBrands = [...brands, ...brands, ...brands];
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-33.333%);
+      transform: translateX(-25%);
     }
   }
 

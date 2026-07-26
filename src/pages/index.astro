@@ -1,35 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
-import Button from '../components/Button.astro';
+import Hero from '../components/Hero.astro';
 ---
 
 <BaseLayout
   title="Inicio"
-  description="Centro de estética y bienestar. Tratamientos faciales, corporales y de belleza con profesionalidad y cercanía."
+  description="Centro De Estética Lola Muñoz. Tu espacio de belleza, calma y tratamientos de estética avanzada en tu ciudad."
 >
 
   <Navbar slot="header" />
 
-  <main id="inicio">
-
-    <!-- Hero placeholder — will be replaced in Phase 4 -->
-    <section class="section hero-placeholder">
-      <div class="container">
-        <div class="reveal reveal--up">
-          <p class="label">Centro De Estética</p>
-        </div>
-        <h1 class="reveal reveal--up stagger-2">Lola Muñoz</h1>
-        <p class="hero-subtitle reveal reveal--up stagger-3">
-          Donde la belleza se encuentra con la serenidad.
-          Un espacio diseñado para cuidarte.
-        </p>
-        <div class="buttons-demo reveal reveal--up stagger-4">
-          <Button>Descubre más</Button>
-          <Button variant="secondary">Contacto</Button>
-        </div>
-      </div>
-    </section>
+  <main>
+    <!-- Hero Section -->
+    <Hero />
 
     <!-- Servicios placeholder — will be replaced in Phase 5 -->
     <section class="section" id="servicios">
@@ -65,30 +49,11 @@ import Button from '../components/Button.astro';
         </p>
       </div>
     </section>
-
   </main>
 
 </BaseLayout>
 
 <style>
-  /* Offset for fixed navbar */
-  .hero-placeholder {
-    padding-top: calc(4.5rem + var(--section-py));
-  }
-
-  .hero-subtitle {
-    font-size: var(--text-xl);
-    margin-top: var(--space-md);
-    max-width: 50ch;
-  }
-
-  .buttons-demo {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-top: var(--space-lg);
-  }
-
   /* Alternate section background */
   .section--alt {
     background-color: var(--color-bg-alt);

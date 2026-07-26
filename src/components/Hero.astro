@@ -1,0 +1,351 @@
+---
+/**
+ * Hero Component — Minimalist, high-end hero section.
+ *
+ * Features:
+ *   - Staggered entrance animations (.reveal + stagger delays)
+ *   - Sophisticated typography (Cormorant Garamond headline)
+ *   - Dual action CTAs (Button primary & secondary)
+ *   - Premium hero image grid with decorative accent ring & floating badge
+ *   - Subtle scroll indicator
+ */
+import Button from './Button.astro';
+---
+
+<section class="hero" id="hero">
+  <div class="container hero__container">
+    
+    <!-- Left / Top: Copy Content -->
+    <div class="hero__content">
+      <div class="reveal reveal--up stagger-1">
+        <span class="label hero__eyebrow">Centro De Estética & Bienestar</span>
+      </div>
+
+      <h1 class="hero__title reveal reveal--up stagger-2">
+        Donde la belleza se encuentra con la <span class="text-serif-italic">serenidad</span>.
+      </h1>
+
+      <p class="hero__description reveal reveal--up stagger-3">
+        Un espacio pensado para desconectar, cuidar tu piel y renovar tu energía.
+        Tratamientos faciales y corporales personalizados de alta gama de la mano de Lola Muñoz.
+      </p>
+
+      <div class="hero__actions reveal reveal--up stagger-4">
+        <Button href="#servicios" variant="primary" size="lg">
+          Descubrir Tratamientos
+        </Button>
+        <Button href="#contacto" variant="secondary" size="lg">
+          Contactar
+        </Button>
+      </div>
+
+      <!-- Key Highlights / Badges -->
+      <div class="hero__features reveal reveal--up stagger-5">
+        <div class="hero__feature-item">
+          <span class="hero__feature-dot"></span>
+          <span>Atención 100% personalizada</span>
+        </div>
+        <div class="hero__feature-item">
+          <span class="hero__feature-dot"></span>
+          <span>Productos de alta cosmética</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right / Bottom: Visual Imagery -->
+    <div class="hero__visual reveal reveal--scale stagger-3">
+      <div class="hero__image-wrapper hover-lift">
+        <!-- Placeholder aesthetic image SVG visual with warm tones & soft elegance -->
+        <svg
+          class="hero__image-placeholder"
+          viewBox="0 0 600 700"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#F5F3EF" />
+              <stop offset="50%" stop-color="#EBE7DF" />
+              <stop offset="100%" stop-color="#E1DCD3" />
+            </linearGradient>
+            <radialGradient id="glow" cx="40%" cy="35%" r="60%">
+              <stop offset="0%" stop-color="#A8B88C" stop-opacity="0.3" />
+              <stop offset="100%" stop-color="#A8B88C" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <!-- Background card -->
+          <rect width="600" height="700" rx="24" fill="url(#heroBg)" />
+          <!-- Subtle glow circle -->
+          <circle cx="300" cy="350" r="240" fill="url(#glow)" />
+          
+          <!-- Organic Leaf / Spa Motif -->
+          <path
+            d="M300 200 C400 280 440 420 300 500 C160 420 200 280 300 200 Z"
+            fill="#A8B88C"
+            fill-opacity="0.15"
+            stroke="#A8B88C"
+            stroke-width="1.5"
+          />
+          <path
+            d="M300 220 V 480"
+            stroke="#A8B88C"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-dasharray="4 6"
+          />
+          <path
+            d="M300 320 C340 300 370 310 380 330"
+            stroke="#A8B88C"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+          <path
+            d="M300 380 C260 360 230 370 220 390"
+            stroke="#A8B88C"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+
+          <!-- Text overlay in placeholder image -->
+          <text
+            x="300"
+            y="560"
+            text-anchor="middle"
+            font-family="Cormorant Garamond, serif"
+            font-size="28"
+            font-style="italic"
+            fill="#1A1A1A"
+            opacity="0.75"
+          >
+            Lola Muñoz
+          </text>
+          <text
+            x="300"
+            y="590"
+            text-anchor="middle"
+            font-family="Inter, sans-serif"
+            font-size="12"
+            letter-spacing="3"
+            fill="#6B6B6B"
+          >
+            CENTRO DE ESTÉTICA
+          </text>
+        </svg>
+      </div>
+
+      <!-- Decorative Floating Badge -->
+      <div class="hero__badge reveal reveal--fade stagger-5">
+        <span class="hero__badge-number">10+</span>
+        <span class="hero__badge-text">Años cuidando de ti</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scroll Down Indicator -->
+  <a href="#servicios" class="hero__scroll-indicator reveal reveal--fade stagger-6" aria-label="Ir a servicios">
+    <span class="hero__scroll-text">Explorar</span>
+    <svg class="hero__scroll-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 3V13M8 13L13 8M8 13L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: calc(5rem + var(--space-xl));
+    padding-bottom: var(--space-2xl);
+    background-color: var(--color-bg);
+    overflow: hidden;
+  }
+
+  .hero__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  @media (min-width: 992px) {
+    .hero__container {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+  }
+
+  /* Content Styling */
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .hero__eyebrow {
+    margin-bottom: var(--space-2xs);
+  }
+
+  .hero__title {
+    font-size: var(--text-5xl);
+    font-weight: var(--weight-light);
+    line-height: 1.08;
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-text);
+  }
+
+  .text-serif-italic {
+    font-style: italic;
+    color: var(--color-accent-hover);
+  }
+
+  .hero__description {
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 48ch;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  /* Features list */
+  .hero__features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .hero__feature-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+  }
+
+  .hero__feature-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+  }
+
+  /* Visual Imagery */
+  .hero__visual {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .hero__image-wrapper {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .hero__image-placeholder {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 6 / 7;
+    object-fit: cover;
+  }
+
+  /* Floating Badge */
+  .hero__badge {
+    position: absolute;
+    bottom: -1rem;
+    left: -1rem;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    backdrop-filter: blur(8px);
+  }
+
+  @media (max-width: 576px) {
+    .hero__badge {
+      left: 0.5rem;
+      bottom: 0.5rem;
+    }
+  }
+
+  .hero__badge-number {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-light);
+    color: var(--color-accent-hover);
+    line-height: 1;
+  }
+
+  .hero__badge-text {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    line-height: 1.2;
+    max-width: 90px;
+  }
+
+  /* Scroll Indicator */
+  .hero__scroll-indicator {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
+  }
+
+  .hero__scroll-text {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+  }
+
+  .hero__scroll-icon {
+    animation: bounce 2s infinite ease-in-out;
+  }
+
+  .hero__scroll-indicator:hover {
+    color: var(--color-accent);
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(4px);
+    }
+    60% {
+      transform: translateY(2px);
+    }
+  }
+</style>

@@ -7,8 +7,11 @@
  *   - Favicon & Theme Color
  *   - Structured Data (JSON-LD BeautySalon / LocalBusiness schema)
  *   - Google Fonts preconnect & auto-loading
+ *   - Global CSS imports in frontmatter for Vite optimization
  *   - Scroll-reveal initializer script
  */
+import '../styles/global.css';
+import '../styles/animations.css';
 
 interface Props {
   title?: string;
@@ -94,12 +97,6 @@ const schemaData = {
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
-
-    <!-- Styles -->
-    <style is:global>
-      @import '../styles/global.css';
-      @import '../styles/animations.css';
-    </style>
   </head>
 
   <body>

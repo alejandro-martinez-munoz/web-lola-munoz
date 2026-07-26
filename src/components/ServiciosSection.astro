@@ -1,0 +1,195 @@
+---
+/**
+ * ServiciosSection Component — Grid of aesthetic services.
+ *
+ * Features:
+ *   - Section header with category badge & Cormorant Garamond title
+ *   - Responsive grid layout (1 col mobile, 2 tablet, 3 desktop)
+ *   - Curated list of treatments with customized SVG icons
+ *   - Bottom callout card inviting consultation
+ */
+import ServiceCard from './ServiceCard.astro';
+
+interface ServiceItem {
+  title: string;
+  category: string;
+  description: string;
+  duration: string;
+  iconSvg: string;
+}
+
+const services: ServiceItem[] = [
+  {
+    title: 'Faciales Avanzados',
+    category: 'Cuidado Facial',
+    description: 'Higiene profunda, renovación celular, peelings suave e hidratación intensiva adaptada a cada tipo de piel.',
+    duration: '60 min',
+    iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>`,
+  },
+  {
+    title: 'Estética Corporal',
+    category: 'Remodelación',
+    description: 'Tratamientos reductores, reafirmantes y anticelulíticos para devolver la firmeza y vitalidad a la silueta.',
+    duration: '75 min',
+    iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+  },
+  {
+    title: 'Diagnóstico Facial',
+    category: 'Asesoramiento',
+    description: 'Análisis detallado de tu piel para determinar sus necesidades exactas y crear un plan de cuidado a medida.',
+    duration: '30 min',
+    iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+  },
+  {
+    title: 'Maderoterapia & Masajes',
+    category: 'Bienestar',
+    description: 'Técnica holística de remodelación corporal y drenaje que libera toxinas y alivia el estrés acumulado.',
+    duration: '60 min',
+    iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  },
+  {
+    title: 'Estética de la Mirada',
+    category: 'Mirada & Cejas',
+    description: 'Lifting y tinte de pestañas, diseño de cejas y tratamientos específicos para iluminar y rejuvenecer la mirada.',
+    duration: '45 min',
+    iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  },
+  {
+    title: 'Depilación & Cuidado',
+    category: 'Depilación',
+    description: 'Técnicas de depilación suaves y precisas respetando el equilibrio natural y la sensibilidad de tu piel.',
+    duration: '30 - 45 min',
+    iconSvg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
+  },
+];
+---
+
+<section class="section servicios" id="servicios">
+  <div class="container">
+    
+    <!-- Section Header -->
+    <div class="servicios__header text-center">
+      <div class="reveal reveal--up stagger-1">
+        <span class="label">Nuestros Tratamientos</span>
+      </div>
+      <h2 class="servicios__title reveal reveal--up stagger-2">
+        Experiencias de estética diseñadas para ti
+      </h2>
+      <p class="servicios__subtitle reveal reveal--up stagger-3 text-balance">
+        Cada piel es única. En nuestro centro combinamos cosmética de alta calidad con técnicas precisas
+        para ofrecerte resultados visibles en un ambiente relajante.
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="servicios__grid">
+      {services.map((service, index) => (
+        <ServiceCard
+          title={service.title}
+          category={service.category}
+          description={service.description}
+          duration={service.duration}
+          iconSvg={service.iconSvg}
+          staggerIndex={(index % 3) + 1}
+        />
+      ))}
+    </div>
+
+    <!-- Bottom Banner / Consultation Callout -->
+    <div class="servicios__callout reveal reveal--up stagger-4">
+      <div class="servicios__callout-content">
+        <h3 class="servicios__callout-title">¿Dudas sobre qué tratamiento elegir?</h3>
+        <p class="servicios__callout-text">
+          Te asesoramos personalmente sin compromiso para encontrar el tratamiento que mejor se adapta a tus necesidades.
+        </p>
+      </div>
+      <a href="#contacto" class="btn btn--primary btn--md">
+        Solicitar Información
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .servicios {
+    background-color: var(--color-bg);
+    position: relative;
+  }
+
+  .servicios__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .servicios__title {
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-light);
+    color: var(--color-text);
+  }
+
+  .servicios__subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    max-width: 58ch;
+    margin-top: var(--space-2xs);
+  }
+
+  /* Grid Layout */
+  .servicios__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 640px) {
+    .servicios__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .servicios__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Callout Banner */
+  .servicios__callout {
+    margin-top: var(--space-2xl);
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .servicios__callout {
+      flex-direction: row;
+      text-align: left;
+    }
+  }
+
+  .servicios__callout-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-light);
+    color: var(--color-text);
+  }
+
+  .servicios__callout-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+    max-width: 50ch;
+  }
+</style>

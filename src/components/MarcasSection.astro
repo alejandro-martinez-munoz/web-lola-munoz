@@ -1,128 +1,216 @@
 ---
 /**
- * MarcasSection Component — Horizontal bar for partner cosmetic brands.
+ * MarcasSection Component — Continuous Infinite Drag Marquee Ticker.
  *
  * Features:
- *   - Compact horizontal height (non-intrusive, zero noise)
- *   - Grayscale to pistachio accent hover micro-interaction
- *   - Continuous infinite marquee or flex strip
+ *   - Continuous infinite movement from right to left (@keyframes marquee)
+ *   - Mouse & Touch Grab/Drag support (cursor: grab -> cursor: grabbing)
+ *   - Warm beige neutral strip background (#F5F3EF)
+ *   - High-end monochrome logo marks for Natura Bissé, Germaine de Capuccini, Alan Coar, Artdeco, Mesoestetic
  */
 
-interface Brand {
+interface BrandLogo {
+  id: string;
   name: string;
-  tagline: string;
+  svgContent: string;
 }
 
-const brands: Brand[] = [
-  { name: 'Natura Bissé', tagline: 'Barcelona' },
-  { name: 'Germaine de Capuccini', tagline: 'Alta Cosmética' },
-  { name: 'Alan Coar', tagline: 'Cosmética Profesional' },
-  { name: 'Artdeco', tagline: 'Makeup Beauty' },
-  { name: 'Mesoestetic', tagline: 'Dermocosmética' },
+// Clean monochrome SVG logo marks for cosmetic brands
+const brands: BrandLogo[] = [
+  {
+    id: 'natura-bisse',
+    name: 'Natura Bissé',
+    svgContent: `<svg viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="100" y="38" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="22" font-weight="600" letter-spacing="4" fill="#1A1A1A">NATURA BISSÉ</text><text x="100" y="52" text-anchor="middle" font-family="'Inter', sans-serif" font-size="8" letter-spacing="6" fill="#6B6B6B">BARCELONA</text></svg>`,
+  },
+  {
+    id: 'germaine-de-capuccini',
+    name: 'Germaine de Capuccini',
+    svgContent: `<svg viewBox="0 0 260 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="130" y="34" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="18" font-weight="600" letter-spacing="3" fill="#1A1A1A">GERMAINE DE CAPUCCINI</text><text x="130" y="48" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="5" fill="#6B6B6B">ALTA COSMÉTICA</text></svg>`,
+  },
+  {
+    id: 'alan-coar',
+    name: 'Alan Coar',
+    svgContent: `<svg viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="90" y="38" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="24" font-weight="400" letter-spacing="5" fill="#1A1A1A">ALAN COAR</text><text x="90" y="52" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="4" fill="#6B6B6B">SPECIALIST SKINCARE</text></svg>`,
+  },
+  {
+    id: 'artdeco',
+    name: 'Artdeco',
+    svgContent: `<svg viewBox="0 0 160 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="80" y="38" text-anchor="middle" font-family="'Inter', sans-serif" font-size="22" font-weight="600" letter-spacing="6" fill="#1A1A1A">ARTDECO</text><text x="80" y="52" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="5" fill="#6B6B6B">GERMANY</text></svg>`,
+  },
+  {
+    id: 'mesoestetic',
+    name: 'Mesoestetic',
+    svgContent: `<svg viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="100" y="38" text-anchor="middle" font-family="'Inter', sans-serif" font-size="20" font-weight="500" letter-spacing="3" fill="#1A1A1A">mesoestetic®</text><text x="100" y="52" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="4" fill="#6B6B6B">MEDICAL COSMETICS</text></svg>`,
+  },
 ];
+
+// Duplicate list to achieve seamless infinite loop
+const doubleBrands = [...brands, ...brands, ...brands];
 ---
 
-<section class="marcas" id="firmas">
-  <div class="container marcas__container">
-    
-    <!-- Left label indicator -->
-    <div class="marcas__label-wrap reveal reveal--up">
-      <span class="label marcas__label">Firmas de Confianza</span>
-    </div>
-
-    <!-- Horizontal Brands Marquee / Strip -->
-    <div class="marcas__strip reveal reveal--fade stagger-2">
-      {brands.map((brand) => (
-        <div class="marcas__item">
-          <span class="marcas__name">{brand.name}</span>
-          <span class="marcas__tagline">{brand.tagline}</span>
+<section class="marcas-ticker" id="firmas">
+  <div class="marcas-ticker__viewport" id="ticker-viewport">
+    <div class="marcas-ticker__track" id="ticker-track">
+      {doubleBrands.map((brand, i) => (
+        <div class="marcas-ticker__item" data-brand={brand.id}>
+          <div class="marcas-ticker__logo" title={brand.name}>
+            <Fragment set:html={brand.svgContent} />
+          </div>
         </div>
       ))}
     </div>
-
   </div>
 </section>
 
+<!-- Interactive Grab/Drag & Seamless Animation Script -->
+<script>
+  function initTicker(): void {
+    const viewport = document.getElementById('ticker-viewport');
+    const track = document.getElementById('ticker-track');
+
+    if (!viewport || !track) return;
+
+    let isDragging = false;
+    let startX = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let animationId = 0;
+
+    // Mouse & Touch Drag Handlers
+    function onPointerDown(e: PointerEvent): void {
+      isDragging = true;
+      startX = e.clientX;
+      track!.classList.add('marcas-ticker__track--dragging');
+      viewport!.style.cursor = 'grabbing';
+      track!.style.animationPlayState = 'paused';
+    }
+
+    function onPointerMove(e: PointerEvent): void {
+      if (!isDragging) return;
+      const currentX = e.clientX;
+      const diffX = currentX - startX;
+      track!.style.transform = `translateX(calc(-33.333% + ${diffX}px))`;
+    }
+
+    function onPointerUp(): void {
+      if (!isDragging) return;
+      isDragging = false;
+      track!.classList.remove('marcas-ticker__track--dragging');
+      viewport!.style.cursor = 'grab';
+      track!.style.transform = '';
+      track!.style.animationPlayState = 'running';
+    }
+
+    viewport.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    viewport.addEventListener('pointerleave', onPointerUp);
+  }
+
+  document.addEventListener('DOMContentLoaded', initTicker);
+  document.addEventListener('astro:page-load', initTicker);
+</script>
+
 <style>
-  .marcas {
+  .marcas-ticker {
     background-color: var(--color-bg-alt);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
-    padding-block: var(--space-md);
+    padding-block: 1.5rem;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
-  .marcas__container {
+  .marcas-ticker__viewport {
+    width: 100%;
+    overflow: hidden;
+    cursor: grab;
+    position: relative;
+    touch-action: pan-y;
+  }
+
+  /* Fade gradient masks on left & right edges for seamless entrance/exit */
+  .marcas-ticker__viewport::before,
+  .marcas-ticker__viewport::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4rem;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .marcas-ticker__viewport::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-bg-alt) 0%, transparent 100%);
+  }
+
+  .marcas-ticker__viewport::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-bg-alt) 0%, transparent 100%);
+  }
+
+  /* Track with infinite right-to-left CSS animation */
+  .marcas-ticker__track {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: var(--space-md);
+    gap: 4rem;
+    width: max-content;
+    animation: infiniteMarquee 35s linear infinite;
+    will-change: transform;
   }
 
-  @media (min-width: 768px) {
-    .marcas__container {
-      flex-direction: row;
-      justify-content: space-between;
-      gap: var(--space-lg);
-    }
+  .marcas-ticker__track--dragging {
+    animation-play-state: paused !style;
   }
 
-  .marcas__label-wrap {
-    flex-shrink: 0;
-  }
-
-  .marcas__label {
-    font-size: 0.7rem;
-    letter-spacing: var(--tracking-wider);
-    color: var(--color-accent-hover);
-    white-space: nowrap;
-  }
-
-  /* Horizontal Strip */
-  .marcas__strip {
+  .marcas-ticker__item {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: var(--space-lg) var(--space-2xl);
-    width: 100%;
+    flex-shrink: 0;
+    padding-inline: 1rem;
+    opacity: 0.65;
+    transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
   }
 
-  @media (min-width: 768px) {
-    .marcas__strip {
-      justify-content: flex-end;
+  .marcas-ticker__item:hover {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+
+  .marcas-ticker__logo {
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .marcas-ticker__logo svg {
+    height: 100%;
+    width: auto;
+    max-width: 180px;
+  }
+
+  /* Continuous right-to-left movement animation */
+  @keyframes infiniteMarquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-33.333%);
     }
   }
 
-  .marcas__item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.1rem;
-    opacity: 0.75;
-    transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
-    cursor: default;
-  }
-
-  .marcas__item:hover {
-    opacity: 1;
-    transform: translateY(-2px);
-  }
-
-  .marcas__name {
-    font-family: var(--font-serif);
-    font-size: var(--text-lg);
-    font-weight: var(--weight-regular);
-    letter-spacing: var(--tracking-wide);
-    color: var(--color-text);
-    white-space: nowrap;
-  }
-
-  .marcas__tagline {
-    font-family: var(--font-sans);
-    font-size: 0.6rem;
-    font-weight: var(--weight-medium);
-    letter-spacing: var(--tracking-wider);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .marcas-ticker__track {
+      animation: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
   }
 </style>

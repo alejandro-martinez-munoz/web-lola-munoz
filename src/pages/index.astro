@@ -1,17 +1,79 @@
 ---
-
+import Button from '../components/Button.astro';
+import '../styles/global.css';
+import '../styles/animations.css';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Centro De Estética Lola Muñoz</title>
+    <meta name="description" content="Centro de estética y bienestar en tu ciudad. Tratamientos faciales, corporales y mucho más." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <main class="container section">
+
+      <!-- Typography scale -->
+      <div class="reveal reveal--up">
+        <p class="label">Centro De Estética</p>
+      </div>
+      <h1 class="reveal reveal--up stagger-2">Lola Muñoz</h1>
+      <p class="hero-subtitle reveal reveal--up stagger-3">
+        Donde la belleza se encuentra con la serenidad.
+        Un espacio diseñado para cuidarte.
+      </p>
+
+      <!-- Buttons demo -->
+      <div class="buttons-demo reveal reveal--up stagger-4">
+        <Button>Descubre más</Button>
+        <Button variant="secondary">Contacto</Button>
+        <Button variant="ghost">Ver servicios →</Button>
+      </div>
+
+      <!-- Heading scale demo -->
+      <div class="type-demo reveal reveal--up stagger-5">
+        <h2>Belleza Natural</h2>
+        <h3>Tratamientos Faciales</h3>
+        <h4>Nuestros Servicios</h4>
+        <p>
+          En el Centro De Estética Lola Muñoz creemos que cada persona
+          merece un momento de paz. Nuestros tratamientos están diseñados
+          para realzar tu belleza natural con delicadeza y profesionalidad.
+        </p>
+      </div>
+
+    </main>
+
+    <script>
+      import { initScrollReveal } from '../scripts/scroll-reveal';
+      document.addEventListener('DOMContentLoaded', initScrollReveal);
+    </script>
+
+    <style>
+      .hero-subtitle {
+        font-size: var(--text-xl);
+        margin-top: var(--space-md);
+        max-width: 50ch;
+      }
+
+      .buttons-demo {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-sm);
+        margin-top: var(--space-lg);
+      }
+
+      .type-demo {
+        margin-top: var(--space-2xl);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+      }
+    </style>
+  </body>
 </html>

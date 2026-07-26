@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import ServiciosSection from '../components/ServiciosSection.astro';
 import SobreNosotrosSection from '../components/SobreNosotrosSection.astro';
+import ContactoSection from '../components/ContactoSection.astro';
 ---
 
 <BaseLayout
@@ -23,16 +24,8 @@ import SobreNosotrosSection from '../components/SobreNosotrosSection.astro';
     <!-- Sobre Nosotros Section -->
     <SobreNosotrosSection />
 
-    <!-- Contacto placeholder — will be replaced in Phase 7 -->
-    <section class="section" id="contacto">
-      <div class="container">
-        <p class="label reveal reveal--up">Hablemos</p>
-        <h2 class="reveal reveal--up stagger-2">Contacto</h2>
-        <p class="reveal reveal--up stagger-3">
-          Ven a conocernos. Estaremos encantados de atenderte.
-        </p>
-      </div>
-    </section>
+    <!-- Contacto Section -->
+    <ContactoSection />
   </main>
 
 </BaseLayout>

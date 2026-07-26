@@ -15,9 +15,11 @@ interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-  { label: 'Inicio', href: '#inicio' },
+  { label: 'Inicio', href: '#hero' },
   { label: 'Servicios', href: '#servicios' },
   { label: 'Sobre Mí', href: '#sobre-mi' },
+  { label: 'Equipo', href: '#equipo' },
+  { label: 'El Centro', href: '#instalaciones' },
   { label: 'Contacto', href: '#contacto' },
 ];
 ---
@@ -26,7 +28,7 @@ const navLinks: NavLink[] = [
   <nav class="navbar__inner container" aria-label="Navegación principal">
 
     <!-- Logo -->
-    <a href="#inicio" class="navbar__logo" aria-label="Inicio">
+    <a href="#hero" class="navbar__logo" aria-label="Inicio">
       <span class="navbar__logo-text">Lola Muñoz</span>
     </a>
 
@@ -188,13 +190,13 @@ const navLinks: NavLink[] = [
   .navbar__links {
     display: flex;
     align-items: center;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     list-style: none;
   }
 
   .navbar__link {
     font-family: var(--font-sans);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     font-weight: var(--weight-medium);
     color: var(--color-text-muted);
     text-decoration: none;
@@ -299,7 +301,7 @@ const navLinks: NavLink[] = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     list-style: none;
   }
 
@@ -319,7 +321,7 @@ const navLinks: NavLink[] = [
 
   .navbar__mobile-link {
     font-family: var(--font-serif);
-    font-size: var(--text-3xl);
+    font-size: var(--text-2xl);
     font-weight: var(--weight-light);
     color: var(--color-text);
     text-decoration: none;
@@ -333,7 +335,7 @@ const navLinks: NavLink[] = [
   /* ============================================================
      RESPONSIVE — Show hamburger, hide desktop links on mobile
      ============================================================ */
-  @media (max-width: 768px) {
+  @media (max-width: 840px) {
     .navbar__links {
       display: none;
     }

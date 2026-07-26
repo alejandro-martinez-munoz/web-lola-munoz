@@ -4,6 +4,7 @@
  *
  * Features:
  *   - Continuous right-to-left auto-scroll engine (60fps requestAnimationFrame)
+ *   - Serene, calm scrolling speed (0.75px/frame)
  *   - Interactive real-time Mouse & Touch Drag (grab/grabbing cursor)
  *   - Automatic seamless wrap-around and drag-and-resume
  *   - Zero font clipping on Germaine de Capuccini (expanded viewBox width to 460)
@@ -70,7 +71,7 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
     if (!viewport || !track) return;
 
     let offset = 0;
-    const speed = 1.2; // Smooth right-to-left pixel movement per frame
+    const speed = 0.75; // Calm, serene right-to-left pixel movement per frame
     let isDragging = false;
     let startX = 0;
     let dragStartOffset = 0;

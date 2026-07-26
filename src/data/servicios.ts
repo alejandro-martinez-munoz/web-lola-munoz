@@ -5,14 +5,14 @@ export interface ServiceItem {
   title: string;
   price: string;
   priceDetail?: string;
-  description?: string;
+  description: string;
   duration?: string;
-  badge?: string;
+  iconSvg?: string;
 }
 
 export const CATEGORIES = [
   { id: 'all', label: 'Todos' },
-  { id: 'cabina', label: 'Estética Avanzada' },
+  { id: 'cabina', label: 'Estética Avanzada & Cabina' },
   { id: 'mirada', label: 'Mirada & Cejas' },
   { id: 'bienestar', label: 'Bienestar & Masajes' },
   { id: 'unas', label: 'Manicura & Pedicura' },
@@ -40,7 +40,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     price: '50€',
     description: 'Renovación celular intensiva mediante peeling químico suave adaptado al estado de tu piel.',
     duration: '60 min',
-    badge: 'Popular',
   },
   {
     id: 'hidrofacial',
@@ -66,7 +65,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Facial Cabina',
     title: 'Tratamiento de Oxígeno',
     price: '60€',
-    description: 'Infusión de oxígeno puro para iluminar el rostro, difuminar la fatiga y reactivar la microcirculación.',
+    description: 'Infusión de oxígeno puro para ilumninar el rostro, difuminar la fatiga y reactivar la microcirculación.',
     duration: '60 min',
   },
   {
@@ -78,7 +77,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     priceDetail: 'Bono 6 sesiones: 180€',
     description: 'Estimulación térmica de colágeno y elastina. Reafirma las facciones y aporta un efecto lifting natural.',
     duration: '50 min',
-    badge: 'Bono disponible',
   },
   {
     id: 'ipl',
@@ -89,7 +87,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     priceDetail: 'Bono 6 sesiones: 210€',
     description: 'Luz Pulsada Intensa para homogeneizar el tono, difuminar manchas superficiales y rojeces.',
     duration: '45 min',
-    badge: 'Bono disponible',
   },
   {
     id: 'diatermia',
@@ -100,7 +97,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     priceDetail: 'Bono 6 sesiones: 330€',
     description: 'Regeneración celular por hipertermia profunda. Remodelación y firmeza duradera.',
     duration: '60 min',
-    badge: 'Bono disponible',
   },
   {
     id: 'vc-plus',
@@ -146,7 +142,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     price: '100€',
     description: 'Regeneración tisular intensiva basada en factores de crecimiento para la máxima nutrición dermal.',
     duration: '75 min',
-    badge: 'Exclusivo',
   },
   {
     id: 'exosomas',
@@ -157,7 +152,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     priceDetail: 'Recomendado 4-5 sesiones',
     description: 'Última innovación en biotecnología regenerativa para la reparación celular y antienvejecimiento intensivo.',
     duration: '60 min',
-    badge: 'Última novedad',
   },
   {
     id: 'acuderma',
@@ -186,7 +180,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     price: '350€',
     description: 'Ultrasonido focalizado de alta intensidad (HIFU) para un tensado profundo de la piel sin cirugía.',
     duration: '90 min',
-    badge: 'Alta Gama',
   },
   {
     id: 'bellaction',
@@ -197,7 +190,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     priceDetail: 'Bono 6 sesiones: 330€',
     description: 'Masaje fisioactivo profundo para la remodelación corporal, eliminación de celulitis y drenaje.',
     duration: '60 min',
-    badge: 'Bono disponible',
   },
   {
     id: 'bono-corporal-10',
@@ -208,7 +200,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     priceDetail: '2 sesiones por semana',
     description: 'Programa completo intensivo de remodelación y reafirmación corporal personalizada.',
     duration: '10 sesiones',
-    badge: 'Ahorro Pack',
   },
 
   /* ============================================================
@@ -220,6 +211,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Cejas & Labio',
     title: 'Diseño y Depilación de Cejas',
     price: '8€',
+    description: 'Visajismo y depilación de cejas según tus facciones.',
   },
   {
     id: 'labio-depilacion',
@@ -227,6 +219,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Cejas & Labio',
     title: 'Depilación Labio Superior',
     price: '3€',
+    description: 'Depilación precisa y suave del labio superior.',
   },
   {
     id: 'cejas-labio-pack',
@@ -234,6 +227,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Packs Faciales',
     title: 'Pack Cejas + Labio',
     price: '10€',
+    description: 'Diseño de cejas y depilación de labio superior en una sola sesión.',
   },
   {
     id: 'patillas-menton',
@@ -241,6 +235,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Facial Menor',
     title: 'Depilación Patillas / Mentón',
     price: '3€ - 5€',
+    description: 'Depilación facial localizada de mentón o patillas.',
   },
   {
     id: 'cara-completa',
@@ -248,6 +243,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Packs Faciales',
     title: 'Depilación Facial Completa',
     price: '10€',
+    description: 'Depilación completa de cejas, labio, mentón y patillas.',
   },
   {
     id: 'tinte-pestanas',
@@ -271,7 +267,8 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Tinte & Mirada',
     title: 'Tinte + Depilación Cejas',
     price: '16€',
-    priceDetail: '13€ cejas poco pobladas',
+    priceDetail: '13€ (Cejas poco pobladas)',
+    description: 'Diseño completo de cejas combinado con tinte definidor.',
   },
   {
     id: 'henna-cejas',
@@ -291,7 +288,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     priceDetail: '30€ con Tinte incluido',
     description: 'Curvatura natural desde la raíz para unas pestañas más largas y pobladas sin extensiones.',
     duration: '45 min',
-    badge: 'Recomendado',
   },
   {
     id: 'laminado-cejas',
@@ -311,7 +307,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     price: '200€',
     description: 'Maquillaje semipermanente pelo a pelo o sombreado para unas cejas perfectas y simétricas.',
     duration: '120 min',
-    badge: 'Precio Especial',
   },
   {
     id: 'micropigmentacion-ojos',
@@ -330,7 +325,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     price: '300€',
     description: 'Perfilado y acuarela de labios para definir el contorno y aportar un tono jugoso permanente.',
     duration: '120 min',
-    badge: 'Precio Especial',
   },
   {
     id: 'hidralips',
@@ -362,7 +356,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     price: '60€',
     description: 'Exfoliación corporal renovadora seguida de un masaje hidratante envolvente.',
     duration: '60 min',
-    badge: 'Popular',
   },
   {
     id: 'ritual-sence',
@@ -372,7 +365,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     price: '70€',
     description: 'Experiencia sensorial de alta gama: peeling, envoltura de activos y masaje completo de cabeza a pies.',
     duration: '90 min',
-    badge: 'Experiencia Premium',
   },
   {
     id: 'presoterapia-suelta',
@@ -392,7 +384,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     priceDetail: '15€ por sesión',
     description: 'Tratamiento continuado para remodelación y mejora circulatoria profunda.',
     duration: '8 sesiones',
-    badge: 'Ahorro Bono',
   },
 
   /* ============================================================
@@ -415,7 +406,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     price: '14€',
     description: 'Manicura con esmaltado semipermanente de larga duración y brillo impecable.',
     duration: '45 min',
-    badge: 'Popular',
   },
   {
     id: 'pedicura-clasica',
@@ -443,7 +433,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     price: '42€',
     description: 'Cuidado integral del pie combinado con esmaltado permanente.',
     duration: '60 min',
-    badge: 'Pack Recomendado',
   },
   {
     id: 'limar-pintar-manos',
@@ -451,6 +440,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Mantenimiento',
     title: 'Limar + Pintar Manos',
     price: '8€',
+    description: 'Retoque rápido de forma y cambio de esmalte en manos.',
   },
   {
     id: 'limar-pintar-pies',
@@ -458,6 +448,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Mantenimiento',
     title: 'Limar + Pintar Pies',
     price: '10€',
+    description: 'Retoque rápido de forma y cambio de esmalte en pies.',
   },
   {
     id: 'quitar-ep-calcio',
@@ -466,6 +457,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     title: 'Retirada Esmalte Permanente + Calcio',
     price: '3€',
     priceDetail: '5€ si el esmalte es externo',
+    description: 'Retirada cuidadosa del permanente con tratamiento fortificante de calcio.',
   },
   {
     id: 'quitar-gel',
@@ -473,6 +465,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Retiradas',
     title: 'Retirada de Gel / Acrílico',
     price: '8€',
+    description: 'Retirada profesional de construcciones de gel o acrílico sin dañar la uña natural.',
   },
   {
     id: 'unas-gel',
@@ -480,7 +473,8 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Construcción',
     title: 'Uñas de Gel (Construcción)',
     price: '40€',
-    priceDetail: '8€ uña suelta',
+    priceDetail: 'Reparación uña suelta: 8€',
+    description: 'Extensión y esculpido de uñas en gel para una resistencia y elegancia superiores.',
     duration: '90 min',
   },
 
@@ -493,6 +487,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Cera Caliente',
     title: 'Axilas',
     price: '6€',
+    description: 'Depilación rápida y suave con cera caliente adecuada para piel sensible.',
   },
   {
     id: 'cera-ingles',
@@ -500,7 +495,8 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Cera Caliente',
     title: 'Ingles Normales / Completas',
     price: '10€',
-    priceDetail: '18€ Ingles completas',
+    priceDetail: '18€ (Ingles completas)',
+    description: 'Depilación delicada de ingles con cera caliente de máxima tolerancia.',
   },
   {
     id: 'cera-piernas-media',
@@ -508,6 +504,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Cera Caliente',
     title: 'Media Piernas (Cera Caliente)',
     price: '15€',
+    description: 'Depilación desde la rodilla hasta el tobillo.',
   },
   {
     id: 'cera-piernas-enteras',
@@ -515,6 +512,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Cera Caliente',
     title: 'Piernas Enteras (Cera Caliente)',
     price: '20€',
+    description: 'Depilación completa de piernas con cera caliente tradicional.',
   },
   {
     id: 'cera-brazos',
@@ -522,6 +520,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Cera Caliente',
     title: 'Brazos / Medio Brazos',
     price: '12€ - 15€',
+    description: 'Depilación suave de brazos completos o medios brazos.',
   },
   {
     id: 'cera-gluteos',
@@ -529,6 +528,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Cera Caliente',
     title: 'Glúteos / Glúteos Completo',
     price: '5€ - 12€',
+    description: 'Depilación localizada de glúteos.',
   },
   {
     id: 'cera-pecho-espalda',
@@ -536,6 +536,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Cera Caliente',
     title: 'Pecho y Espalda',
     price: '24€',
+    description: 'Depilación masculina o femenina de torso y espalda.',
   },
   {
     id: 'cera-fria-media-piernas',
@@ -543,6 +544,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Cera Fría',
     title: 'Media Piernas (Cera Fría / Tibia)',
     price: '14€',
+    description: 'Depilación higiénica de media piernas con banda de cera tibia/fría.',
   },
   {
     id: 'cera-fria-enteras',
@@ -550,5 +552,6 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Cera Fría',
     title: 'Piernas Enteras (Cera Fría / Tibia)',
     price: '19€',
+    description: 'Depilación completa de piernas con banda de cera tibia/fría.',
   },
 ];

@@ -1,0 +1,85 @@
+---
+/**
+ * BaseLayout — Master layout for all pages.
+ *
+ * Includes: <head> with SEO meta, fonts, global styles,
+ * and the scroll-reveal initializer script.
+ *
+ * Usage:
+ *   <BaseLayout title="Inicio" description="...">
+ *     <main>...</main>
+ *   </BaseLayout>
+ */
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+}
+
+const siteName = 'Centro De Estética Lola Muñoz';
+const defaultDescription = 'Centro de estética y bienestar. Tratamientos faciales, corporales y de belleza con profesionalidad y cercanía.';
+
+const {
+  title = siteName,
+  description = defaultDescription,
+  canonicalUrl,
+} = Astro.props;
+
+const pageTitle = title === siteName ? title : `${title} | ${siteName}`;
+const canonical = canonicalUrl || Astro.url.href;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Fonts — preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <style is:global>
+      @import '../styles/global.css';
+      @import '../styles/animations.css';
+    </style>
+  </head>
+
+  <body>
+    <slot name="header" />
+
+    <slot />
+
+    <slot name="footer" />
+
+    <!-- Scroll reveal initializer -->
+    <script>
+      import { initScrollReveal } from '../scripts/scroll-reveal';
+
+      // Run on initial load
+      initScrollReveal();
+
+      // Re-run on Astro view transitions (future-proof)
+      document.addEventListener('astro:page-load', initScrollReveal);
+    </script>
+  </body>
+</html>

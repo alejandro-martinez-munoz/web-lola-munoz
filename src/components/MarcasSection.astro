@@ -3,10 +3,10 @@
  * MarcasSection Component — Continuous Infinite Marquee Ticker with Smooth Mouse/Touch Drag.
  *
  * Features:
- *   - JS requestAnimationFrame ticker (60fps continuous right-to-left)
- *   - Real-time mouse & touch grab/drag in both directions
- *   - Auto-resume after drag release
- *   - Fixed SVG viewBox sizing (no font clipping on Germaine de Capuccini)
+ *   - Continuous right-to-left auto-scroll engine (60fps requestAnimationFrame)
+ *   - Interactive real-time Mouse & Touch Drag (grab/grabbing cursor)
+ *   - Automatic seamless wrap-around and drag-and-resume
+ *   - Zero font clipping on Germaine de Capuccini (expanded viewBox width to 460)
  */
 
 interface BrandLogo {
@@ -43,7 +43,7 @@ const brands: BrandLogo[] = [
   },
 ];
 
-// Duplicate items 4 times for a smooth infinite loop
+// Repeat brands 4 times for infinite loop
 const repeatBrands = [...brands, ...brands, ...brands, ...brands];
 ---
 
@@ -61,7 +61,7 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
   </div>
 </section>
 
-<!-- 60fps RequestAnimationFrame Ticker + Interactive Mouse/Touch Drag Script -->
+<!-- Optimized 60fps RequestAnimationFrame Ticker + Drag Script -->
 <script>
   function initTickerEngine(): void {
     const viewport = document.getElementById('ticker-viewport');
@@ -70,39 +70,41 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
     if (!viewport || !track) return;
 
     let offset = 0;
-    const speed = 1.0; // pixels per frame
+    const speed = 1.2; // Smooth right-to-left pixel movement per frame
     let isDragging = false;
     let startX = 0;
     let dragStartOffset = 0;
-    let animId = 0;
+    let setWidth = 0;
 
-    // Calculate width of one full set of brands (1/4 of track)
-    function getSetWidth(): number {
-      return track!.scrollWidth / 4;
+    function measureSetWidth(): void {
+      if (track) {
+        setWidth = track.scrollWidth / 4;
+      }
     }
 
-    // Main 60fps animation loop
-    function step(): void {
-      const setWidth = getSetWidth();
+    // Measure initially and on window resize
+    measureSetWidth();
+    window.addEventListener('resize', measureSetWidth, { passive: true });
 
+    // 60fps RAF loop
+    function step(): void {
       if (!isDragging) {
         offset -= speed;
-      }
 
-      // Handle seamless wrap-around in both directions
-      if (offset <= -setWidth) {
-        offset += setWidth;
-        if (isDragging) dragStartOffset += setWidth;
-      } else if (offset > 0) {
-        offset -= setWidth;
-        if (isDragging) dragStartOffset -= setWidth;
+        if (setWidth > 0) {
+          if (offset <= -setWidth) {
+            offset += setWidth;
+          } else if (offset > 0) {
+            offset -= setWidth;
+          }
+        }
       }
 
       track!.style.transform = `translate3d(${offset}px, 0, 0)`;
-      animId = requestAnimationFrame(step);
+      requestAnimationFrame(step);
     }
 
-    // Pointer event handlers for Mouse & Touch drag
+    // Drag handlers
     function onPointerDown(e: PointerEvent): void {
       isDragging = true;
       startX = e.clientX;
@@ -112,9 +114,18 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
 
     function onPointerMove(e: PointerEvent): void {
       if (!isDragging) return;
-      const currentX = e.clientX;
-      const deltaX = currentX - startX;
+      const deltaX = e.clientX - startX;
       offset = dragStartOffset + deltaX;
+
+      if (setWidth > 0) {
+        if (offset <= -setWidth) {
+          offset += setWidth;
+          dragStartOffset += setWidth;
+        } else if (offset > 0) {
+          offset -= setWidth;
+          dragStartOffset -= setWidth;
+        }
+      }
     }
 
     function onPointerUp(): void {
@@ -128,8 +139,8 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
     window.addEventListener('pointerup', onPointerUp);
     viewport.addEventListener('pointercancel', onPointerUp);
 
-    // Start animation loop
-    animId = requestAnimationFrame(step);
+    // Start RAF loop
+    requestAnimationFrame(step);
   }
 
   document.addEventListener('DOMContentLoaded', initTickerEngine);
@@ -155,7 +166,7 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
     touch-action: pan-y;
   }
 
-  /* Soft fade gradient masks on left & right edges */
+  /* Fade gradient masks on left & right edges */
   .marcas-ticker__viewport::before,
   .marcas-ticker__viewport::after {
     content: '';

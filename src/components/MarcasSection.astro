@@ -1,0 +1,128 @@
+---
+/**
+ * MarcasSection Component — Horizontal bar for partner cosmetic brands.
+ *
+ * Features:
+ *   - Compact horizontal height (non-intrusive, zero noise)
+ *   - Grayscale to pistachio accent hover micro-interaction
+ *   - Continuous infinite marquee or flex strip
+ */
+
+interface Brand {
+  name: string;
+  tagline: string;
+}
+
+const brands: Brand[] = [
+  { name: 'Natura Bissé', tagline: 'Barcelona' },
+  { name: 'Germaine de Capuccini', tagline: 'Alta Cosmética' },
+  { name: 'Alan Coar', tagline: 'Cosmética Profesional' },
+  { name: 'Artdeco', tagline: 'Makeup Beauty' },
+  { name: 'Mesoestetic', tagline: 'Dermocosmética' },
+];
+---
+
+<section class="marcas" id="firmas">
+  <div class="container marcas__container">
+    
+    <!-- Left label indicator -->
+    <div class="marcas__label-wrap reveal reveal--up">
+      <span class="label marcas__label">Firmas de Confianza</span>
+    </div>
+
+    <!-- Horizontal Brands Marquee / Strip -->
+    <div class="marcas__strip reveal reveal--fade stagger-2">
+      {brands.map((brand) => (
+        <div class="marcas__item">
+          <span class="marcas__name">{brand.name}</span>
+          <span class="marcas__tagline">{brand.tagline}</span>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .marcas {
+    background-color: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding-block: var(--space-md);
+  }
+
+  .marcas__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .marcas__container {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: var(--space-lg);
+    }
+  }
+
+  .marcas__label-wrap {
+    flex-shrink: 0;
+  }
+
+  .marcas__label {
+    font-size: 0.7rem;
+    letter-spacing: var(--tracking-wider);
+    color: var(--color-accent-hover);
+    white-space: nowrap;
+  }
+
+  /* Horizontal Strip */
+  .marcas__strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg) var(--space-2xl);
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .marcas__strip {
+      justify-content: flex-end;
+    }
+  }
+
+  .marcas__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+    opacity: 0.75;
+    transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
+    cursor: default;
+  }
+
+  .marcas__item:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+
+  .marcas__name {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-regular);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-text);
+    white-space: nowrap;
+  }
+
+  .marcas__tagline {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+</style>

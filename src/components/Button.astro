@@ -1,0 +1,121 @@
+---
+/**
+ * Button Component
+ *
+ * Variants:
+ *   - primary:   Solid background (accent color)
+ *   - secondary: Outlined with border
+ *   - ghost:     Text only, minimal hover
+ *
+ * Usage:
+ *   <Button>Reservar cita</Button>
+ *   <Button variant="secondary" href="/contacto">Contacto</Button>
+ *   <Button variant="ghost" size="sm">Ver más</Button>
+ */
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  class: className = '',
+  ...attrs
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+const classes = `btn btn--${variant} btn--${size} ${className}`.trim();
+---
+
+<Tag href={href} class={classes} {...attrs}>
+  <slot />
+</Tag>
+
+<style>
+  /* Base button styles */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-radius: var(--radius-full);
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  /* ----- SIZES ----- */
+  .btn--sm {
+    font-size: var(--text-xs);
+    padding: 0.5em 1.25em;
+  }
+
+  .btn--md {
+    font-size: var(--text-sm);
+    padding: 0.75em 1.75em;
+  }
+
+  .btn--lg {
+    font-size: var(--text-base);
+    padding: 0.875em 2.25em;
+  }
+
+  /* ----- VARIANT: PRIMARY ----- */
+  .btn--primary {
+    background-color: var(--color-accent);
+    color: var(--color-bg-dark);
+    border: 1.5px solid var(--color-accent);
+  }
+
+  .btn--primary:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ----- VARIANT: SECONDARY ----- */
+  .btn--secondary {
+    background-color: transparent;
+    color: var(--color-text);
+    border: 1.5px solid var(--color-border);
+  }
+
+  .btn--secondary:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent-hover);
+  }
+
+  /* ----- VARIANT: GHOST ----- */
+  .btn--ghost {
+    background-color: transparent;
+    color: var(--color-text-muted);
+    border: 1.5px solid transparent;
+    padding-inline: 0.5em;
+  }
+
+  .btn--ghost:hover {
+    color: var(--color-accent);
+  }
+</style>

@@ -2,10 +2,10 @@
 /**
  * ServiceCard Component — Minimalist, ultra-clean card for treatments.
  *
- * UX Refinement:
- *   - Description hidden by default to eliminate visual noise
- *   - Interactive "+ Ver más info" button that smoothly toggles description
- *   - Removed "Consultar" link for a clean, peaceful layout
+ * Features:
+ *   - Clean category tag & price
+ *   - Description hidden by default, toggled with "+ Ver más info"
+ *   - Zero visual noise, no badges
  */
 import type { ServiceItem } from '../data/servicios';
 
@@ -19,19 +19,16 @@ const { item } = Astro.props;
 
 <article class="service-card hover-lift" data-service-category={item.category}>
   
-  <!-- Top Bar: Category & Price Tag -->
+  <!-- Top Bar: Category Tag & Price -->
   <div class="service-card__header">
-    <div class="service-card__tags">
-      <span class="service-card__category">{item.categoryLabel}</span>
-      {item.badge && <span class="service-card__badge">{item.badge}</span>}
-    </div>
-
+    <span class="service-card__category">{item.categoryLabel}</span>
+    
     <div class="service-card__price-tag">
       <span class="service-card__price">{item.price}</span>
     </div>
   </div>
 
-  <!-- Body: Title & Key Meta -->
+  <!-- Body: Title & Meta Info -->
   <div class="service-card__body">
     <h3 class="service-card__title">{item.title}</h3>
     
@@ -143,17 +140,10 @@ const { item } = Astro.props;
   /* Header */
   .service-card__header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
     width: 100%;
-  }
-
-  .service-card__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    align-items: center;
   }
 
   .service-card__category {
@@ -163,18 +153,6 @@ const { item } = Astro.props;
     letter-spacing: var(--tracking-wider);
     text-transform: uppercase;
     color: var(--color-accent-hover);
-  }
-
-  .service-card__badge {
-    font-family: var(--font-sans);
-    font-size: 0.65rem;
-    font-weight: var(--weight-semibold);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    background-color: var(--color-accent-subtle);
-    color: var(--color-accent-hover);
-    padding: 0.2em 0.6em;
-    border-radius: var(--radius-sm);
   }
 
   .service-card__price-tag {

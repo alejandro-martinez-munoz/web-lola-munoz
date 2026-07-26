@@ -1,0 +1,310 @@
+/* ============================================================
+   GLOBAL.CSS — Centro De Estética Lola Muñoz
+   Design System: Tokens, Reset, Base Styles
+   ============================================================ */
+
+/* ----- LAYER ORDER -----
+   Establishes cascade priority: reset < tokens < base < utilities
+   --------------------------------------------------------------- */
+@layer reset, tokens, base, utilities;
+
+/* ============================================================
+   LAYER: RESET
+   Modern CSS reset — opinionated, minimal, effective
+   ============================================================ */
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100dvh;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  button {
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+}
+
+/* ============================================================
+   LAYER: TOKENS
+   Design tokens — the single source of truth
+   ============================================================ */
+@layer tokens {
+  :root {
+    /* ----- COLOR PALETTE ----- */
+
+    /* Backgrounds — warm neutrals */
+    --color-bg:            #FAFAF8;
+    --color-bg-alt:        #F5F3EF;
+    --color-bg-dark:       #1A1A1A;
+    --color-bg-dark-alt:   #242424;
+
+    /* Text */
+    --color-text:          #1A1A1A;
+    --color-text-muted:    #6B6B6B;
+    --color-text-light:    #F5F3EF;
+    --color-text-light-muted: #B0ADA6;
+
+    /* Accent — Verde Pistacho */
+    --color-accent:        #A8B88C;
+    --color-accent-hover:  #96A87A;
+    --color-accent-light:  #C5D1AD;
+    --color-accent-subtle: #E8ECE0;
+
+    /* Borders & Dividers */
+    --color-border:        #E5E3DE;
+    --color-border-light:  #EEEDEA;
+
+    /* ----- TYPOGRAPHY ----- */
+    --font-serif:    'Cormorant Garamond', 'Georgia', serif;
+    --font-sans:     'Inter', 'system-ui', -apple-system, sans-serif;
+
+    /* Fluid type scale — min @ 375px, max @ 1280px */
+    --text-xs:    clamp(0.75rem,   0.7rem   + 0.15vw,  0.8125rem);
+    --text-sm:    clamp(0.8125rem, 0.77rem  + 0.2vw,   0.875rem);
+    --text-base:  clamp(0.9375rem, 0.9rem   + 0.2vw,   1rem);
+    --text-lg:    clamp(1.0625rem, 0.98rem  + 0.4vw,   1.1875rem);
+    --text-xl:    clamp(1.25rem,   1.1rem   + 0.7vw,   1.5rem);
+    --text-2xl:   clamp(1.5rem,    1.25rem  + 1.1vw,   2rem);
+    --text-3xl:   clamp(1.875rem,  1.5rem   + 1.6vw,   2.5rem);
+    --text-4xl:   clamp(2.25rem,   1.7rem   + 2.4vw,   3.25rem);
+    --text-5xl:   clamp(2.75rem,   2rem     + 3.3vw,   4.25rem);
+
+    /* Font weights */
+    --weight-light:    300;
+    --weight-regular:  400;
+    --weight-medium:   500;
+    --weight-semibold: 600;
+
+    /* Letter spacing */
+    --tracking-tight:   -0.02em;
+    --tracking-normal:   0;
+    --tracking-wide:     0.05em;
+    --tracking-wider:    0.1em;
+
+    /* ----- SPACING ----- */
+    --space-2xs:   clamp(0.25rem,  0.2rem  + 0.15vw,  0.375rem);
+    --space-xs:    clamp(0.5rem,   0.45rem + 0.2vw,   0.625rem);
+    --space-sm:    clamp(0.75rem,  0.65rem + 0.4vw,   1rem);
+    --space-md:    clamp(1rem,     0.85rem + 0.65vw,  1.5rem);
+    --space-lg:    clamp(1.5rem,   1.2rem  + 1.3vw,   2.5rem);
+    --space-xl:    clamp(2rem,     1.5rem  + 2.2vw,   3.5rem);
+    --space-2xl:   clamp(3rem,     2.2rem  + 3.5vw,   5rem);
+    --space-3xl:   clamp(4rem,     3rem    + 4.4vw,   7rem);
+
+    /* Section padding — vertical rhythm */
+    --section-py:  clamp(4rem, 3rem + 4.4vw, 7.5rem);
+
+    /* Container */
+    --container-max:     1200px;
+    --container-padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+
+    /* ----- BORDERS & RADIUS ----- */
+    --radius-sm:   0.375rem;
+    --radius-md:   0.5rem;
+    --radius-lg:   0.75rem;
+    --radius-xl:   1rem;
+    --radius-full: 9999px;
+
+    /* ----- SHADOWS ----- */
+    --shadow-xs:   0 1px 2px  rgba(0, 0, 0, 0.04);
+    --shadow-sm:   0 1px 3px  rgba(0, 0, 0, 0.06),
+                   0 1px 2px  rgba(0, 0, 0, 0.04);
+    --shadow-md:   0 4px 6px  rgba(0, 0, 0, 0.05),
+                   0 2px 4px  rgba(0, 0, 0, 0.04);
+    --shadow-lg:   0 10px 20px rgba(0, 0, 0, 0.06),
+                   0 4px 8px  rgba(0, 0, 0, 0.04);
+
+    /* ----- TRANSITIONS ----- */
+    --ease-out:        cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out:     cubic-bezier(0.65, 0, 0.35, 1);
+    --duration-fast:   200ms;
+    --duration-normal: 350ms;
+    --duration-slow:   500ms;
+
+    /* ----- Z-INDEX SCALE ----- */
+    --z-base:    1;
+    --z-above:   10;
+    --z-nav:     100;
+    --z-modal:   1000;
+    --z-toast:   2000;
+  }
+}
+
+/* ============================================================
+   LAYER: BASE
+   Global element styles built on tokens
+   ============================================================ */
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    letter-spacing: var(--tracking-normal);
+  }
+
+  /* Headings — serif by default */
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: var(--weight-light);
+    color: var(--color-text);
+  }
+
+  h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-text);
+  }
+
+  h1 { font-size: var(--text-5xl); }
+  h2 { font-size: var(--text-4xl); }
+  h3 { font-size: var(--text-3xl); }
+  h4 { font-size: var(--text-xl);  }
+  h5 { font-size: var(--text-lg);  }
+  h6 { font-size: var(--text-base); }
+
+  p {
+    color: var(--color-text-muted);
+    max-width: 65ch;
+  }
+
+  /* Focus visible — accessible and elegant */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: var(--color-accent-subtle);
+    color: var(--color-text);
+  }
+
+  /* Smooth media transitions */
+  img {
+    transition: filter var(--duration-normal) var(--ease-out);
+  }
+}
+
+/* ============================================================
+   LAYER: UTILITIES
+   Reusable utility classes
+   ============================================================ */
+@layer utilities {
+  /* Container */
+  .container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-padding);
+  }
+
+  /* Section spacing */
+  .section {
+    padding-block: var(--section-py);
+  }
+
+  /* Text utilities */
+  .text-accent   { color: var(--color-accent); }
+  .text-muted    { color: var(--color-text-muted); }
+  .text-center   { text-align: center; }
+  .text-balance  { text-wrap: balance; }
+
+  /* Uppercase label style — for overlines and categories */
+  .label {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  /* Visually hidden — accessible, invisible */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}

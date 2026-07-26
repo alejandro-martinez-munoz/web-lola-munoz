@@ -1,12 +1,12 @@
 ---
 /**
- * MarcasSection Component — Continuous Infinite Drag Marquee Ticker.
+ * MarcasSection Component — Continuous Infinite Marquee Ticker with Smooth Mouse/Touch Drag.
  *
  * Features:
- *   - Continuous infinite movement from right to left (@keyframes marquee)
- *   - Mouse & Touch Grab/Drag support (cursor: grab -> cursor: grabbing)
- *   - Warm beige neutral strip background (#F5F3EF)
- *   - Generous spacing between logos & prominent typography
+ *   - JS requestAnimationFrame ticker (60fps continuous right-to-left)
+ *   - Real-time mouse & touch grab/drag in both directions
+ *   - Auto-resume after drag release
+ *   - Fixed SVG viewBox sizing (no font clipping on Germaine de Capuccini)
  */
 
 interface BrandLogo {
@@ -15,7 +15,6 @@ interface BrandLogo {
   svgContent: string;
 }
 
-// Prominent monochrome SVG logo marks with larger typography
 const brands: BrandLogo[] = [
   {
     id: 'natura-bisse',
@@ -25,7 +24,7 @@ const brands: BrandLogo[] = [
   {
     id: 'germaine-de-capuccini',
     name: 'Germaine de Capuccini',
-    svgContent: `<svg width="380" height="80" viewBox="0 0 380 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="190" y="42" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="26" font-weight="600" letter-spacing="4" fill="#1A1A1A">GERMAINE DE CAPUCCINI</text><text x="190" y="62" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" letter-spacing="7" fill="#6B6B6B">ALTA COSMÉTICA</text></svg>`,
+    svgContent: `<svg width="460" height="80" viewBox="0 0 460 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="230" y="44" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="26" font-weight="600" letter-spacing="4" fill="#1A1A1A">GERMAINE DE CAPUCCINI</text><text x="230" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" letter-spacing="7" fill="#6B6B6B">ALTA COSMÉTICA</text></svg>`,
   },
   {
     id: 'alan-coar',
@@ -44,14 +43,14 @@ const brands: BrandLogo[] = [
   },
 ];
 
-// Duplicate list to achieve seamless infinite loop
-const doubleBrands = [...brands, ...brands, ...brands, ...brands];
+// Duplicate items 4 times for a smooth infinite loop
+const repeatBrands = [...brands, ...brands, ...brands, ...brands];
 ---
 
 <section class="marcas-ticker" id="firmas">
   <div class="marcas-ticker__viewport" id="ticker-viewport">
     <div class="marcas-ticker__track" id="ticker-track">
-      {doubleBrands.map((brand) => (
+      {repeatBrands.map((brand) => (
         <div class="marcas-ticker__item" data-brand={brand.id}>
           <div class="marcas-ticker__logo" title={brand.name}>
             <Fragment set:html={brand.svgContent} />
@@ -62,47 +61,79 @@ const doubleBrands = [...brands, ...brands, ...brands, ...brands];
   </div>
 </section>
 
-<!-- Interactive Grab/Drag & Seamless Animation Script -->
+<!-- 60fps RequestAnimationFrame Ticker + Interactive Mouse/Touch Drag Script -->
 <script>
-  function initTicker(): void {
+  function initTickerEngine(): void {
     const viewport = document.getElementById('ticker-viewport');
     const track = document.getElementById('ticker-track');
 
     if (!viewport || !track) return;
 
+    let offset = 0;
+    const speed = 1.0; // pixels per frame
     let isDragging = false;
     let startX = 0;
+    let dragStartOffset = 0;
+    let animId = 0;
 
+    // Calculate width of one full set of brands (1/4 of track)
+    function getSetWidth(): number {
+      return track!.scrollWidth / 4;
+    }
+
+    // Main 60fps animation loop
+    function step(): void {
+      const setWidth = getSetWidth();
+
+      if (!isDragging) {
+        offset -= speed;
+      }
+
+      // Handle seamless wrap-around in both directions
+      if (offset <= -setWidth) {
+        offset += setWidth;
+        if (isDragging) dragStartOffset += setWidth;
+      } else if (offset > 0) {
+        offset -= setWidth;
+        if (isDragging) dragStartOffset -= setWidth;
+      }
+
+      track!.style.transform = `translate3d(${offset}px, 0, 0)`;
+      animId = requestAnimationFrame(step);
+    }
+
+    // Pointer event handlers for Mouse & Touch drag
     function onPointerDown(e: PointerEvent): void {
       isDragging = true;
       startX = e.clientX;
+      dragStartOffset = offset;
       viewport!.style.cursor = 'grabbing';
-      track!.style.animationPlayState = 'paused';
     }
 
     function onPointerMove(e: PointerEvent): void {
       if (!isDragging) return;
       const currentX = e.clientX;
-      const diffX = currentX - startX;
-      track!.style.transform = `translateX(calc(-25% + ${diffX}px))`;
+      const deltaX = currentX - startX;
+      offset = dragStartOffset + deltaX;
     }
 
     function onPointerUp(): void {
       if (!isDragging) return;
       isDragging = false;
       viewport!.style.cursor = 'grab';
-      track!.style.transform = '';
-      track!.style.animationPlayState = 'running';
     }
 
     viewport.addEventListener('pointerdown', onPointerDown);
     window.addEventListener('pointermove', onPointerMove);
     window.addEventListener('pointerup', onPointerUp);
-    viewport.addEventListener('pointerleave', onPointerUp);
+    viewport.addEventListener('pointercancel', onPointerUp);
+
+    // Start animation loop
+    animId = requestAnimationFrame(step);
   }
 
-  document.addEventListener('DOMContentLoaded', initTicker);
-  document.addEventListener('astro:page-load', initTicker);
+  document.addEventListener('DOMContentLoaded', initTickerEngine);
+  document.addEventListener('astro:page-load', initTickerEngine);
 </script>
 
 <style>
@@ -124,7 +155,7 @@ const doubleBrands = [...brands, ...brands, ...brands, ...brands];
     touch-action: pan-y;
   }
 
-  /* Fade gradient masks on left & right edges for seamless entrance/exit */
+  /* Soft fade gradient masks on left & right edges */
   .marcas-ticker__viewport::before,
   .marcas-ticker__viewport::after {
     content: '';
@@ -146,13 +177,11 @@ const doubleBrands = [...brands, ...brands, ...brands, ...brands];
     background: linear-gradient(to left, var(--color-bg-alt) 0%, transparent 100%);
   }
 
-  /* Track with infinite right-to-left CSS animation */
   .marcas-ticker__track {
     display: flex;
     align-items: center;
     gap: 7rem;
     width: max-content;
-    animation: infiniteMarquee 35s linear infinite;
     will-change: transform;
   }
 
@@ -175,31 +204,13 @@ const doubleBrands = [...brands, ...brands, ...brands, ...brands];
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: visible;
   }
 
   .marcas-ticker__logo svg {
     height: 75px;
     width: auto;
     display: block;
-  }
-
-  /* Continuous right-to-left movement animation */
-  @keyframes infiniteMarquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-25%);
-    }
-  }
-
-  /* Respect reduced motion preference */
-  @media (prefers-reduced-motion: reduce) {
-    .marcas-ticker__track {
-      animation: none;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-    }
+    overflow: visible;
   }
 </style>

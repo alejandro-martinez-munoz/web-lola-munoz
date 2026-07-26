@@ -1,0 +1,279 @@
+---
+/**
+ * EquipoSection Component — Showcase Lola Muñoz & Team (Paloma, Vero, Loli).
+ *
+ * Features:
+ *   - 4 Team Member cards with clean portraits placeholders
+ *   - Special founder badge for Lola
+ *   - Specialties & role description
+ *   - Hover lift micro-interactions
+ */
+
+interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  specialty: string;
+  bio: string;
+  isFounder?: boolean;
+}
+
+const team: TeamMember[] = [
+  {
+    id: 'lola',
+    name: 'Lola Muñoz',
+    role: 'Fundadora & Esteticista Principal',
+    specialty: 'Estética Avanzada & Diagnóstico Cutáneo',
+    bio: 'Más de 10 años al frente del centro. Apasionada del cuidado holístico de la piel y el trato humano cercano.',
+    isFounder: true,
+  },
+  {
+    id: 'paloma',
+    name: 'Paloma',
+    role: 'Especialista en Estética Facial',
+    specialty: 'Higienes de Alta Gama, Peeling & Aparatología',
+    bio: 'Experta en salud dermal y técnicas de tratamiento facial avanzado con aparatología de última generación.',
+  },
+  {
+    id: 'vero',
+    name: 'Vero',
+    role: 'Especialista en Mirada & Corporal',
+    specialty: 'Lifting de Pestañas, Laminado & Bellaction',
+    bio: 'Especialista en visajismo de la mirada y masajes fisioactivos corporales de remodelación.',
+  },
+  {
+    id: 'loli',
+    name: 'Loli',
+    role: 'Especialista en Uñas & Relax',
+    specialty: 'Manicura, Pedicura, Gel & Masajes',
+    bio: 'Dedicada al arte del cuidado de manos, pies y técnicas manuales de relajación corporal.',
+  },
+];
+---
+
+<section class="section equipo" id="equipo">
+  <div class="container">
+    
+    <!-- Section Header -->
+    <div class="equipo__header text-center">
+      <div class="reveal reveal--up stagger-1">
+        <span class="label">Manos Expertas & Pasión</span>
+      </div>
+      <h2 class="equipo__title reveal reveal--up stagger-2">
+        Nuestro equipo de profesionales
+      </h2>
+      <p class="equipo__subtitle reveal reveal--up stagger-3 text-balance">
+        Un equipo unido por la vocación de cuidarte. Cada una de nuestras especialistas se forma continuamente
+        para ofrecerte la máxima excelencia y calidez en cada visita.
+      </p>
+    </div>
+
+    <!-- Team Grid (4 Members) -->
+    <div class="equipo__grid">
+      {team.map((member, index) => (
+        <article class={`team-card hover-lift reveal reveal--up stagger-${(index % 4) + 1}`}>
+          
+          <!-- Photo Placeholder Frame -->
+          <div class="team-card__image-wrap">
+            <svg
+              class="team-card__placeholder"
+              viewBox="0 0 400 480"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <defs>
+                <linearGradient id={`grad-${member.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FAFAF8" />
+                  <stop offset="100%" stop-color="#EBE7DF" />
+                </linearGradient>
+              </defs>
+
+              <rect width="400" height="480" fill={`url(#grad-${member.id})`} />
+              
+              <!-- Organic portrait silhouette -->
+              <circle cx="200" cy="190" r="85" fill="#A8B88C" fill-opacity="0.2" stroke="#A8B88C" stroke-width="1.5" />
+              <path
+                d="M100 420 C100 320 140 290 200 290 C260 290 300 320 300 420 Z"
+                fill="#A8B88C"
+                fill-opacity="0.12"
+                stroke="#A8B88C"
+                stroke-width="1.5"
+              />
+
+              <!-- Name watermark in SVG -->
+              <text
+                x="200"
+                y="450"
+                text-anchor="middle"
+                font-family="Cormorant Garamond, serif"
+                font-size="22"
+                font-style="italic"
+                fill="#1A1A1A"
+                opacity="0.4"
+              >
+                Foto {member.name}
+              </text>
+            </svg>
+
+            {member.isFounder && (
+              <span class="team-card__founder-badge">Fundadora</span>
+            )}
+          </div>
+
+          <!-- Content -->
+          <div class="team-card__content">
+            <span class="team-card__role">{member.role}</span>
+            <h3 class="team-card__name">{member.name}</h3>
+            <p class="team-card__specialty">
+              <strong>Especialidad:</strong> {member.specialty}
+            </p>
+            <p class="team-card__bio">{member.bio}</p>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .equipo {
+    background-color: var(--color-bg-alt);
+    position: relative;
+  }
+
+  .equipo__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .equipo__title {
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-light);
+    color: var(--color-text);
+  }
+
+  .equipo__subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    max-width: 58ch;
+    margin-top: var(--space-2xs);
+  }
+
+  /* Grid Layout (4 columns on desktop, 2 on tablet, 1 on mobile) */
+  .equipo__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 576px) {
+    .equipo__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .equipo__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Team Card */
+  .team-card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition:
+      transform var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out),
+      border-color var(--duration-normal) var(--ease-out);
+  }
+
+  .team-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .team-card__image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 5 / 6;
+    overflow: hidden;
+    background-color: var(--color-bg-alt);
+  }
+
+  .team-card__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .team-card__founder-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background-color: var(--color-accent);
+    color: var(--color-bg-dark);
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3em 0.8em;
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .team-card__content {
+    padding: var(--space-md) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex-grow: 1;
+  }
+
+  .team-card__role {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-accent-hover);
+  }
+
+  .team-card__name {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-light);
+    color: var(--color-text);
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  .team-card__specialty {
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    line-height: 1.4;
+    margin-top: 0.2rem;
+  }
+
+  .team-card__specialty strong {
+    font-weight: var(--weight-semibold);
+  }
+
+  .team-card__bio {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-top: 0.25rem;
+  }
+</style>

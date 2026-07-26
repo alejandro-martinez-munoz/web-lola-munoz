@@ -6,7 +6,7 @@
  *   - Continuous infinite movement from right to left (@keyframes marquee)
  *   - Mouse & Touch Grab/Drag support (cursor: grab -> cursor: grabbing)
  *   - Warm beige neutral strip background (#F5F3EF)
- *   - High-end monochrome logo marks for Natura Bissé, Germaine de Capuccini, Alan Coar, Artdeco, Mesoestetic
+ *   - Generous spacing between logos & prominent typography
  */
 
 interface BrandLogo {
@@ -15,32 +15,32 @@ interface BrandLogo {
   svgContent: string;
 }
 
-// Clean monochrome SVG logo marks with explicit width & height attributes
+// Prominent monochrome SVG logo marks with larger typography
 const brands: BrandLogo[] = [
   {
     id: 'natura-bisse',
     name: 'Natura Bissé',
-    svgContent: `<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="100" y="34" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="22" font-weight="600" letter-spacing="4" fill="#1A1A1A">NATURA BISSÉ</text><text x="100" y="48" text-anchor="middle" font-family="'Inter', sans-serif" font-size="8" letter-spacing="6" fill="#6B6B6B">BARCELONA</text></svg>`,
+    svgContent: `<svg width="300" height="80" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="150" y="44" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="32" font-weight="600" letter-spacing="6" fill="#1A1A1A">NATURA BISSÉ</text><text x="150" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" letter-spacing="8" fill="#6B6B6B">BARCELONA</text></svg>`,
   },
   {
     id: 'germaine-de-capuccini',
     name: 'Germaine de Capuccini',
-    svgContent: `<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="120" y="32" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="18" font-weight="600" letter-spacing="3" fill="#1A1A1A">GERMAINE DE CAPUCCINI</text><text x="120" y="46" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="5" fill="#6B6B6B">ALTA COSMÉTICA</text></svg>`,
+    svgContent: `<svg width="380" height="80" viewBox="0 0 380 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="190" y="42" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="26" font-weight="600" letter-spacing="4" fill="#1A1A1A">GERMAINE DE CAPUCCINI</text><text x="190" y="62" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" letter-spacing="7" fill="#6B6B6B">ALTA COSMÉTICA</text></svg>`,
   },
   {
     id: 'alan-coar',
     name: 'Alan Coar',
-    svgContent: `<svg width="180" height="60" viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="90" y="34" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="24" font-weight="400" letter-spacing="5" fill="#1A1A1A">ALAN COAR</text><text x="90" y="48" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="4" fill="#6B6B6B">SPECIALIST SKINCARE</text></svg>`,
+    svgContent: `<svg width="260" height="80" viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="130" y="44" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="34" font-weight="400" letter-spacing="7" fill="#1A1A1A">ALAN COAR</text><text x="130" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" letter-spacing="5" fill="#6B6B6B">SPECIALIST SKINCARE</text></svg>`,
   },
   {
     id: 'artdeco',
     name: 'Artdeco',
-    svgContent: `<svg width="160" height="60" viewBox="0 0 160 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="80" y="34" text-anchor="middle" font-family="'Inter', sans-serif" font-size="22" font-weight="600" letter-spacing="6" fill="#1A1A1A">ARTDECO</text><text x="80" y="48" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="5" fill="#6B6B6B">GERMANY</text></svg>`,
+    svgContent: `<svg width="240" height="80" viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="120" y="44" text-anchor="middle" font-family="'Inter', sans-serif" font-size="32" font-weight="600" letter-spacing="8" fill="#1A1A1A">ARTDECO</text><text x="120" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" letter-spacing="7" fill="#6B6B6B">GERMANY</text></svg>`,
   },
   {
     id: 'mesoestetic',
     name: 'Mesoestetic',
-    svgContent: `<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="100" y="34" text-anchor="middle" font-family="'Inter', sans-serif" font-size="20" font-weight="500" letter-spacing="3" fill="#1A1A1A">mesoestetic®</text><text x="100" y="48" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7" letter-spacing="4" fill="#6B6B6B">MEDICAL COSMETICS</text></svg>`,
+    svgContent: `<svg width="300" height="80" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="150" y="44" text-anchor="middle" font-family="'Inter', sans-serif" font-size="30" font-weight="500" letter-spacing="4" fill="#1A1A1A">mesoestetic®</text><text x="150" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" letter-spacing="6" fill="#6B6B6B">MEDICAL COSMETICS</text></svg>`,
   },
 ];
 
@@ -110,7 +110,7 @@ const doubleBrands = [...brands, ...brands, ...brands, ...brands];
     background-color: var(--color-bg-alt);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
-    padding-block: 1.75rem;
+    padding-block: 2.25rem;
     overflow: hidden;
     user-select: none;
     -webkit-user-select: none;
@@ -131,7 +131,7 @@ const doubleBrands = [...brands, ...brands, ...brands, ...brands];
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 5rem;
+    width: 6rem;
     z-index: 2;
     pointer-events: none;
   }
@@ -150,9 +150,9 @@ const doubleBrands = [...brands, ...brands, ...brands, ...brands];
   .marcas-ticker__track {
     display: flex;
     align-items: center;
-    gap: 3.5rem;
+    gap: 7rem;
     width: max-content;
-    animation: infiniteMarquee 30s linear infinite;
+    animation: infiniteMarquee 35s linear infinite;
     will-change: transform;
   }
 
@@ -161,24 +161,24 @@ const doubleBrands = [...brands, ...brands, ...brands, ...brands];
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    opacity: 0.75;
+    opacity: 0.8;
     transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
   }
 
   .marcas-ticker__item:hover {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.06);
   }
 
   .marcas-ticker__logo {
-    height: 50px;
+    height: 75px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .marcas-ticker__logo svg {
-    height: 50px;
+    height: 75px;
     width: auto;
     display: block;
   }

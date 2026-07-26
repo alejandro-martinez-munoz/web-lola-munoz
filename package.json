@@ -1,0 +1,19 @@
+{
+  "name": "web-lola-munoz",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Página web corporativa del Centro De Estética Lola Muñoz",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "node dev-server.mjs",
+    "dev:daemon": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^7.1.3"
+  }
+}

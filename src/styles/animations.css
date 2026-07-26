@@ -1,0 +1,164 @@
+/* ============================================================
+   ANIMATIONS.CSS — Scroll-reveal & Micro-interactions
+   Philosophy: Movement with intention. Subtle, fluid, purposeful.
+   ============================================================ */
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+
+/* Fade in — base opacity transition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fade up — content reveal from below */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade down — content reveal from above */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scale in — subtle scale with fade */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Line expand — decorative line animation */
+@keyframes lineExpand {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ============================================================
+   SCROLL-REVEAL CLASSES
+   Elements start invisible, animate when [data-visible] is set
+   by the IntersectionObserver.
+   ============================================================ */
+
+/* Base: hidden state for all reveal elements */
+.reveal {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+/* Visible state — triggered by IntersectionObserver */
+.reveal[data-visible] {
+  animation-duration: var(--duration-slow);
+  animation-timing-function: var(--ease-out);
+  animation-fill-mode: both;
+}
+
+/* Variants */
+.reveal--fade[data-visible] {
+  animation-name: fadeIn;
+}
+
+.reveal--up[data-visible] {
+  animation-name: fadeUp;
+}
+
+.reveal--down[data-visible] {
+  animation-name: fadeDown;
+}
+
+.reveal--scale[data-visible] {
+  animation-name: scaleIn;
+}
+
+/* ============================================================
+   STAGGER DELAYS
+   Apply to children for cascading entrance animations.
+   Usage: <div class="reveal reveal--up stagger-2">
+   ============================================================ */
+.stagger-1[data-visible] { animation-delay: 0ms; }
+.stagger-2[data-visible] { animation-delay: 80ms; }
+.stagger-3[data-visible] { animation-delay: 160ms; }
+.stagger-4[data-visible] { animation-delay: 240ms; }
+.stagger-5[data-visible] { animation-delay: 320ms; }
+.stagger-6[data-visible] { animation-delay: 400ms; }
+
+/* ============================================================
+   HOVER MICRO-INTERACTIONS
+   ============================================================ */
+
+/* Lift on hover — for cards */
+.hover-lift {
+  transition: transform var(--duration-normal) var(--ease-out),
+              box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Subtle scale — for images, icons */
+.hover-scale {
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+/* ============================================================
+   REDUCED MOTION
+   Respect user preferences — disable all animations
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  .reveal[data-visible] {
+    animation: none;
+  }
+
+  .hover-lift:hover {
+    transform: none;
+  }
+
+  .hover-scale:hover {
+    transform: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

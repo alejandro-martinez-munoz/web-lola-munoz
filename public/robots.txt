@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.centrodeesteticalolamunoz.com/sitemap.xml

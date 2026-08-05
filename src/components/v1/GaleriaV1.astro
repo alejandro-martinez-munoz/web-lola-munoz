@@ -1,0 +1,348 @@
+﻿---
+/**
+ * GaleriaSection Component ÔÇö Showcase of the spacious aesthetic center facilities & Video Tour mockup.
+ *
+ * Features:
+ *   - 8-10 Image placeholders (Bento Grid layout)
+ *   - Hover zoom effects with clean space captions
+ *   - Video tour mockup container with interactive play button
+ */
+
+interface GalleryItem {
+  id: string;
+  title: string;
+  category: string;
+  aspectRatio?: string;
+  isLarge?: boolean;
+}
+
+const galleryItems: GalleryItem[] = [
+  {
+    id: 'recepcion',
+    title: 'Recepci├│n & Zona de Bienvenida',
+    category: 'Entrada Principal',
+    isLarge: true,
+  },
+  {
+    id: 'cabina-facial',
+    title: 'Cabina de Tratamiento Facial',
+    category: 'Cabina Privada 1',
+  },
+  {
+    id: 'cabina-corporal',
+    title: 'Cabina Corporal & Aparatolog├¡a',
+    category: 'Cabina Privada 2',
+  },
+  {
+    id: 'zona-unas',
+    title: 'Zona de Manicura & Pedicura',
+    category: 'Espacio Manicura',
+  },
+  {
+    id: 'zona-relax',
+    title: 'Rinc├│n de Relax & Infusiones',
+    category: '├ürea de Espera',
+  },
+  {
+    id: 'cabina-masajes',
+    title: 'Cabina de Masajes & Maderoterapia',
+    category: 'Cabina Hol├¡stica',
+    isLarge: true,
+  },
+  {
+    id: 'detalles-cosmetica',
+    title: 'Expositor de Alta Cosm├®tica',
+    category: 'Productos Seleccionados',
+  },
+  {
+    id: 'pasillo-cabinas',
+    title: 'Pasillo de Cabinas Independientes',
+    category: 'Instalaciones',
+  },
+];
+---
+
+<section class="section galeria" id="instalaciones">
+  <div class="container">
+    
+    <!-- Section Header -->
+    <div class="galeria__header text-center">
+      <div class="reveal reveal--up stagger-1">
+        <span class="label">Instalaciones & Espacios</span>
+      </div>
+      <h2 class="galeria__title reveal reveal--up stagger-2">
+        Un espacio amplio para tu confort
+      </h2>
+      <p class="galeria__subtitle reveal reveal--up stagger-3 text-balance">
+        Nuestro centro dispone de amplias cabinas individuales insonorizadas, dise├▒adas con la m├íxima higiene,
+        iluminaci├│n c├ílida y climatizaci├│n para garantizar tu privacidad y tranquilidad.
+      </p>
+    </div>
+
+    <!-- Gallery Bento Grid (8 Items) -->
+    <div class="galeria__grid">
+      {galleryItems.map((item, index) => (
+        <div
+          class={`galeria__card hover-lift reveal reveal--up stagger-${(index % 4) + 1} ${item.isLarge ? 'galeria__card--large' : ''}`}
+        >
+          <!-- SVG Photo Placeholder -->
+          <svg
+            class="galeria__svg"
+            viewBox="0 0 600 450"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id={`galGrad-${item.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#F5F3EF" />
+                <stop offset="100%" stop-color="#E5E3DE" />
+              </linearGradient>
+            </defs>
+
+            <rect width="600" height="450" fill={`url(#galGrad-${item.id})`} />
+            
+            <!-- Interior room architectural lines mockup -->
+            <rect x="50" y="50" width="500" height="350" rx="12" stroke="#A8B88C" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.5" />
+            <circle cx="300" cy="225" r="70" fill="#A8B88C" fill-opacity="0.15" />
+            
+            <text
+              x="300"
+              y="230"
+              text-anchor="middle"
+              font-family="Cormorant Garamond, serif"
+              font-size="24"
+              font-style="italic"
+              fill="#1A1A1A"
+              opacity="0.5"
+            >
+              [Foto: {item.title}]
+            </text>
+          </svg>
+
+          <!-- Overlay Caption -->
+          <div class="galeria__overlay">
+            <span class="galeria__category">{item.category}</span>
+            <h3 class="galeria__item-title">{item.title}</h3>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Video Tour Mockup Banner -->
+    <div class="galeria__video-box reveal reveal--up stagger-4">
+      <div class="galeria__video-placeholder">
+        <svg
+          class="galeria__video-svg"
+          viewBox="0 0 1200 400"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <rect width="1200" height="400" fill="#1A1A1A" />
+          <circle cx="600" cy="200" r="120" fill="#A8B88C" fill-opacity="0.15" />
+        </svg>
+
+        <!-- Play Button Overlay -->
+        <button type="button" class="galeria__play-btn" aria-label="Reproducir v├¡deo recorrido del centro">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <polygon points="9 6 19 12 9 18 9 6" fill="currentColor"/>
+          </svg>
+        </button>
+
+        <div class="galeria__video-info">
+          <span class="label text-accent">Recorrido Virtual</span>
+          <h3 class="galeria__video-title">Conoce las instalaciones en v├¡deo</h3>
+          <p class="galeria__video-desc">Un paseo de 1 minuto por nuestras cabinas y zonas de tratamiento.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .galeria {
+    background-color: var(--color-bg);
+    position: relative;
+  }
+
+  .galeria__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .galeria__title {
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-light);
+    color: var(--color-text);
+  }
+
+  .galeria__subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    max-width: 60ch;
+    margin-top: var(--space-2xs);
+  }
+
+  /* Bento Grid */
+  .galeria__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 640px) {
+    .galeria__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .galeria__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .galeria__card {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    transition:
+      transform var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out),
+      border-color var(--duration-normal) var(--ease-out);
+  }
+
+  .galeria__card:hover {
+    border-color: var(--color-accent);
+  }
+
+  @media (min-width: 1024px) {
+    .galeria__card--large {
+      grid-column: span 2;
+    }
+  }
+
+  .galeria__svg {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .galeria__card:hover .galeria__svg {
+    transform: scale(1.03);
+  }
+
+  /* Overlay */
+  .galeria__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-md) var(--space-lg);
+    background: linear-gradient(to top, rgba(26, 26, 26, 0.85) 0%, rgba(26, 26, 26, 0) 100%);
+    color: var(--color-text-light);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .galeria__category {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .galeria__item-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-light);
+    color: var(--color-text-light);
+    margin: 0;
+  }
+
+  /* Video Tour Box */
+  .galeria__video-box {
+    margin-top: var(--space-2xl);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+  }
+
+  .galeria__video-placeholder {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 6;
+    min-height: 220px;
+    background-color: var(--color-bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .galeria__video-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .galeria__play-btn {
+    position: relative;
+    z-index: 2;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    color: var(--color-bg-dark);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+    transition: transform var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .galeria__play-btn:hover {
+    transform: scale(1.1);
+    background-color: var(--color-accent-hover);
+  }
+
+  .galeria__video-info {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    z-index: 2;
+    color: var(--color-text-light);
+    max-width: 450px;
+  }
+
+  .galeria__video-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-light);
+    color: var(--color-text-light);
+    margin-top: 0.2rem;
+  }
+
+  .galeria__video-desc {
+    font-size: var(--text-xs);
+    color: var(--color-text-light-muted);
+    margin-top: 0.2rem;
+  }
+</style>

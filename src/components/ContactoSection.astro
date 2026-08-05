@@ -1,12 +1,11 @@
 ---
 /**
- * ContactoSection Component — Information, quick contact CTAs & responsive map embed.
+ * ContactoSection — Dark Luxe Contact Section.
  *
  * Features:
- *   - Contact cards (Address, Phone/WhatsApp, Hours, Email)
- *   - Direct interactive links (tel:, whatsapp web, mailto:, google maps)
- *   - Custom styled responsive map container
- *   - Staggered entrance animations
+ *   - Simplified header text
+ *   - Dark contact cards with golden accents
+ *   - Map & WhatsApp CTA
  */
 import Button from './Button.astro';
 
@@ -30,21 +29,17 @@ const contactInfo = {
 };
 ---
 
-<section class="section contacto" id="contacto">
+<section class="bg-light section contacto" id="contacto">
   <div class="container">
     
     <!-- Section Header -->
     <div class="contacto__header text-center">
       <div class="reveal reveal--up stagger-1">
-        <span class="label">Hablemos & Visítanos</span>
+        <span class="label">Contacto</span>
       </div>
       <h2 class="contacto__title reveal reveal--up stagger-2">
         Estamos aquí para cuidarte
       </h2>
-      <p class="contacto__subtitle reveal reveal--up stagger-3 text-balance">
-        Si deseas consultar cualquier duda sobre nuestros tratamientos o concertar una cita,
-        contáctanos directamente. Te responderemos con la cercanía de siempre.
-      </p>
     </div>
 
     <div class="contacto__wrapper">
@@ -96,7 +91,7 @@ const contactInfo = {
                 rel="noopener noreferrer"
                 class="contacto__card-link text-accent"
               >
-                Escribir por WhatsApp →
+                WhatsApp →
               </a>
             </div>
           </div>
@@ -111,7 +106,7 @@ const contactInfo = {
             </svg>
           </div>
           <div class="contacto__card-content">
-            <h3>Horario de Atención</h3>
+            <h3>Horario</h3>
             {contactInfo.hours.map((schedule) => (
               <div class="contacto__hours-row">
                 <span class="contacto__hours-days">{schedule.days}:</span>
@@ -143,7 +138,6 @@ const contactInfo = {
       <!-- Map & Direct CTA Column -->
       <div class="contacto__map-container reveal reveal--scale stagger-3">
         <div class="contacto__map-frame">
-          <!-- Stylized Google Maps Embed Placeholder -->
           <iframe
             title="Ubicación Centro De Estética Lola Muñoz"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12148.918234509123!2d-3.7037902!3d40.4167754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42287d12345678%3A0x123456789abcdef!2sMadrid!5e0!3m2!1ses!2ses!4v1600000000000!5m2!1ses!2ses"
@@ -160,7 +154,7 @@ const contactInfo = {
         <div class="contacto__whatsapp-cta">
           <div class="contacto__whatsapp-text">
             <h4>¿Prefieres WhatsApp?</h4>
-            <p>Respuesta rápida para consultas o información sobre disponibilidad.</p>
+            <p>Respuesta rápida para consultas o citas.</p>
           </div>
           <Button
             href={contactInfo.phone.whatsappUrl}
@@ -197,13 +191,6 @@ const contactInfo = {
     font-size: var(--text-4xl);
     font-weight: var(--weight-light);
     color: var(--color-text);
-  }
-
-  .contacto__subtitle {
-    font-size: var(--text-base);
-    color: var(--color-text-muted);
-    max-width: 56ch;
-    margin-top: var(--space-2xs);
   }
 
   /* Grid Layout */
@@ -246,13 +233,13 @@ const contactInfo = {
     width: 2.75rem;
     height: 2.75rem;
     border-radius: var(--radius-lg);
-    background-color: var(--color-bg);
-    color: var(--color-accent-hover);
+    background-color: var(--color-bg-elevated, #1E1E1E);
+    color: var(--color-accent);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    border: 1px solid var(--color-border-light);
+    border: 1px solid var(--color-border);
   }
 
   .contacto__card-content {
@@ -296,7 +283,7 @@ const contactInfo = {
   }
 
   .contacto__card-link:hover {
-    color: var(--color-accent-hover);
+    color: var(--color-accent);
   }
 
   .contacto__separator {
@@ -343,7 +330,7 @@ const contactInfo = {
     width: 100%;
     height: 100%;
     min-height: 320px;
-    filter: grayscale(0.2) contrast(0.95);
+    filter: grayscale(0.6) contrast(0.85) brightness(0.8);
   }
 
   .contacto__whatsapp-cta {

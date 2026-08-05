@@ -1,18 +1,19 @@
 ---
 /**
- * ServiciosSection Component — Clean Card Grid with Category Filter & Expandable Details.
+ * ServiciosSection — Dark Luxe Interactive Tabbed Services with Show/Hide.
  *
  * Features:
- *   - Category tabs filter (Todos, Estética Avanzada, Mirada & Cejas, Bienestar, Uñas, Depilación)
- *   - Compact ServiceCards with expandable (+ Ver detalles) toggle
- *   - Pure vanilla JS filtering for zero layout jumps
+ *   - Category tabs filter
+ *   - Shows only first ~12 cards (4 rows × 3 cols) with fade overlay
+ *   - "Ver todos los servicios" button to expand
+ *   - Dark luxe cards
  */
 import { CATEGORIES, SERVICIOS_LIST } from '../data/servicios';
 import ServiceCard from './ServiceCard.astro';
 import Button from './Button.astro';
 ---
 
-<section class="section servicios" id="servicios">
+<section class="bg-light section servicios" id="servicios">
   <div class="container">
     
     <!-- Section Header -->
@@ -23,10 +24,6 @@ import Button from './Button.astro';
       <h2 class="servicios__title reveal reveal--up stagger-2">
         Nuestra carta de servicios
       </h2>
-      <p class="servicios__subtitle reveal reveal--up stagger-3 text-balance">
-        Selecciona una categoría para explorar nuestros tratamientos.
-        Haz clic en cada tarjeta si deseas desplegar detalles o consultar por WhatsApp.
-      </p>
     </div>
 
     <!-- Category Tabs Filter Bar -->
@@ -46,11 +43,27 @@ import Button from './Button.astro';
       </div>
     </div>
 
-    <!-- Services Grid -->
-    <div class="servicios__grid" id="servicios-grid">
-      {SERVICIOS_LIST.map((item, index) => (
-        <ServiceCard item={item} staggerIndex={(index % 3) + 1} />
-      ))}
+    <!-- Services Grid with Collapse -->
+    <div class="servicios__grid-wrapper" id="servicios-wrapper">
+      <div class="servicios__grid" id="servicios-grid">
+        {SERVICIOS_LIST.map((item, index) => (
+          <ServiceCard item={item} staggerIndex={(index % 3) + 1} />
+        ))}
+      </div>
+      
+      <!-- Fade overlay when collapsed -->
+      <div class="servicios__fade-overlay" id="servicios-fade"></div>
+    </div>
+
+    <!-- "Ver más" Button -->
+    <div class="servicios__expand-wrap reveal reveal--up stagger-4" id="servicios-expand-wrap">
+      <div class="shimmer-line" style="max-width: 200px; margin-inline: auto; margin-bottom: 1.5rem;"></div>
+      <button type="button" class="servicios__expand-btn" id="servicios-expand-btn">
+        <span id="servicios-expand-text">Ver todos los servicios</span>
+        <svg class="servicios__expand-icon" id="servicios-expand-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </div>
 
     <!-- Consultation Callout Banner -->
@@ -58,7 +71,7 @@ import Button from './Button.astro';
       <div class="servicios__callout-content">
         <h3 class="servicios__callout-title">¿Dudas sobre qué tratamiento elegir?</h3>
         <p class="servicios__callout-text">
-          Te asesoramos personalmente sin compromiso para recomendarte exactamente el cuidado que mejor se adapta a ti.
+          Te asesoramos sin compromiso para recomendarte lo mejor para tu piel.
         </p>
       </div>
       <Button
@@ -68,26 +81,67 @@ import Button from './Button.astro';
         variant="primary"
         size="md"
       >
-        Pedir Asesoramiento Sin Compromiso
+        Pedir Asesoramiento
       </Button>
     </div>
 
   </div>
 </section>
 
-<!-- Filter Script -->
+<!-- Filter + Expand Script -->
 <script>
-  function initCategoryFilter(): void {
+  function initServiciosInteractions(): void {
     const tabs = document.querySelectorAll<HTMLButtonElement>('.servicios__tab');
     const cards = document.querySelectorAll<HTMLElement>('[data-service-category]');
+    const wrapper = document.getElementById('servicios-wrapper');
+    const fadeOverlay = document.getElementById('servicios-fade');
+    const expandBtn = document.getElementById('servicios-expand-btn');
+    const expandText = document.getElementById('servicios-expand-text');
+    const expandIcon = document.getElementById('servicios-expand-icon');
+    const expandWrap = document.getElementById('servicios-expand-wrap');
 
+    if (!wrapper || !expandBtn) return;
+
+    let isExpanded = false;
+    const COLLAPSED_HEIGHT = '900px'; // ~4.5 rows
+
+    // Initial collapsed state
+    wrapper.style.maxHeight = COLLAPSED_HEIGHT;
+    wrapper.style.overflow = 'hidden';
+    wrapper.style.position = 'relative';
+    wrapper.style.transition = 'max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+
+    // Expand/Collapse toggle
+    expandBtn.addEventListener('click', () => {
+      isExpanded = !isExpanded;
+
+      if (isExpanded) {
+        wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+        if (fadeOverlay) fadeOverlay.style.opacity = '0';
+        if (expandText) expandText.textContent = 'Mostrar menos';
+        if (expandIcon) expandIcon.style.transform = 'rotate(180deg)';
+      } else {
+        wrapper.style.maxHeight = COLLAPSED_HEIGHT;
+        if (fadeOverlay) fadeOverlay.style.opacity = '1';
+        if (expandText) expandText.textContent = 'Ver todos los servicios';
+        if (expandIcon) expandIcon.style.transform = 'rotate(0deg)';
+        
+        // Scroll back to services section
+        const section = document.getElementById('servicios');
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+
+    // Category Filter
     if (tabs.length === 0 || cards.length === 0) return;
 
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
         const category = tab.dataset.category;
 
-        // Update active tab styling
+        // Update active tab
         tabs.forEach((t) => {
           t.classList.remove('servicios__tab--active');
           t.setAttribute('aria-selected', 'false');
@@ -95,22 +149,41 @@ import Button from './Button.astro';
         tab.classList.add('servicios__tab--active');
         tab.setAttribute('aria-selected', 'true');
 
-        // Filter cards smoothly using class toggle
+        // Filter cards
+        let visibleCount = 0;
         cards.forEach((card) => {
           const cardCategory = card.dataset.serviceCategory;
 
           if (category === 'all' || cardCategory === category) {
             card.classList.remove('service-card--hidden');
+            visibleCount++;
           } else {
             card.classList.add('service-card--hidden');
           }
         });
+
+        // If filtered, show all and hide expand btn
+        if (category !== 'all') {
+          wrapper.style.maxHeight = 'none';
+          wrapper.style.overflow = 'visible';
+          if (fadeOverlay) fadeOverlay.style.opacity = '0';
+          if (expandWrap) expandWrap.style.display = 'none';
+        } else {
+          // Reset to collapsed
+          isExpanded = false;
+          wrapper.style.maxHeight = COLLAPSED_HEIGHT;
+          wrapper.style.overflow = 'hidden';
+          if (fadeOverlay) fadeOverlay.style.opacity = '1';
+          if (expandWrap) expandWrap.style.display = '';
+          if (expandText) expandText.textContent = 'Ver todos los servicios';
+          if (expandIcon) expandIcon.style.transform = 'rotate(0deg)';
+        }
       });
     });
   }
 
-  document.addEventListener('DOMContentLoaded', initCategoryFilter);
-  document.addEventListener('astro:page-load', initCategoryFilter);
+  document.addEventListener('DOMContentLoaded', initServiciosInteractions);
+  document.addEventListener('astro:page-load', initServiciosInteractions);
 </script>
 
 <style>
@@ -131,13 +204,6 @@ import Button from './Button.astro';
     font-size: var(--text-4xl);
     font-weight: var(--weight-light);
     color: var(--color-text);
-  }
-
-  .servicios__subtitle {
-    font-size: var(--text-base);
-    color: var(--color-text-muted);
-    max-width: 60ch;
-    margin-top: var(--space-2xs);
   }
 
   /* Category Tabs Filter Bar */
@@ -185,16 +251,20 @@ import Button from './Button.astro';
 
   .servicios__tab--active {
     background-color: var(--color-accent) !important;
-    color: var(--color-bg-dark) !important;
+    color: var(--color-bg) !important;
     font-weight: var(--weight-semibold) !important;
     box-shadow: var(--shadow-xs);
   }
 
   /* Grid Layout */
+  .servicios__grid-wrapper {
+    position: relative;
+  }
+
   .servicios__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-md);
+    gap: var(--space-lg);
     width: 100%;
   }
 
@@ -208,6 +278,64 @@ import Button from './Button.astro';
     .servicios__grid {
       grid-template-columns: repeat(3, 1fr);
     }
+  }
+
+  /* Fade overlay at the bottom of the collapsed grid */
+  .servicios__fade-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 180px;
+    background: linear-gradient(
+      to top,
+      var(--color-bg) 0%,
+      var(--color-bg) 15%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 2;
+    transition: opacity var(--duration-normal) var(--ease-out);
+  }
+
+  /* Expand button */
+  .servicios__expand-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: var(--space-lg);
+  }
+
+  .servicios__expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    background: transparent;
+    border: 1.5px solid var(--color-border-accent, rgba(197, 168, 126, 0.3));
+    padding: 0.75em 2em;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  .servicios__expand-btn:hover {
+    border-color: var(--color-accent);
+    background-color: rgba(197, 168, 126, 0.06);
+    box-shadow: 0 0 20px rgba(197, 168, 126, 0.1);
+  }
+
+  .servicios__expand-icon {
+    transition: transform var(--duration-normal) var(--ease-out);
   }
 
   /* Callout Banner */

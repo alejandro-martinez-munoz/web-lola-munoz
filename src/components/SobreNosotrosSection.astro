@@ -1,337 +1,186 @@
 ---
 /**
- * SobreNosotrosSection Component — Asymmetric layout showcasing Lola Muñoz's philosophy.
- *
- * Features:
- *   - Asymmetric 60/40 desktop layout
- *   - Brand values / pillars list
- *   - Interactive subtle parallax image frame with floating testimonial quote
- *   - Staggered scroll reveals
+ * SobreNosotrosSection — Philosophy Section with Before/After Labels.
  */
 ---
 
-<section class="section sobre-nosotros section--alt" id="sobre-mi">
-  <div class="container sobre-nosotros__container">
+<section class="bg-light section sobre-nosotros" id="sobre-mi">
+  <div class="container sobre-nosotros__wrapper">
     
-    <!-- Left Column: Story & Philosophy -->
-    <div class="sobre-nosotros__content">
-      <div class="reveal reveal--up stagger-1">
-        <span class="label">Sobre Mí & Filosofía</span>
-      </div>
-
-      <h2 class="sobre-nosotros__title reveal reveal--up stagger-2">
-        La belleza auténtica nace de la <span class="text-serif-italic">calma</span> y la salud de tu piel.
-      </h2>
-
-      <div class="sobre-nosotros__text reveal reveal--up stagger-3">
-        <p>
-          Soy Lola Muñoz. Tras más de una década dedicada apasionadamente al mundo de la estética
-          y el cuidado personal, fundé este espacio con un propósito fundamental: crear un refugio
-          donde cada persona reciba una atención verdaderamente individualizada y honesta.
-        </p>
-        <p>
-          Entiendo la estética no como una búsqueda de la perfección artificial, sino como una herramienta
-          para realzar la luz natural de tu rostro, regenerar tu piel y regalarte un momento de paz
-          indispensable en el día a día.
-        </p>
-      </div>
-
-      <!-- Philosophy Pillars -->
-      <div class="sobre-nosotros__pillars reveal reveal--up stagger-4">
-        <div class="sobre-nosotros__pillar">
-          <div class="sobre-nosotros__pillar-num">01</div>
-          <div class="sobre-nosotros__pillar-info">
-            <h4>Trato Individualizado</h4>
-            <p>Diagnóstico previo en cada visita para adaptar la técnica exactas a lo que tu piel necesita.</p>
-          </div>
-        </div>
-
-        <div class="sobre-nosotros__pillar">
-          <div class="sobre-nosotros__pillar-num">02</div>
-          <div class="sobre-nosotros__pillar-info">
-            <h4>Alta Cosmética</h4>
-            <p>Formulaciones seleccionadas de la máxima calidad, libres de tóxicos y respetuosas con tu dermis.</p>
-          </div>
-        </div>
-
-        <div class="sobre-nosotros__pillar">
-          <div class="sobre-nosotros__pillar-num">03</div>
-          <div class="sobre-nosotros__pillar-info">
-            <h4>Sanctuario de Paz</h4>
-            <p>Un ambiente sereno, pulcro y acogedor pensado para desconectar de las prisas.</p>
-          </div>
-        </div>
+    <!-- Left Column: Before Image (Subtle fine lines) -->
+    <div class="sobre-nosotros__card-wrap">
+      <span class="sobre-nosotros__image-label">ANTES</span>
+      <div class="sobre-nosotros__img-card">
+        <img
+          src="/images/woman-before.png"
+          alt="Antes del tratamiento - Piel natural"
+          class="sobre-nosotros__img"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
 
-    <!-- Right Column: Visual Frame with Subtle Parallax -->
-    <div class="sobre-nosotros__visual reveal reveal--scale stagger-3">
-      <div class="sobre-nosotros__image-frame hover-lift" id="parallax-frame">
-        <!-- SVG Graphic Placeholder for Lola Muñoz Portrait / Salon -->
-        <svg
-          class="sobre-nosotros__svg"
-          viewBox="0 0 500 640"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <defs>
-            <linearGradient id="aboutBg" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#FAFAF8" />
-              <stop offset="100%" stop-color="#EBE7DF" />
-            </linearGradient>
-            <radialGradient id="aboutGlow" cx="50%" cy="40%" r="50%">
-              <stop offset="0%" stop-color="#A8B88C" stop-opacity="0.35" />
-              <stop offset="100%" stop-color="#A8B88C" stop-opacity="0" />
-            </radialGradient>
-          </defs>
+    <!-- Center Column: Statement Typography -->
+    <div class="sobre-nosotros__center-content">
+      <span class="sobre-nosotros__sub-header">CENTRO DE ESTÉTICA LOLA MUÑOZ</span>
 
-          <!-- Frame background -->
-          <rect width="500" height="640" rx="20" fill="url(#aboutBg)" />
-          <circle cx="250" cy="260" r="180" fill="url(#aboutGlow)" />
+      <h2 class="sobre-nosotros__main-title">
+        Cada piel tiene sus necesidades: <span class="sobre-nosotros__gold-text">Revelamos tu luz natural.</span>
+      </h2>
 
-          <!-- Minimalist Portrait Silhouette / Aesthetic Motif -->
-          <path
-            d="M250 140 C280 140 300 165 300 195 C300 230 275 255 250 255 C225 255 200 230 200 195 C200 165 220 140 250 140 Z"
-            fill="#1A1A1A"
-            fill-opacity="0.08"
-            stroke="#A8B88C"
-            stroke-width="1.5"
-          />
-          <path
-            d="M170 340 C170 280 210 265 250 265 C290 265 330 280 330 340 V 420 H 170 V 340 Z"
-            fill="#1A1A1A"
-            fill-opacity="0.05"
-            stroke="#A8B88C"
-            stroke-width="1.5"
-          />
+      <p class="sobre-nosotros__tagline">
+        RESULTADOS VISIBLES
+      </p>
+    </div>
 
-          <!-- Decorative Arch Line -->
-          <path
-            d="M100 480 C100 220 400 220 400 480"
-            stroke="#A8B88C"
-            stroke-width="1"
-            stroke-dasharray="3 5"
-            opacity="0.6"
-          />
-
-          <!-- Signature overlay -->
-          <text
-            x="250"
-            y="520"
-            text-anchor="middle"
-            font-family="Cormorant Garamond, serif"
-            font-size="32"
-            font-style="italic"
-            fill="#1A1A1A"
-            opacity="0.85"
-          >
-            Lola Muñoz
-          </text>
-          <text
-            x="250"
-            y="550"
-            text-anchor="middle"
-            font-family="Inter, sans-serif"
-            font-size="11"
-            letter-spacing="4"
-            fill="#A8B88C"
-            font-weight="600"
-          >
-            ESTETICIEN FUNDADORA
-          </text>
-        </svg>
-      </div>
-
-      <!-- Floating Signature Quote Badge -->
-      <div class="sobre-nosotros__quote-card reveal reveal--fade stagger-5">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="quote-icon">
-          <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2h3c0 4-2 6-4 6M15 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2h3c0 4-2 6-4 6" />
-        </svg>
-        <p class="quote-text">
-          "Cada piel cuenta una historia; mi trabajo es ayudarte a que luzca su mejor versión."
-        </p>
+    <!-- Right Column: After Image (Smooth radiant skin) -->
+    <div class="sobre-nosotros__card-wrap">
+      <span class="sobre-nosotros__image-label">DESPUÉS</span>
+      <div class="sobre-nosotros__img-card">
+        <img
+          src="/images/woman-after.png"
+          alt="Después del tratamiento - Piel radiante"
+          class="sobre-nosotros__img"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- Parallax Script -->
-<script>
-  function initParallax(): void {
-    const frame = document.getElementById('parallax-frame');
-    if (!frame) return;
-
-    let ticking = false;
-
-    function updateParallax(): void {
-      const rect = frame!.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // Calculate scroll ratio relative to element position
-      if (rect.top < windowHeight && rect.bottom > 0) {
-        const relativeY = (rect.top - windowHeight / 2) / (windowHeight / 2);
-        const translateY = relativeY * -10; // 10px subtle shift
-        frame!.style.transform = `translateY(${translateY}px)`;
-      }
-      ticking = false;
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }, { passive: true });
-  }
-
-  document.addEventListener('DOMContentLoaded', initParallax);
-  document.addEventListener('astro:page-load', initParallax);
-</script>
-
 <style>
   .sobre-nosotros {
-    background-color: var(--color-bg-alt);
+    background-color: #F5F0E8 !important;
+    padding-top: clamp(1.5rem, 2.5vw, 3rem) !important; /* Reduced top padding */
+    padding-bottom: clamp(3.5rem, 5vw, 6rem) !important;
     position: relative;
-    overflow: hidden;
   }
 
-  .sobre-nosotros__container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
+  /* 3-Column Layout */
+  .sobre-nosotros__wrapper {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 2rem;
   }
 
-  @media (min-width: 992px) {
-    .sobre-nosotros__container {
-      grid-template-columns: 1.15fr 0.85fr;
+  @media (min-width: 768px) {
+    .sobre-nosotros__wrapper {
+      display: grid;
+      grid-template-columns: 220px 1fr 220px;
+      align-items: center;
+      gap: clamp(1.5rem, 3vw, 3.5rem);
     }
   }
 
-  /* Left Column */
-  .sobre-nosotros__content {
+  @media (min-width: 1100px) {
+    .sobre-nosotros__wrapper {
+      grid-template-columns: 260px 1fr 260px;
+    }
+  }
+
+  /* Image Column with Label */
+  .sobre-nosotros__card-wrap {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
-  }
-
-  .sobre-nosotros__title {
-    font-size: var(--text-4xl);
-    font-weight: var(--weight-light);
-    line-height: 1.15;
-    color: var(--color-text);
-  }
-
-  .sobre-nosotros__text {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-    font-size: var(--text-base);
-    color: var(--color-text-muted);
-    line-height: 1.65;
-  }
-
-  /* Pillars */
-  .sobre-nosotros__pillars {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    margin-top: var(--space-xs);
-    padding-top: var(--space-md);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .sobre-nosotros__pillar {
-    display: flex;
-    gap: var(--space-sm);
-    align-items: flex-start;
-  }
-
-  .sobre-nosotros__pillar-num {
-    font-family: var(--font-serif);
-    font-size: var(--text-xl);
-    font-weight: var(--weight-light);
-    color: var(--color-accent-hover);
-    line-height: 1;
-    min-width: 2.2rem;
-  }
-
-  .sobre-nosotros__pillar-info h4 {
-    font-size: var(--text-sm);
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--tracking-wide);
-    color: var(--color-text);
-    margin-bottom: 0.2rem;
-  }
-
-  .sobre-nosotros__pillar-info p {
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    line-height: 1.5;
-  }
-
-  /* Right Column Visual Frame */
-  .sobre-nosotros__visual {
-    position: relative;
+    align-items: center;
+    gap: 0.5rem;
     width: 100%;
-    max-width: 480px;
-    margin-inline: auto;
+    max-width: 260px;
   }
 
-  .sobre-nosotros__image-frame {
-    border-radius: var(--radius-xl);
+  .sobre-nosotros__image-label {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #836733;
+    background-color: rgba(131, 103, 51, 0.1);
+    padding: 0.25rem 0.85rem;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(131, 103, 51, 0.2);
+  }
+
+  /* Image Cards with Rounded Corners */
+  .sobre-nosotros__img-card {
+    width: 100%;
+    height: 370px;
+    border-radius: 22px;
     overflow: hidden;
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-md);
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-    will-change: transform;
+    box-shadow: 0 8px 24px rgba(44, 36, 30, 0.08);
+    flex-shrink: 0;
   }
 
-  .sobre-nosotros__svg {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 5 / 6;
-    display: block;
-  }
-
-  /* Floating Quote Card */
-  .sobre-nosotros__quote-card {
-    position: absolute;
-    bottom: -1.25rem;
-    right: -1rem;
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-border);
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    max-width: 280px;
-    display: flex;
-    gap: 0.75rem;
-    align-items: flex-start;
-  }
-
-  @media (max-width: 576px) {
-    .sobre-nosotros__quote-card {
-      right: 0.5rem;
-      bottom: -0.75rem;
-      max-width: 240px;
+  @media (max-width: 767px) {
+    .sobre-nosotros__img-card {
+      height: 300px;
+      max-width: 220px;
     }
   }
 
-  .quote-icon {
-    color: var(--color-accent-hover);
-    flex-shrink: 0;
-    margin-top: 0.15rem;
+  .sobre-nosotros__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .quote-text {
+  .sobre-nosotros__img-card:hover .sobre-nosotros__img {
+    transform: scale(1.05);
+  }
+
+  /* Center Content */
+  .sobre-nosotros__center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.25rem;
+  }
+
+  .sobre-nosotros__sub-header {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #544941;
+  }
+
+  /* Huge Unique Title */
+  .sobre-nosotros__main-title {
     font-family: var(--font-serif);
-    font-size: var(--text-sm);
-    font-style: italic;
-    color: var(--color-text);
-    line-height: 1.4;
+    font-size: clamp(2.25rem, 3.8vw, 4.25rem) !important;
+    font-weight: 300 !important;
+    color: #2C241E !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.02em;
+    margin: 0;
+    max-width: 18ch;
+  }
+
+  .sobre-nosotros__gold-text {
+    font-family: var(--font-serif);
+    color: #A58F5B !important;
+    font-weight: 400 !important;
+    display: block;
+    margin-top: 0.25rem;
+  }
+
+  .sobre-nosotros__tagline {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #544941;
+    margin-top: 0.5rem;
+    max-width: 44ch;
   }
 </style>

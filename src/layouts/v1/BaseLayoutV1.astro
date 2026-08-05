@@ -1,17 +1,9 @@
 ---
 /**
- * BaseLayout — Master layout for all pages.
- *
- * Includes:
- *   - SEO Meta tags (title, description, canonical, OpenGraph)
- *   - Favicon & Theme Color
- *   - Structured Data (JSON-LD BeautySalon / LocalBusiness schema)
- *   - Google Fonts preconnect & auto-loading
- *   - Global CSS imports in frontmatter for Vite optimization
- *   - Scroll-reveal initializer script
+ * BaseLayoutV1 — Master layout for V1 (Original White Design).
  */
-import '../styles/global.css';
-import '../styles/animations.css';
+import '../../styles/v1/global-v1.css';
+import '../../styles/v1/animations-v1.css';
 
 interface Props {
   title?: string;
@@ -31,7 +23,6 @@ const {
 const pageTitle = title === siteName ? title : `${title} | ${siteName}`;
 const canonical = canonicalUrl || Astro.url.href;
 
-// JSON-LD Structured Data for Google LocalBusiness / BeautySalon
 const schemaData = {
   '@context': 'https://schema.org',
   '@type': 'BeautySalon',
@@ -60,7 +51,6 @@ const schemaData = {
       closes: '14:00',
     },
   ],
-  priceRange: '€€',
 };
 ---
 
@@ -70,33 +60,33 @@ const schemaData = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#F3EFE7" />
+    <meta name="theme-color" content="#FAFAF8" />
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-    <!-- SEO -->
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content={siteName} />
-    <meta property="og:locale" content="es_ES" />
 
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
 
-    <!-- Fonts — preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
   </head>
 
   <body>
@@ -106,14 +96,9 @@ const schemaData = {
 
     <slot name="footer" />
 
-    <!-- Scroll reveal initializer -->
     <script>
-      import { initScrollReveal } from '../scripts/scroll-reveal';
-
-      // Run on initial load
-      initScrollReveal();
-
-      // Re-run on Astro view transitions
+      import { initScrollReveal } from '../../scripts/scroll-reveal';
+      document.addEventListener('DOMContentLoaded', initScrollReveal);
       document.addEventListener('astro:page-load', initScrollReveal);
     </script>
   </body>

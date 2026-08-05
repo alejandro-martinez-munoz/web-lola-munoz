@@ -1,12 +1,16 @@
-/* ============================================================
-   GLOBAL.CSS — Centro De Estética Lola Muñoz
-   Design System: Warm Beige & Dark Olive/Brown (High Contrast & Large Typography)
+﻿/* ============================================================
+   GLOBAL.CSS ÔÇö Centro De Est├®tica Lola Mu├▒oz
+   Design System: Tokens, Reset, Base Styles
    ============================================================ */
 
+/* ----- LAYER ORDER -----
+   Establishes cascade priority: reset < tokens < base < utilities
+   --------------------------------------------------------------- */
 @layer reset, tokens, base, utilities;
 
 /* ============================================================
    LAYER: RESET
+   Modern CSS reset ÔÇö opinionated, minimal, effective
    ============================================================ */
 @layer reset {
   *,
@@ -32,83 +36,117 @@
     text-rendering: optimizeLegibility;
   }
 
-  img, picture, video, canvas, svg {
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
     display: block;
     max-width: 100%;
     height: auto;
   }
 
-  input, button, textarea, select {
+  input,
+  button,
+  textarea,
+  select {
     font: inherit;
     color: inherit;
   }
 
-  p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
-  h1, h2, h3, h4, h5, h6 { line-height: 1.15; text-wrap: balance; }
-  p { text-wrap: pretty; }
-  a { color: inherit; text-decoration: none; }
-  ul, ol { list-style: none; }
-  button { cursor: pointer; background: none; border: none; }
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  button {
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
 }
 
 /* ============================================================
    LAYER: TOKENS
+   Design tokens ÔÇö the single source of truth
    ============================================================ */
 @layer tokens {
   :root {
-    /* ----- COLOR PALETTE — HIGH CONTRAST ----- */
-    
-    /* Base Backgrounds */
-    --color-bg-light:      #F5F0E8; /* Warm beige */
-    --color-bg-dark:       #2C241E; /* Deep rich dark brown */
-    
-    /* Derived / Elevated backgrounds */
-    --color-bg-light-alt:  #EBE3D7; /* Slightly darker beige for cards on light */
-    --color-bg-dark-alt:   #1E1814; /* Darker brown for cards on dark */
-    
-    /* Text Colors — High Contrast */
-    --color-text-on-light: #2C241E; /* Deep dark brown for crisp reading on beige */
-    --color-text-on-light-muted: #544941; /* Dark enough for WCAG AA compliance on beige */
-    
-    --color-text-on-dark:  #F9F6F0; /* Pure warm white for crisp reading on dark */
-    --color-text-on-dark-muted: #D3C9BC; /* Bright off-white for muted text on dark */
-    
-    /* Accent Color (Warm Olive Gold - High Contrast) */
-    --color-accent:        #967B45;
-    --color-accent-hover:  #B5975A;
-    --color-accent-on-dark: #D4B87B; /* Brighter gold for dark backgrounds */
-    
-    /* Borders */
-    --color-border-on-light: rgba(44, 36, 30, 0.15);
-    --color-border-on-dark:  rgba(245, 240, 232, 0.18);
+    /* ----- COLOR PALETTE ----- */
 
-    /* Default variables (light context by default) */
-    --color-bg: var(--color-bg-light);
-    --color-text: var(--color-text-on-light);
-    --color-text-muted: var(--color-text-on-light-muted);
-    --color-border: var(--color-border-on-light);
+    /* Backgrounds ÔÇö warm neutrals */
+    --color-bg:            #FAFAF8;
+    --color-bg-alt:        #F5F3EF;
+    --color-bg-dark:       #1A1A1A;
+    --color-bg-dark-alt:   #242424;
 
-    /* ----- TYPOGRAPHY (PROPORTIONALLY LARGER FOR DESKTOP/PC) ----- */
+    /* Text */
+    --color-text:          #1A1A1A;
+    --color-text-muted:    #6B6B6B;
+    --color-text-light:    #F5F3EF;
+    --color-text-light-muted: #B0ADA6;
+
+    /* Accent ÔÇö Verde Pistacho */
+    --color-accent:        #A8B88C;
+    --color-accent-hover:  #96A87A;
+    --color-accent-light:  #C5D1AD;
+    --color-accent-subtle: #E8ECE0;
+
+    /* Borders & Dividers */
+    --color-border:        #E5E3DE;
+    --color-border-light:  #EEEDEA;
+
+    /* ----- TYPOGRAPHY ----- */
     --font-serif:    'Cormorant Garamond', 'Georgia', serif;
     --font-sans:     'Inter', 'system-ui', -apple-system, sans-serif;
 
-    /* Larger fluid type scale for PC readability */
-    --text-xs:    clamp(0.8125rem, 0.78rem + 0.2vw,  0.9375rem);
-    --text-sm:    clamp(0.9375rem, 0.88rem + 0.3vw,  1.0625rem);
-    --text-base:  clamp(1.0625rem, 1rem    + 0.35vw, 1.1875rem);
-    --text-lg:    clamp(1.1875rem, 1.1rem  + 0.5vw,  1.375rem);
-    --text-xl:    clamp(1.375rem,  1.25rem + 0.8vw,  1.75rem);
-    --text-2xl:   clamp(1.75rem,   1.4rem  + 1.3vw,  2.25rem);
-    --text-3xl:   clamp(2.125rem,  1.7rem  + 1.8vw,  2.875rem);
-    --text-4xl:   clamp(2.625rem,  2rem    + 2.7vw,  3.75rem);
-    --text-5xl:   clamp(3.125rem,  2.3rem  + 3.8vw,  4.75rem);
+    /* Fluid type scale ÔÇö min @ 375px, max @ 1280px */
+    --text-xs:    clamp(0.75rem,   0.7rem   + 0.15vw,  0.8125rem);
+    --text-sm:    clamp(0.8125rem, 0.77rem  + 0.2vw,   0.875rem);
+    --text-base:  clamp(0.9375rem, 0.9rem   + 0.2vw,   1rem);
+    --text-lg:    clamp(1.0625rem, 0.98rem  + 0.4vw,   1.1875rem);
+    --text-xl:    clamp(1.25rem,   1.1rem   + 0.7vw,   1.5rem);
+    --text-2xl:   clamp(1.5rem,    1.25rem  + 1.1vw,   2rem);
+    --text-3xl:   clamp(1.875rem,  1.5rem   + 1.6vw,   2.5rem);
+    --text-4xl:   clamp(2.25rem,   1.7rem   + 2.4vw,   3.25rem);
+    --text-5xl:   clamp(2.75rem,   2rem     + 3.3vw,   4.25rem);
 
+    /* Font weights */
     --weight-light:    300;
     --weight-regular:  400;
     --weight-medium:   500;
     --weight-semibold: 600;
-    --weight-bold:     700;
 
+    /* Letter spacing */
     --tracking-tight:   -0.02em;
     --tracking-normal:   0;
     --tracking-wide:     0.05em;
@@ -124,21 +162,28 @@
     --space-2xl:   clamp(3rem,     2.2rem  + 3.5vw,   5rem);
     --space-3xl:   clamp(4rem,     3rem    + 4.4vw,   7rem);
 
-    --section-py:  clamp(4.5rem, 3.5rem + 5vw, 8rem);
-    --container-max:     1240px;
-    --container-padding: clamp(1.25rem, 1rem + 1.2vw, 2.5rem);
+    /* Section padding ÔÇö vertical rhythm */
+    --section-py:  clamp(4rem, 3rem + 4.4vw, 7.5rem);
 
-    /* ----- RADIUS & SHADOWS ----- */
+    /* Container */
+    --container-max:     1200px;
+    --container-padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+
+    /* ----- BORDERS & RADIUS ----- */
     --radius-sm:   0.375rem;
     --radius-md:   0.5rem;
     --radius-lg:   0.75rem;
     --radius-xl:   1rem;
     --radius-full: 9999px;
 
-    --shadow-xs:   0 1px 2px  rgba(44, 36, 30, 0.06);
-    --shadow-sm:   0 2px 5px  rgba(44, 36, 30, 0.08);
-    --shadow-md:   0 6px 16px rgba(44, 36, 30, 0.1);
-    --shadow-lg:   0 12px 36px rgba(44, 36, 30, 0.12);
+    /* ----- SHADOWS ----- */
+    --shadow-xs:   0 1px 2px  rgba(0, 0, 0, 0.04);
+    --shadow-sm:   0 1px 3px  rgba(0, 0, 0, 0.06),
+                   0 1px 2px  rgba(0, 0, 0, 0.04);
+    --shadow-md:   0 4px 6px  rgba(0, 0, 0, 0.05),
+                   0 2px 4px  rgba(0, 0, 0, 0.04);
+    --shadow-lg:   0 10px 20px rgba(0, 0, 0, 0.06),
+                   0 4px 8px  rgba(0, 0, 0, 0.04);
 
     /* ----- TRANSITIONS ----- */
     --ease-out:        cubic-bezier(0.16, 1, 0.3, 1);
@@ -146,16 +191,19 @@
     --duration-fast:   200ms;
     --duration-normal: 350ms;
     --duration-slow:   500ms;
-    
+
+    /* ----- Z-INDEX SCALE ----- */
     --z-base:    1;
     --z-above:   10;
     --z-nav:     100;
     --z-modal:   1000;
+    --z-toast:   2000;
   }
 }
 
 /* ============================================================
    LAYER: BASE
+   Global element styles built on tokens
    ============================================================ */
 @layer base {
   body {
@@ -167,15 +215,16 @@
     letter-spacing: var(--tracking-normal);
   }
 
+  /* Headings ÔÇö serif by default */
   h1, h2, h3 {
     font-family: var(--font-serif);
-    font-weight: var(--weight-regular);
+    font-weight: var(--weight-light);
     color: var(--color-text);
   }
 
   h4, h5, h6 {
     font-family: var(--font-sans);
-    font-weight: var(--weight-semibold);
+    font-weight: var(--weight-medium);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
     color: var(--color-text);
@@ -193,40 +242,31 @@
     max-width: 65ch;
   }
 
+  /* Focus visible ÔÇö accessible and elegant */
   :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: var(--radius-sm);
   }
 
+  /* Selection */
   ::selection {
-    background-color: var(--color-accent);
-    color: var(--color-bg-light);
+    background-color: var(--color-accent-subtle);
+    color: var(--color-text);
+  }
+
+  /* Smooth media transitions */
+  img {
+    transition: filter var(--duration-normal) var(--ease-out);
   }
 }
 
 /* ============================================================
    LAYER: UTILITIES
+   Reusable utility classes
    ============================================================ */
 @layer utilities {
-  .bg-light {
-    background-color: var(--color-bg-light);
-    --color-bg: var(--color-bg-light);
-    --color-text: var(--color-text-on-light);
-    --color-text-muted: var(--color-text-on-light-muted);
-    --color-border: var(--color-border-on-light);
-    color: var(--color-text);
-  }
-
-  .bg-dark {
-    background-color: var(--color-bg-dark);
-    --color-bg: var(--color-bg-dark);
-    --color-text: var(--color-text-on-dark);
-    --color-text-muted: var(--color-text-on-dark-muted);
-    --color-border: var(--color-border-on-dark);
-    color: var(--color-text);
-  }
-
+  /* Container */
   .container {
     width: 100%;
     max-width: var(--container-max);
@@ -234,28 +274,28 @@
     padding-inline: var(--container-padding);
   }
 
+  /* Section spacing */
   .section {
     padding-block: var(--section-py);
   }
 
+  /* Text utilities */
   .text-accent   { color: var(--color-accent); }
   .text-muted    { color: var(--color-text-muted); }
   .text-center   { text-align: center; }
   .text-balance  { text-wrap: balance; }
 
+  /* Uppercase label style ÔÇö for overlines and categories */
   .label {
     font-family: var(--font-sans);
     font-size: var(--text-xs);
-    font-weight: var(--weight-bold);
+    font-weight: var(--weight-semibold);
     letter-spacing: var(--tracking-wider);
     text-transform: uppercase;
     color: var(--color-accent);
   }
 
-  .bg-dark .label {
-    color: var(--color-accent-on-dark);
-  }
-
+  /* Visually hidden ÔÇö accessible, invisible */
   .sr-only {
     position: absolute;
     width: 1px;

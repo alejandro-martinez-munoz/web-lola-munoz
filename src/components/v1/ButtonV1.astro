@@ -1,11 +1,16 @@
----
+﻿---
 /**
- * Button Component — Dark Luxe Edition
+ * Button Component
  *
  * Variants:
- *   - primary:   Champagne gold background
- *   - secondary: Gold outlined
+ *   - primary:   Solid background (accent color)
+ *   - secondary: Outlined with border
  *   - ghost:     Text only, minimal hover
+ *
+ * Usage:
+ *   <Button>Reservar cita</Button>
+ *   <Button variant="secondary" href="/contacto">Contacto</Button>
+ *   <Button variant="ghost" size="sm">Ver m├ís</Button>
  */
 
 interface Props {
@@ -50,7 +55,7 @@ const classes = `btn btn--${variant} btn--${size} ${className}`.trim();
       color var(--duration-fast) var(--ease-out),
       border-color var(--duration-fast) var(--ease-out),
       transform var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-normal) var(--ease-out);
+      box-shadow var(--duration-fast) var(--ease-out);
     cursor: pointer;
     text-decoration: none;
     user-select: none;
@@ -77,31 +82,29 @@ const classes = `btn btn--${variant} btn--${size} ${className}`.trim();
     padding: 0.875em 2.25em;
   }
 
-  /* ----- VARIANT: PRIMARY — Champagne Gold ----- */
+  /* ----- VARIANT: PRIMARY ----- */
   .btn--primary {
     background-color: var(--color-accent);
-    color: var(--color-bg);
+    color: var(--color-bg-dark);
     border: 1.5px solid var(--color-accent);
   }
 
   .btn--primary:hover {
     background-color: var(--color-accent-hover);
     border-color: var(--color-accent-hover);
-    box-shadow: 0 0 20px rgba(197, 168, 126, 0.25),
-                0 0 40px rgba(197, 168, 126, 0.1);
+    box-shadow: var(--shadow-sm);
   }
 
-  /* ----- VARIANT: SECONDARY — Gold Outlined ----- */
+  /* ----- VARIANT: SECONDARY ----- */
   .btn--secondary {
     background-color: transparent;
-    color: var(--color-accent);
-    border: 1.5px solid var(--color-border-accent, rgba(197, 168, 126, 0.3));
+    color: var(--color-text);
+    border: 1.5px solid var(--color-border);
   }
 
   .btn--secondary:hover {
     border-color: var(--color-accent);
     color: var(--color-accent-hover);
-    background-color: rgba(197, 168, 126, 0.06);
   }
 
   /* ----- VARIANT: GHOST ----- */

@@ -1,12 +1,11 @@
----
+﻿---
 /**
- * EquipoSection — Dark Luxe Team Showcase.
+ * EquipoSection Component ÔÇö Showcase of the 4 team members with real photos.
  *
- * Features:
- *   - Real photos for team members
- *   - Dark cards with golden accents
- *   - Subtle founder badge
- *   - Image hover zoom effect
+ * UX Condensation:
+ *   - Removed repetitive bios for an ultra-clean, minimal aesthetic
+ *   - Real photos for Loli, Vero, Paloma, and Lola
+ *   - Subtle founder badge for Lola
  */
 
 interface TeamMember {
@@ -20,21 +19,21 @@ interface TeamMember {
 const team: TeamMember[] = [
   {
     id: 'lola',
-    name: 'Lola Muñoz',
-    role: 'Fundadora & Estética Avanzada',
+    name: 'Lola Mu├▒oz',
+    role: 'Fundadora & Est├®tica Avanzada',
     imageSrc: '/images/equipo/lola.png',
     isFounder: true,
   },
   {
     id: 'paloma',
     name: 'Paloma',
-    role: 'Estética Facial & Aparatología',
+    role: 'Est├®tica Facial & Aparatolog├¡a',
     imageSrc: '/images/equipo/paloma.png',
   },
   {
     id: 'vero',
     name: 'Vero',
-    role: 'Estética Corporal & Mirada',
+    role: 'Est├®tica Corporal & Mirada',
     imageSrc: '/images/equipo/vero.png',
   },
   {
@@ -46,7 +45,7 @@ const team: TeamMember[] = [
 ];
 ---
 
-<section class="bg-dark section equipo" id="equipo">
+<section class="section equipo" id="equipo">
   <div class="container">
     
     <!-- Section Header -->
@@ -68,7 +67,7 @@ const team: TeamMember[] = [
           <div class="team-card__image-wrap">
             <img
               src={member.imageSrc}
-              alt={`Fotografía de ${member.name}`}
+              alt={`Fotograf├¡a de ${member.name}`}
               class="team-card__img"
               loading="lazy"
               decoding="async"
@@ -94,7 +93,7 @@ const team: TeamMember[] = [
 
 <style>
   .equipo {
-    background-color: var(--color-bg);
+    background-color: var(--color-bg-alt);
     position: relative;
   }
 
@@ -125,9 +124,9 @@ const team: TeamMember[] = [
     }
   }
 
-  /* Team Card — Dark Luxe */
+  /* Team Card */
   .team-card {
-    background-color: var(--color-bg-alt);
+    background-color: var(--color-bg);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
     overflow: hidden;
@@ -148,7 +147,7 @@ const team: TeamMember[] = [
     width: 100%;
     aspect-ratio: 4 / 5;
     overflow: hidden;
-    background-color: var(--color-bg-elevated, #1E1E1E);
+    background-color: var(--color-bg-alt);
   }
 
   .team-card__img {
@@ -169,7 +168,7 @@ const team: TeamMember[] = [
     top: 0.75rem;
     right: 0.75rem;
     background-color: var(--color-accent);
-    color: var(--color-bg);
+    color: var(--color-bg-dark);
     font-family: var(--font-sans);
     font-size: 0.65rem;
     font-weight: var(--weight-semibold);

@@ -1,124 +1,82 @@
 ---
 /**
- * GaleriaSection Component — Showcase of the spacious aesthetic center facilities & Video Tour mockup.
+ * GaleriaSection — Dark Luxe Gallery with Stock Images.
  *
  * Features:
- *   - 8-10 Image placeholders (Bento Grid layout)
- *   - Hover zoom effects with clean space captions
- *   - Video tour mockup container with interactive play button
+ *   - Real stock images instead of SVG placeholders
+ *   - Bento grid layout
+ *   - Hover zoom with dark overlay captions
+ *   - Simplified subtitle
+ *   - Removed video tour mockup (no real video)
  */
 
 interface GalleryItem {
   id: string;
   title: string;
   category: string;
-  aspectRatio?: string;
+  imageSrc: string;
   isLarge?: boolean;
 }
 
 const galleryItems: GalleryItem[] = [
   {
     id: 'recepcion',
-    title: 'Recepción & Zona de Bienvenida',
+    title: 'Recepción & Bienvenida',
     category: 'Entrada Principal',
+    imageSrc: '/images/gallery-recepcion.png',
     isLarge: true,
   },
   {
     id: 'cabina-facial',
     title: 'Cabina de Tratamiento Facial',
-    category: 'Cabina Privada 1',
-  },
-  {
-    id: 'cabina-corporal',
-    title: 'Cabina Corporal & Aparatología',
-    category: 'Cabina Privada 2',
+    category: 'Cabina Privada',
+    imageSrc: '/images/gallery-cabina-facial.png',
   },
   {
     id: 'zona-unas',
     title: 'Zona de Manicura & Pedicura',
     category: 'Espacio Manicura',
-  },
-  {
-    id: 'zona-relax',
-    title: 'Rincón de Relax & Infusiones',
-    category: 'Área de Espera',
+    imageSrc: '/images/gallery-zona-unas.png',
   },
   {
     id: 'cabina-masajes',
-    title: 'Cabina de Masajes & Maderoterapia',
+    title: 'Cabina de Masajes & Relax',
     category: 'Cabina Holística',
+    imageSrc: '/images/gallery-masajes.png',
     isLarge: true,
-  },
-  {
-    id: 'detalles-cosmetica',
-    title: 'Expositor de Alta Cosmética',
-    category: 'Productos Seleccionados',
-  },
-  {
-    id: 'pasillo-cabinas',
-    title: 'Pasillo de Cabinas Independientes',
-    category: 'Instalaciones',
   },
 ];
 ---
 
-<section class="section galeria" id="instalaciones">
+<section class="bg-light section galeria" id="instalaciones">
   <div class="container">
     
     <!-- Section Header -->
     <div class="galeria__header text-center">
       <div class="reveal reveal--up stagger-1">
-        <span class="label">Instalaciones & Espacios</span>
+        <span class="label">Instalaciones</span>
       </div>
       <h2 class="galeria__title reveal reveal--up stagger-2">
-        Un espacio amplio para tu confort
+        Nuestro espacio
       </h2>
       <p class="galeria__subtitle reveal reveal--up stagger-3 text-balance">
-        Nuestro centro dispone de amplias cabinas individuales insonorizadas, diseñadas con la máxima higiene,
-        iluminación cálida y climatización para garantizar tu privacidad y tranquilidad.
+        Cabinas privadas, higiene impecable y un ambiente pensado para tu confort.
       </p>
     </div>
 
-    <!-- Gallery Bento Grid (8 Items) -->
+    <!-- Gallery Bento Grid -->
     <div class="galeria__grid">
       {galleryItems.map((item, index) => (
         <div
           class={`galeria__card hover-lift reveal reveal--up stagger-${(index % 4) + 1} ${item.isLarge ? 'galeria__card--large' : ''}`}
         >
-          <!-- SVG Photo Placeholder -->
-          <svg
-            class="galeria__svg"
-            viewBox="0 0 600 450"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <defs>
-              <linearGradient id={`galGrad-${item.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#F5F3EF" />
-                <stop offset="100%" stop-color="#E5E3DE" />
-              </linearGradient>
-            </defs>
-
-            <rect width="600" height="450" fill={`url(#galGrad-${item.id})`} />
-            
-            <!-- Interior room architectural lines mockup -->
-            <rect x="50" y="50" width="500" height="350" rx="12" stroke="#A8B88C" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.5" />
-            <circle cx="300" cy="225" r="70" fill="#A8B88C" fill-opacity="0.15" />
-            
-            <text
-              x="300"
-              y="230"
-              text-anchor="middle"
-              font-family="Cormorant Garamond, serif"
-              font-size="24"
-              font-style="italic"
-              fill="#1A1A1A"
-              opacity="0.5"
-            >
-              [Foto: {item.title}]
-            </text>
-          </svg>
+          <img
+            src={item.imageSrc}
+            alt={item.title}
+            class="galeria__img"
+            loading="lazy"
+            decoding="async"
+          />
 
           <!-- Overlay Caption -->
           <div class="galeria__overlay">
@@ -129,41 +87,12 @@ const galleryItems: GalleryItem[] = [
       ))}
     </div>
 
-    <!-- Video Tour Mockup Banner -->
-    <div class="galeria__video-box reveal reveal--up stagger-4">
-      <div class="galeria__video-placeholder">
-        <svg
-          class="galeria__video-svg"
-          viewBox="0 0 1200 400"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <rect width="1200" height="400" fill="#1A1A1A" />
-          <circle cx="600" cy="200" r="120" fill="#A8B88C" fill-opacity="0.15" />
-        </svg>
-
-        <!-- Play Button Overlay -->
-        <button type="button" class="galeria__play-btn" aria-label="Reproducir vídeo recorrido del centro">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <polygon points="9 6 19 12 9 18 9 6" fill="currentColor"/>
-          </svg>
-        </button>
-
-        <div class="galeria__video-info">
-          <span class="label text-accent">Recorrido Virtual</span>
-          <h3 class="galeria__video-title">Conoce las instalaciones en vídeo</h3>
-          <p class="galeria__video-desc">Un paseo de 1 minuto por nuestras cabinas y zonas de tratamiento.</p>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
 <style>
   .galeria {
-    background-color: var(--color-bg);
+    background-color: var(--color-bg-alt);
     position: relative;
   }
 
@@ -184,7 +113,7 @@ const galleryItems: GalleryItem[] = [
   .galeria__subtitle {
     font-size: var(--text-base);
     color: var(--color-text-muted);
-    max-width: 60ch;
+    max-width: 50ch;
     margin-top: var(--space-2xs);
   }
 
@@ -211,7 +140,7 @@ const galleryItems: GalleryItem[] = [
     position: relative;
     border-radius: var(--radius-xl);
     overflow: hidden;
-    background-color: var(--color-bg-alt);
+    background-color: var(--color-bg-elevated, #1E1E1E);
     border: 1px solid var(--color-border);
     transition:
       transform var(--duration-normal) var(--ease-out),
@@ -229,7 +158,7 @@ const galleryItems: GalleryItem[] = [
     }
   }
 
-  .galeria__svg {
+  .galeria__img {
     width: 100%;
     height: 100%;
     aspect-ratio: 4 / 3;
@@ -238,8 +167,8 @@ const galleryItems: GalleryItem[] = [
     transition: transform var(--duration-slow) var(--ease-out);
   }
 
-  .galeria__card:hover .galeria__svg {
-    transform: scale(1.03);
+  .galeria__card:hover .galeria__img {
+    transform: scale(1.05);
   }
 
   /* Overlay */
@@ -249,11 +178,21 @@ const galleryItems: GalleryItem[] = [
     left: 0;
     right: 0;
     padding: var(--space-md) var(--space-lg);
-    background: linear-gradient(to top, rgba(26, 26, 26, 0.85) 0%, rgba(26, 26, 26, 0) 100%);
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0) 100%);
     color: var(--color-text-light);
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
+  }
+
+  .galeria__card:hover .galeria__overlay {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .galeria__category {
@@ -271,78 +210,5 @@ const galleryItems: GalleryItem[] = [
     font-weight: var(--weight-light);
     color: var(--color-text-light);
     margin: 0;
-  }
-
-  /* Video Tour Box */
-  .galeria__video-box {
-    margin-top: var(--space-2xl);
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-md);
-  }
-
-  .galeria__video-placeholder {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 6;
-    min-height: 220px;
-    background-color: var(--color-bg-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .galeria__video-svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .galeria__play-btn {
-    position: relative;
-    z-index: 2;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    background-color: var(--color-accent);
-    color: var(--color-bg-dark);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--shadow-lg);
-    transition: transform var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
-  }
-
-  .galeria__play-btn:hover {
-    transform: scale(1.1);
-    background-color: var(--color-accent-hover);
-  }
-
-  .galeria__video-info {
-    position: absolute;
-    bottom: 1.5rem;
-    left: 1.5rem;
-    z-index: 2;
-    color: var(--color-text-light);
-    max-width: 450px;
-  }
-
-  .galeria__video-title {
-    font-family: var(--font-serif);
-    font-size: var(--text-2xl);
-    font-weight: var(--weight-light);
-    color: var(--color-text-light);
-    margin-top: 0.2rem;
-  }
-
-  .galeria__video-desc {
-    font-size: var(--text-xs);
-    color: var(--color-text-light-muted);
-    margin-top: 0.2rem;
   }
 </style>

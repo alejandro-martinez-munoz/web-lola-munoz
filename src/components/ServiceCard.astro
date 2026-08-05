@@ -1,11 +1,6 @@
 ---
 /**
- * ServiceCard Component — Minimalist, ultra-clean card for treatments.
- *
- * Features:
- *   - Clean category tag & price
- *   - Description hidden by default, toggled with "+ Ver más info"
- *   - Zero visual noise, no badges
+ * ServiceCard — Crisp Warm White Card with Ultra-Readable Contrast.
  */
 import type { ServiceItem } from '../data/servicios';
 
@@ -19,125 +14,131 @@ const { item } = Astro.props;
 
 <article class="service-card hover-lift" data-service-category={item.category}>
   
-  <!-- Top Bar: Category Tag & Price -->
-  <div class="service-card__header">
-    <span class="service-card__category">{item.categoryLabel}</span>
-    
-    <div class="service-card__price-tag">
-      <span class="service-card__price">{item.price}</span>
+  <div class="service-card__main">
+    <!-- Top Bar: Category Tag & Price -->
+    <div class="service-card__header">
+      <span class="service-card__category">{item.categoryLabel}</span>
+      
+      <div class="service-card__price-tag">
+        <span class="service-card__price">{item.price}</span>
+      </div>
+    </div>
+
+    <!-- Body: Title & Meta Info -->
+    <div class="service-card__body">
+      <h3 class="service-card__title">{item.title}</h3>
+      
+      <div class="service-card__meta">
+        {item.duration && (
+          <span class="service-card__duration">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            {item.duration}
+          </span>
+        )}
+
+        {item.priceDetail && (
+          <span class="service-card__bonus">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            {item.priceDetail}
+          </span>
+        )}
+      </div>
     </div>
   </div>
 
-  <!-- Body: Title & Meta Info -->
-  <div class="service-card__body">
-    <h3 class="service-card__title">{item.title}</h3>
-    
-    <div class="service-card__meta">
-      {item.duration && (
-        <span class="service-card__duration">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-          </svg>
-          {item.duration}
-        </span>
-      )}
-
-      {item.priceDetail && (
-        <span class="service-card__bonus">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
-          {item.priceDetail}
-        </span>
-      )}
-    </div>
-  </div>
-
-  <!-- Expandable Description Drawer (Hidden by default) -->
-  <div class="service-card__drawer" id={`drawer-${item.id}`}>
-    <p class="service-card__description">{item.description}</p>
-  </div>
-
-  <!-- Footer: Toggle "+ Ver más info" Button -->
-  <div class="service-card__footer">
-    <button
-      type="button"
-      class="service-card__toggle-btn"
-      aria-expanded="false"
-      aria-controls={`drawer-${item.id}`}
-    >
-      <span class="service-card__toggle-text">+ Ver más info</span>
-      <svg class="service-card__toggle-icon" width="12" height="12" viewBox="0 0 16 16" fill="none">
-        <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Divider & Toggle Button -->
+  <div class="service-card__actions">
+    <button type="button" class="service-card__toggle-btn" aria-expanded="false" aria-label={`Ver más información sobre ${item.title}`}>
+      <span class="service-card__toggle-text">Ver más info</span>
+      <svg class="service-card__toggle-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
   </div>
 
+  <!-- Expandable Description Drawer -->
+  <div class="service-card__drawer" aria-hidden="true">
+    <div class="service-card__drawer-inner">
+      <p class="service-card__description">{item.description}</p>
+    </div>
+  </div>
+
 </article>
 
-<!-- Toggle Script for Info Drawer -->
 <script>
-  function initCardToggles(): void {
-    const cards = document.querySelectorAll<HTMLElement>('.service-card');
+  function initServiceCards(): void {
+    const cards = document.querySelectorAll('.service-card');
 
-    cards.forEach((card) => {
-      const btn = card.querySelector<HTMLButtonElement>('.service-card__toggle-btn');
-      const drawer = card.querySelector<HTMLElement>('.service-card__drawer');
-      const btnText = card.querySelector<HTMLElement>('.service-card__toggle-text');
+    cards.forEach(card => {
+      const btn = card.querySelector('.service-card__toggle-btn');
+      const drawer = card.querySelector('.service-card__drawer') as HTMLElement | null;
+      const text = card.querySelector('.service-card__toggle-text');
+      
+      const newBtn = btn?.cloneNode(true);
+      btn?.parentNode?.replaceChild(newBtn!, btn);
 
-      if (!btn || !drawer || !btnText) return;
-
-      btn.addEventListener('click', () => {
-        const isOpen = drawer.classList.contains('service-card__drawer--open');
-
-        if (isOpen) {
-          drawer.classList.remove('service-card__drawer--open');
-          btn.classList.remove('service-card__toggle-btn--active');
-          btn.setAttribute('aria-expanded', 'false');
-          btnText.textContent = '+ Ver más info';
+      newBtn?.addEventListener('click', () => {
+        if (!drawer) return;
+        
+        const isExpanded = newBtn.getAttribute('aria-expanded') === 'true';
+        
+        if (isExpanded) {
+          drawer.style.maxHeight = '0px';
+          newBtn.setAttribute('aria-expanded', 'false');
+          card.classList.remove('service-card--expanded');
+          if (text) text.textContent = 'Ver más info';
         } else {
-          drawer.classList.add('service-card__drawer--open');
-          btn.classList.add('service-card__toggle-btn--active');
-          btn.setAttribute('aria-expanded', 'true');
-          btnText.textContent = '- Menos info';
+          drawer.style.maxHeight = drawer.scrollHeight + 'px';
+          newBtn.setAttribute('aria-expanded', 'true');
+          card.classList.add('service-card--expanded');
+          if (text) text.textContent = 'Ocultar info';
         }
       });
     });
   }
 
-  document.addEventListener('DOMContentLoaded', initCardToggles);
-  document.addEventListener('astro:page-load', initCardToggles);
+  document.addEventListener('DOMContentLoaded', initServiceCards);
+  document.addEventListener('astro:page-load', initServiceCards);
 </script>
 
 <style>
   .service-card {
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-border);
+    background-color: #FFFFFF; /* Pure warm white background for high clarity */
+    border: 1px solid rgba(44, 36, 30, 0.12);
     border-radius: var(--radius-xl);
-    padding: var(--space-md) var(--space-lg);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: var(--space-sm);
     position: relative;
     width: 100%;
     box-sizing: border-box;
+    box-shadow: 0 4px 16px rgba(44, 36, 30, 0.04);
     transition:
       transform var(--duration-normal) var(--ease-out),
       box-shadow var(--duration-normal) var(--ease-out),
       border-color var(--duration-normal) var(--ease-out);
+    overflow: hidden;
   }
 
   .service-card:hover {
-    border-color: var(--color-accent);
+    border-color: #967B45;
+    box-shadow: 0 8px 24px rgba(44, 36, 30, 0.08);
   }
 
-  /* Hidden class for category JS filtering */
   :global(.service-card--hidden) {
     display: none !important;
   }
 
-  /* Header */
+  .service-card__main {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
   .service-card__header {
     display: flex;
     align-items: center;
@@ -148,16 +149,16 @@ const { item } = Astro.props;
 
   .service-card__category {
     font-family: var(--font-sans);
-    font-size: var(--text-xs);
-    font-weight: var(--weight-semibold);
+    font-size: 0.75rem;
+    font-weight: 700;
     letter-spacing: var(--tracking-wider);
     text-transform: uppercase;
-    color: var(--color-accent-hover);
+    color: #836733;
   }
 
   .service-card__price-tag {
-    background-color: var(--color-bg-alt);
-    border: 1px solid var(--color-border-light);
+    background-color: #F5F0E8;
+    border: 1px solid rgba(44, 36, 30, 0.12);
     padding: 0.25rem 0.75rem;
     border-radius: var(--radius-full);
     flex-shrink: 0;
@@ -165,13 +166,12 @@ const { item } = Astro.props;
 
   .service-card__price {
     font-family: var(--font-serif);
-    font-size: var(--text-lg);
-    font-weight: var(--weight-medium);
-    color: var(--color-text);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #2C241E;
     white-space: nowrap;
   }
 
-  /* Body */
   .service-card__body {
     display: flex;
     flex-direction: column;
@@ -180,9 +180,9 @@ const { item } = Astro.props;
 
   .service-card__title {
     font-family: var(--font-serif);
-    font-size: var(--text-xl);
-    font-weight: var(--weight-light);
-    color: var(--color-text);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #2C241E; /* Crisp dark brown */
     line-height: 1.25;
     margin: 0;
   }
@@ -191,7 +191,7 @@ const { item } = Astro.props;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-xs);
+    gap: 0.75rem;
     margin-top: 0.15rem;
   }
 
@@ -200,84 +200,73 @@ const { item } = Astro.props;
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #4A3F35; /* Dark crisp text */
   }
 
   .service-card__bonus {
-    color: var(--color-accent-hover);
-    font-weight: var(--weight-semibold);
+    color: #836733;
+    font-weight: 600;
   }
 
-  /* Expandable Drawer (Collapsible) */
-  .service-card__drawer {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition:
-      max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-      opacity 0.25s ease-out,
-      margin-top 0.25s ease-out;
-    margin-top: 0;
-  }
-
-  .service-card__drawer--open {
-    max-height: 160px;
-    opacity: 1;
-    margin-top: 0.5rem;
-  }
-
-  .service-card__description {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    line-height: 1.55;
-    margin: 0;
-    padding: 0.6rem 0.75rem;
-    background-color: var(--color-bg-alt);
-    border-radius: var(--radius-md);
-    border-left: 2px solid var(--color-accent);
-  }
-
-  /* Footer Button */
-  .service-card__footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-top: var(--space-xs);
-    border-top: 1px dashed var(--color-border-light);
-    margin-top: auto;
+  .service-card__actions {
+    border-top: 1px solid rgba(44, 36, 30, 0.08);
+    background-color: #FAFAFA;
   }
 
   .service-card__toggle-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-family: var(--font-sans);
-    font-size: var(--text-xs);
-    font-weight: var(--weight-medium);
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
+    width: 100%;
     background: transparent;
     border: none;
+    padding: 0.65rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #2C241E; /* Very readable crisp text */
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: var(--tracking-wide);
     cursor: pointer;
-    padding: 0;
-    transition: color var(--duration-fast) var(--ease-out);
-  }
-
-  .service-card__toggle-icon {
-    transition: transform var(--duration-fast) var(--ease-out);
+    transition: color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
   }
 
   .service-card__toggle-btn:hover {
-    color: var(--color-accent-hover);
+    color: #836733;
+    background-color: rgba(44, 36, 30, 0.03);
   }
 
-  .service-card__toggle-btn--active {
-    color: var(--color-accent-hover);
+  .service-card__toggle-icon {
+    transition: transform var(--duration-normal) var(--ease-out);
+    color: #836733;
   }
 
-  .service-card__toggle-btn--active .service-card__toggle-icon {
+  .service-card--expanded .service-card__toggle-icon {
     transform: rotate(180deg);
+  }
+
+  .service-card--expanded .service-card__toggle-btn {
+    color: #836733;
+  }
+
+  .service-card__drawer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--duration-normal) var(--ease-out);
+  }
+
+  .service-card__drawer-inner {
+    padding: 1rem 1.5rem 1.25rem 1.5rem;
+    background-color: #F7F3EC; /* Light warm cream box */
+    color: #2C241E;
+    border-top: 1px solid rgba(44, 36, 30, 0.08);
+  }
+
+  .service-card__description {
+    font-size: 0.875rem;
+    color: #2C241E; /* Crisp dark brown description text */
+    line-height: 1.55;
+    margin: 0;
   }
 </style>

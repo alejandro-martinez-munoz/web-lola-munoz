@@ -1,6 +1,6 @@
 /* ============================================================
-   ANIMATIONS.CSS — Scroll-reveal & Micro-interactions
-   Philosophy: Movement with intention. Subtle, fluid, purposeful.
+   ANIMATIONS.CSS — Scroll-reveal, Micro-interactions & Dark Luxe FX
+   Philosophy: Movement with intention. Subtle, fluid, premium.
    ============================================================ */
 
 /* ============================================================
@@ -9,19 +9,15 @@
 
 /* Fade in — base opacity transition */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* Fade up — content reveal from below */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -45,7 +41,7 @@
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.97);
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
@@ -53,13 +49,65 @@
   }
 }
 
-/* Line expand — decorative line animation */
-@keyframes lineExpand {
+/* Slide in from left */
+@keyframes slideInLeft {
   from {
-    transform: scaleX(0);
+    opacity: 0;
+    transform: translateX(-30px);
   }
   to {
-    transform: scaleX(1);
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide in from right */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Line expand — decorative line animation */
+@keyframes lineExpand {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Shimmer — golden shine effect for decorative lines */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Float — gentle hovering motion for floating elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* Pulse — subtle attention-getter for CTAs */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(197, 168, 126, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(197, 168, 126, 0);
+  }
+}
+
+/* Gold glow breathe */
+@keyframes glowBreathe {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(197, 168, 126, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(197, 168, 126, 0.2);
   }
 }
 
@@ -77,7 +125,7 @@
 
 /* Visible state — triggered by IntersectionObserver */
 .reveal[data-visible] {
-  animation-duration: var(--duration-slow);
+  animation-duration: 700ms;
   animation-timing-function: var(--ease-out);
   animation-fill-mode: both;
 }
@@ -99,31 +147,39 @@
   animation-name: scaleIn;
 }
 
+.reveal--left[data-visible] {
+  animation-name: slideInLeft;
+}
+
+.reveal--right[data-visible] {
+  animation-name: slideInRight;
+}
+
 /* ============================================================
    STAGGER DELAYS
    Apply to children for cascading entrance animations.
    Usage: <div class="reveal reveal--up stagger-2">
    ============================================================ */
 .stagger-1[data-visible] { animation-delay: 0ms; }
-.stagger-2[data-visible] { animation-delay: 80ms; }
-.stagger-3[data-visible] { animation-delay: 160ms; }
-.stagger-4[data-visible] { animation-delay: 240ms; }
-.stagger-5[data-visible] { animation-delay: 320ms; }
-.stagger-6[data-visible] { animation-delay: 400ms; }
+.stagger-2[data-visible] { animation-delay: 100ms; }
+.stagger-3[data-visible] { animation-delay: 200ms; }
+.stagger-4[data-visible] { animation-delay: 300ms; }
+.stagger-5[data-visible] { animation-delay: 400ms; }
+.stagger-6[data-visible] { animation-delay: 500ms; }
 
 /* ============================================================
    HOVER MICRO-INTERACTIONS
    ============================================================ */
 
-/* Lift on hover — for cards */
+/* Lift on hover — for cards with golden glow */
 .hover-lift {
   transition: transform var(--duration-normal) var(--ease-out),
               box-shadow var(--duration-normal) var(--ease-out);
 }
 
 .hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(197, 168, 126, 0.08);
 }
 
 /* Subtle scale — for images, icons */
@@ -133,6 +189,37 @@
 
 .hover-scale:hover {
   transform: scale(1.03);
+}
+
+/* Golden glow hover — for special elements */
+.hover-glow {
+  transition: box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.hover-glow:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+/* ============================================================
+   DECORATIVE UTILITIES
+   ============================================================ */
+
+/* Shimmer line — golden decorative separator */
+.shimmer-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-accent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite ease-in-out;
+}
+
+/* Floating animation class */
+.animate-float {
+  animation: float 4s ease-in-out infinite;
 }
 
 /* ============================================================
@@ -156,6 +243,14 @@
 
   .hover-scale:hover {
     transform: none;
+  }
+
+  .shimmer-line {
+    animation: none;
+  }
+
+  .animate-float {
+    animation: none;
   }
 
   html {

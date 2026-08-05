@@ -1,0 +1,190 @@
+---
+/**
+ * ContactoSection Component (V1 Original).
+ */
+import Button from './ButtonV1.astro';
+
+const contactInfo = {
+  address: 'Calle de la Belleza, 12, Local A, 28001 Madrid',
+  phone: '+34 612 345 678',
+  email: 'info@centrodeesteticalolamunoz.com',
+  hours: [
+    'Lunes a Viernes: 10:00 - 20:00',
+    'Sábados: 10:00 - 14:00',
+    'Domingos: Cerrado',
+  ],
+};
+---
+
+<section class="section contacto" id="contacto">
+  <div class="container">
+    <div class="contacto__header text-center">
+      <div class="reveal reveal--up stagger-1">
+        <span class="label">Ubicación & Cita</span>
+      </div>
+      <h2 class="contacto__title reveal reveal--up stagger-2">
+        Ven a visitarnos
+      </h2>
+      <p class="contacto__subtitle reveal reveal--up stagger-3 text-balance">
+        Estamos en pleno centro. Pide tu cita previa por teléfono o WhatsApp.
+      </p>
+    </div>
+
+    <div class="contacto__grid">
+      <div class="contacto__info reveal reveal--up stagger-3">
+        <div class="contacto__card">
+          <div class="contacto__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="contacto__card-title">Dirección</h3>
+            <p class="contacto__card-text">{contactInfo.address}</p>
+          </div>
+        </div>
+
+        <div class="contacto__card">
+          <div class="contacto__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="contacto__card-title">Teléfono & Citas</h3>
+            <p class="contacto__card-text">{contactInfo.phone}</p>
+          </div>
+        </div>
+
+        <div class="contacto__card">
+          <div class="contacto__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="contacto__card-title">Horario de Atención</h3>
+            {contactInfo.hours.map((h) => (
+              <p class="contacto__card-text">{h}</p>
+            ))}
+          </div>
+        </div>
+
+        <div class="contacto__cta-box">
+          <Button
+            href="https://wa.me/34612345678?text=Hola%20Lola,%20quisiera%20pedir%20cita."
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="primary"
+            size="lg"
+          >
+            Reservar Cita por WhatsApp
+          </Button>
+        </div>
+      </div>
+
+      <div class="contacto__map-wrap reveal reveal--up stagger-4">
+        <iframe
+          title="Ubicación del Centro de Estética Lola Muñoz en Google Maps"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.288591873919!2d-3.688849!3d40.424367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDI1JzI3LjciTiAzwrA0MScxOS45Ilc!5e0!3m2!1ses!2ses!4v1620000000000!5m2!1es!2ses"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contacto {
+    background-color: var(--color-bg);
+  }
+
+  .contacto__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .contacto__title {
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-light);
+  }
+
+  .contacto__subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    max-width: 50ch;
+  }
+
+  .contacto__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 1024px) {
+    .contacto__grid {
+      grid-template-columns: 1fr 1.2fr;
+    }
+  }
+
+  .contacto__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .contacto__card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .contacto__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background-color: var(--color-bg);
+    color: var(--color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contacto__card-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  .contacto__card-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .contacto__cta-box {
+    margin-top: var(--space-sm);
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .contacto__map-wrap {
+    min-height: 380px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-alt);
+  }
+</style>

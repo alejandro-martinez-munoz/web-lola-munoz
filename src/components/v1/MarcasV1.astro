@@ -1,11 +1,13 @@
----
+﻿---
 /**
- * MarcasSection — High Contrast Infinite Marquee Ticker.
+ * MarcasSection Component ÔÇö Continuous Infinite Marquee Ticker with Smooth Mouse/Touch Drag.
  *
  * Features:
- *   - Continuous auto-scroll (slower, smooth 60fps RAF)
- *   - Brand logos in crisp near-black dark brown on warm beige background
- *   - Interactive drag
+ *   - Continuous right-to-left auto-scroll engine (60fps requestAnimationFrame)
+ *   - Serene, calm scrolling speed (0.75px/frame)
+ *   - Interactive real-time Mouse & Touch Drag (grab/grabbing cursor)
+ *   - Automatic seamless wrap-around and drag-and-resume
+ *   - Zero font clipping on Germaine de Capuccini (expanded viewBox width to 460)
  */
 
 interface BrandLogo {
@@ -17,28 +19,28 @@ interface BrandLogo {
 const brands: BrandLogo[] = [
   {
     id: 'natura-bisse',
-    name: 'Natura Bissé',
-    svgContent: `<svg width="300" height="80" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="150" y="44" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="32" font-weight="600" letter-spacing="6" fill="#2C241E">NATURA BISSÉ</text><text x="150" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" letter-spacing="8" fill="#544941">BARCELONA</text></svg>`,
+    name: 'Natura Biss├®',
+    svgContent: `<svg width="300" height="80" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="150" y="44" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="32" font-weight="600" letter-spacing="6" fill="#1A1A1A">NATURA BISS├ë</text><text x="150" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" letter-spacing="8" fill="#6B6B6B">BARCELONA</text></svg>`,
   },
   {
     id: 'germaine-de-capuccini',
     name: 'Germaine de Capuccini',
-    svgContent: `<svg width="460" height="80" viewBox="0 0 460 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="230" y="44" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="26" font-weight="600" letter-spacing="4" fill="#2C241E">GERMAINE DE CAPUCCINI</text><text x="230" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" letter-spacing="7" fill="#544941">ALTA COSMÉTICA</text></svg>`,
+    svgContent: `<svg width="460" height="80" viewBox="0 0 460 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="230" y="44" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="26" font-weight="600" letter-spacing="4" fill="#1A1A1A">GERMAINE DE CAPUCCINI</text><text x="230" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" letter-spacing="7" fill="#6B6B6B">ALTA COSM├ëTICA</text></svg>`,
   },
   {
     id: 'alan-coar',
     name: 'Alan Coar',
-    svgContent: `<svg width="260" height="80" viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="130" y="44" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="34" font-weight="400" letter-spacing="7" fill="#2C241E">ALAN COAR</text><text x="130" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" letter-spacing="5" fill="#544941">SPECIALIST SKINCARE</text></svg>`,
+    svgContent: `<svg width="260" height="80" viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="130" y="44" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="34" font-weight="400" letter-spacing="7" fill="#1A1A1A">ALAN COAR</text><text x="130" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" letter-spacing="5" fill="#6B6B6B">SPECIALIST SKINCARE</text></svg>`,
   },
   {
     id: 'artdeco',
     name: 'Artdeco',
-    svgContent: `<svg width="240" height="80" viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="120" y="44" text-anchor="middle" font-family="'Inter', sans-serif" font-size="32" font-weight="600" letter-spacing="8" fill="#2C241E">ARTDECO</text><text x="120" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" letter-spacing="7" fill="#544941">GERMANY</text></svg>`,
+    svgContent: `<svg width="240" height="80" viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="120" y="44" text-anchor="middle" font-family="'Inter', sans-serif" font-size="32" font-weight="600" letter-spacing="8" fill="#1A1A1A">ARTDECO</text><text x="120" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" letter-spacing="7" fill="#6B6B6B">GERMANY</text></svg>`,
   },
   {
     id: 'mesoestetic',
     name: 'Mesoestetic',
-    svgContent: `<svg width="300" height="80" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="150" y="44" text-anchor="middle" font-family="'Inter', sans-serif" font-size="30" font-weight="500" letter-spacing="4" fill="#2C241E">mesoestetic®</text><text x="150" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" letter-spacing="6" fill="#544941">MEDICAL COSMETICS</text></svg>`,
+    svgContent: `<svg width="300" height="80" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="150" y="44" text-anchor="middle" font-family="'Inter', sans-serif" font-size="30" font-weight="500" letter-spacing="4" fill="#1A1A1A">mesoestetic┬«</text><text x="150" y="64" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" letter-spacing="6" fill="#6B6B6B">MEDICAL COSMETICS</text></svg>`,
   },
 ];
 
@@ -46,7 +48,7 @@ const brands: BrandLogo[] = [
 const repeatBrands = [...brands, ...brands, ...brands, ...brands];
 ---
 
-<section class="bg-light marcas-ticker" id="firmas">
+<section class="marcas-ticker" id="firmas">
   <div class="marcas-ticker__viewport" id="ticker-viewport">
     <div class="marcas-ticker__track" id="ticker-track">
       {repeatBrands.map((brand) => (
@@ -69,7 +71,7 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
     if (!viewport || !track) return;
 
     let offset = 0;
-    const speed = 0.35; // Slower, smoother continuous scroll
+    const speed = 0.75; // Calm, serene right-to-left pixel movement per frame
     let isDragging = false;
     let startX = 0;
     let dragStartOffset = 0;
@@ -81,9 +83,11 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
       }
     }
 
+    // Measure initially and on window resize
     measureSetWidth();
     window.addEventListener('resize', measureSetWidth, { passive: true });
 
+    // 60fps RAF loop
     function step(): void {
       if (!isDragging) {
         offset -= speed;
@@ -101,6 +105,7 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
       requestAnimationFrame(step);
     }
 
+    // Drag handlers
     function onPointerDown(e: PointerEvent): void {
       isDragging = true;
       startX = e.clientX;
@@ -135,6 +140,7 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
     window.addEventListener('pointerup', onPointerUp);
     viewport.addEventListener('pointercancel', onPointerUp);
 
+    // Start RAF loop
     requestAnimationFrame(step);
   }
 
@@ -144,7 +150,7 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
 
 <style>
   .marcas-ticker {
-    background-color: var(--color-bg-light-alt, #EBE5DC);
+    background-color: var(--color-bg-alt);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
     padding-block: 2.25rem;
@@ -175,12 +181,12 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
 
   .marcas-ticker__viewport::before {
     left: 0;
-    background: linear-gradient(to right, var(--color-bg-light-alt, #EBE5DC) 0%, transparent 100%);
+    background: linear-gradient(to right, var(--color-bg-alt) 0%, transparent 100%);
   }
 
   .marcas-ticker__viewport::after {
     right: 0;
-    background: linear-gradient(to left, var(--color-bg-light-alt, #EBE5DC) 0%, transparent 100%);
+    background: linear-gradient(to left, var(--color-bg-alt) 0%, transparent 100%);
   }
 
   .marcas-ticker__track {
@@ -196,7 +202,7 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    opacity: 0.85;
+    opacity: 0.8;
     transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
   }
 

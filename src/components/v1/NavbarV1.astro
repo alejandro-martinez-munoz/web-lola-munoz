@@ -1,4 +1,4 @@
-﻿---
+---
 /**
  * Navbar ÔÇö Fixed top navigation.
  *
@@ -15,20 +15,20 @@ interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-  { label: 'Inicio', href: '#hero' },
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Sobre M├¡', href: '#sobre-mi' },
-  { label: 'Equipo', href: '#equipo' },
-  { label: 'El Centro', href: '#instalaciones' },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Inicio', href: '/v1#hero' },
+  { label: 'Servicios', href: '/v1#servicios' },
+  { label: 'Sobre Mí', href: '/v1#sobre-mi' },
+  { label: 'Equipo', href: '/v1#equipo' },
+  { label: 'El Centro', href: '/v1#instalaciones' },
+  { label: 'Contacto', href: '/v1#contacto' },
 ];
 ---
 
 <header class="navbar" id="navbar">
-  <nav class="navbar__inner container" aria-label="Navegaci├│n principal">
+  <nav class="navbar__inner container" aria-label="Navegación principal">
 
     <!-- Logo -->
-    <a href="#hero" class="navbar__logo" aria-label="Inicio">
+    <a href="/v1#hero" class="navbar__logo" aria-label="Inicio">
       <span class="navbar__logo-text">Lola Mu├▒oz</span>
     </a>
 

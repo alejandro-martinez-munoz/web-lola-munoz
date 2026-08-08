@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Política de Cookies"
+  description="Información sobre el uso de cookies en el sitio web del Centro De Estética Lola Muñoz."
+>
+  <Navbar slot="header" />
+
+  <main class="legal-page">
+    <div class="container">
+      <div class="legal-page__header">
+        <span class="label">Navegación Transparente</span>
+        <h1 class="legal-page__title">Política de Cookies</h1>
+        <p class="legal-page__subtitle">Última actualización: Agosto 2026</p>
+      </div>
+
+      <div class="legal-page__content">
+        <section class="legal-block">
+          <h2>1. ¿Qué son las Cookies?</h2>
+          <p>
+            Una cookie es un pequeño archivo de texto que se descarga en su equipo (ordenador, smartphone o tablet) al acceder a determinadas páginas web. Las cookies permiten a una página web almacenar y recuperar información sobre los hábitos de navegación de un usuario o de su equipo para mejorar su experiencia de uso.
+          </p>
+        </section>
+
+        <section class="legal-block">
+          <h2>2. Tipos de Cookies Utilizadas</h2>
+          <p>
+            El sitio web del <strong>Centro De Estética Lola Muñoz</strong> utiliza únicamente <strong>cookies técnicas estrictamente necesarias</strong> para permitir la correcta navegación por la página web y garantizar el funcionamiento de sus funciones básicas.
+          </p>
+          <p>
+            Actualmente este sitio web <strong>no utiliza cookies de seguimiento publicitario, perfilar de terceros ni cookies de redes sociales sin su consentimiento implícito</strong>.
+          </p>
+        </section>
+
+        <section class="legal-block">
+          <h2>3. Cómo Administrar o Desactivar las Cookies</h2>
+          <p>
+            Puede permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones del navegador instalado en su ordenador o dispositivo móvil:
+          </p>
+          <ul class="legal-list">
+            <li><strong>Google Chrome:</strong> Configuración &gt; Privacidad y seguridad &gt; Cookies y otros datos de sitios.</li>
+            <li><strong>Mozilla Firefox:</strong> Opciones &gt; Privacidad y Seguridad &gt; Cookies y datos del sitio.</li>
+            <li><strong>Safari:</strong> Preferencias &gt; Privacidad.</li>
+            <li><strong>Microsoft Edge:</strong> Configuración &gt; Permisos del sitio &gt; Cookies y datos del sitio.</li>
+          </ul>
+        </section>
+
+        <section class="legal-block">
+          <h2>4. Actualización de la Política de Cookies</h2>
+          <p>
+            Es posible que actualicemos la Política de Cookies de nuestro sitio web para adaptarla a futuras modificaciones legislativas. Le recomendamos revisar esta política periódicamente.
+          </p>
+          <p>
+            Si tiene alguna duda sobre nuestra política de cookies, puede contactar con nosotros en <a href="mailto:lolaestetica@hotmail.com">lolaestetica@hotmail.com</a>.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .legal-page {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    padding-top: calc(var(--header-height, 5rem) + var(--space-2xl));
+    padding-bottom: var(--space-3xl);
+  }
+
+  .legal-page__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .legal-page__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-light);
+    color: var(--color-text);
+    margin-top: var(--space-xs);
+  }
+
+  .legal-page__subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-2xs);
+  }
+
+  .legal-page__content {
+    max-width: 800px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .legal-block {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .legal-block h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-medium);
+    color: var(--color-accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .legal-block p {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.7;
+    margin-bottom: var(--space-sm);
+  }
+
+  .legal-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  .legal-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: var(--space-sm);
+  }
+
+  .legal-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .legal-list a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .legal-list a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .legal-block {
+      padding: var(--space-lg);
+    }
+    .legal-page__title {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>

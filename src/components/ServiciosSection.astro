@@ -71,21 +71,70 @@ import Button from './Button.astro';
       <div class="servicios__callout-content">
         <h3 class="servicios__callout-title">¿Dudas sobre qué tratamiento elegir?</h3>
         <p class="servicios__callout-text">
-          Te asesoramos sin compromiso para recomendarte lo mejor para tu piel.
+          Te asesoramos sin compromiso. Llámanos para aconsejarte.
         </p>
       </div>
       <Button
-        href="https://wa.me/34612345678?text=Hola%20Lola,%20quisiera%20pedir%20asesoramiento%20personalizado."
-        target="_blank"
-        rel="noopener noreferrer"
+        href="tel:953501451"
         variant="primary"
         size="md"
       >
-        Pedir Asesoramiento
+        Llamar al 953 50 14 51
       </Button>
     </div>
 
   </div>
+
+  <!-- Modal de Detalle de Servicio -->
+  <div class="service-modal" id="service-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="service-modal__backdrop" id="service-modal-backdrop"></div>
+    <div class="service-modal__dialog">
+      <button type="button" class="service-modal__close" id="service-modal-close" aria-label="Cerrar ventana">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="service-modal__header">
+        <span class="service-modal__category" id="modal-category"></span>
+        <div class="service-modal__price-tag">
+          <span class="service-modal__price" id="modal-price"></span>
+        </div>
+      </div>
+
+      <h3 class="service-modal__title" id="modal-title"></h3>
+
+      <div class="service-modal__meta" id="modal-meta">
+        <span class="service-modal__meta-item" id="modal-duration-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 16 14"/>
+          </svg>
+          <span id="modal-duration"></span>
+        </span>
+        <span class="service-modal__meta-item service-modal__bonus" id="modal-bonus-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span id="modal-bonus"></span>
+        </span>
+      </div>
+
+      <div class="service-modal__divider"></div>
+
+      <div class="service-modal__body">
+        <h4 class="service-modal__subtitle">Detalles del Tratamiento</h4>
+        <p class="service-modal__description" id="modal-description"></p>
+      </div>
+
+      <div class="service-modal__footer">
+        <Button href="tel:953501451" variant="primary" size="md">
+          Llamar para Reservar (953 50 14 51)
+        </Button>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- Filter + Expand Script -->
@@ -180,6 +229,84 @@ import Button from './Button.astro';
         }
       });
     });
+
+    // --- Modal Logic ---
+    const modal = document.getElementById('service-modal');
+    const modalBackdrop = document.getElementById('service-modal-backdrop');
+    const modalClose = document.getElementById('service-modal-close');
+    const modalCategory = document.getElementById('modal-category');
+    const modalPrice = document.getElementById('modal-price');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDuration = document.getElementById('modal-duration');
+    const modalDurationWrap = document.getElementById('modal-duration-wrap');
+    const modalBonus = document.getElementById('modal-bonus');
+    const modalBonusWrap = document.getElementById('modal-bonus-wrap');
+    const modalDescription = document.getElementById('modal-description');
+
+    function openModal(card: HTMLElement): void {
+      if (!modal) return;
+      
+      const category = card.dataset.categoryLabel || '';
+      const title = card.dataset.title || '';
+      const price = card.dataset.price || '';
+      const duration = card.dataset.duration || '';
+      const bonus = card.dataset.priceDetail || '';
+      const description = card.dataset.description || '';
+
+      if (modalCategory) modalCategory.textContent = category;
+      if (modalPrice) modalPrice.textContent = price;
+      if (modalTitle) modalTitle.textContent = title;
+      if (modalDescription) modalDescription.textContent = description;
+
+      if (modalDurationWrap) {
+        if (duration) {
+          if (modalDuration) modalDuration.textContent = duration;
+          modalDurationWrap.style.display = 'inline-flex';
+        } else {
+          modalDurationWrap.style.display = 'none';
+        }
+      }
+
+      if (modalBonusWrap) {
+        if (bonus) {
+          if (modalBonus) modalBonus.textContent = bonus;
+          modalBonusWrap.style.display = 'inline-flex';
+        } else {
+          modalBonusWrap.style.display = 'none';
+        }
+      }
+
+      modal.classList.add('service-modal--active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(): void {
+      if (!modal) return;
+      modal.classList.remove('service-modal--active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Attach click event to "Ver más info" button on every card
+    cards.forEach((card) => {
+      const btn = card.querySelector('.service-card__toggle-btn');
+      if (btn) {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal(card);
+        });
+      }
+    });
+
+    if (modalClose) modalClose.addEventListener('click', closeModal);
+    if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal?.classList.contains('service-modal--active')) {
+        closeModal();
+      }
+    });
   }
 
   document.addEventListener('DOMContentLoaded', initServiciosInteractions);
@@ -259,6 +386,8 @@ import Button from './Button.astro';
   /* Grid Layout */
   .servicios__grid-wrapper {
     position: relative;
+    padding-top: 12px;
+    margin-top: -12px;
   }
 
   .servicios__grid {
@@ -372,5 +501,180 @@ import Button from './Button.astro';
     color: var(--color-text-muted);
     margin-top: 0.25rem;
     max-width: 50ch;
+  }
+
+  /* Service Modal Popup */
+  .service-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md);
+    visibility: hidden;
+    pointer-events: none;
+    transition: visibility 0.2s ease-out;
+  }
+
+  .service-modal--active {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .service-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(44, 36, 30, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.15s ease-out;
+    will-change: opacity;
+    transform: translateZ(0);
+  }
+
+  .service-modal--active .service-modal__backdrop {
+    opacity: 1;
+  }
+
+  .service-modal__dialog {
+    position: relative;
+    z-index: 2;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(44, 36, 30, 0.15);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 20px 40px rgba(44, 36, 30, 0.25);
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+    transition: opacity 0.2s ease-out, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    max-height: 90vh;
+    overflow-y: auto;
+    will-change: opacity, transform;
+  }
+
+  .service-modal--active .service-modal__dialog {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  .service-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid rgba(44, 36, 30, 0.12);
+    background-color: #F5F0E8;
+    color: #2C241E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .service-modal__close:hover {
+    background-color: var(--color-accent);
+    color: #FFFFFF;
+    border-color: var(--color-accent);
+  }
+
+  .service-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .service-modal__category {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: #836733;
+  }
+
+  .service-modal__price-tag {
+    background-color: #F5F0E8;
+    border: 1px solid rgba(44, 36, 30, 0.12);
+    padding: 0.3rem 0.85rem;
+    border-radius: var(--radius-full);
+  }
+
+  .service-modal__price {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2C241E;
+  }
+
+  .service-modal__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    color: #2C241E;
+    margin-top: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .service-modal__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .service-modal__meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #4A3F35;
+  }
+
+  .service-modal__bonus {
+    color: #836733;
+    font-weight: 600;
+  }
+
+  .service-modal__divider {
+    height: 1px;
+    background-color: rgba(44, 36, 30, 0.1);
+    margin: 1.25rem 0;
+  }
+
+  .service-modal__subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: #836733;
+    margin-bottom: 0.5rem;
+  }
+
+  .service-modal__description {
+    font-size: 0.9375rem;
+    color: #2C241E;
+    line-height: 1.6;
+  }
+
+  .service-modal__footer {
+    margin-top: 1.5rem;
+  }
+
+  .service-modal__footer :global(a),
+  .service-modal__footer :global(button) {
+    width: 100%;
+    justify-content: center;
   }
 </style>

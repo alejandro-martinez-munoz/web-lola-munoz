@@ -1,0 +1,196 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Política de Privacidad"
+  description="Política de Privacidad y Protección de Datos del Centro De Estética Lola Muñoz en cumplimiento del RGPD."
+>
+  <Navbar slot="header" />
+
+  <main class="legal-page">
+    <div class="container">
+      <div class="legal-page__header">
+        <span class="label">Protección de Datos</span>
+        <h1 class="legal-page__title">Política de Privacidad</h1>
+        <p class="legal-page__subtitle">Última actualización: Agosto 2026</p>
+      </div>
+
+      <div class="legal-page__content">
+        <section class="legal-block">
+          <h2>1. Responsable del Tratamiento</h2>
+          <p>
+            De conformidad con el Reglamento General de Protección de Datos (UE 2016/679) y la Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD), le informamos de los datos del responsable del tratamiento:
+          </p>
+          <ul class="legal-list">
+            <li><strong>Responsable:</strong> Centro De Estética Lola Muñoz (María Dolores Muñoz Gómez)</li>
+            <li><strong>Dirección:</strong> C. Juego Pelotas, n°2, 1° Derecha, 23740 Andújar, Jaén (España)</li>
+            <li><strong>Teléfono:</strong> <a href="tel:953501451">953 50 14 51</a></li>
+            <li><strong>Email de privacidad:</strong> <a href="mailto:lolaestetica@hotmail.com">lolaestetica@hotmail.com</a></li>
+          </ul>
+        </section>
+
+        <section class="legal-block">
+          <h2>2. Datos Personales que Recogemos</h2>
+          <p>
+            Recogemos únicamente los datos personales indispensables que usted nos facilita voluntariamente al ponerse en contacto con nosotros por llamada telefónica o por correo electrónico para solicitar citas previa o información sobre nuestros tratamientos estéticos.
+          </p>
+          <p>
+            Los datos recogidos pueden incluir: Nombre, apellidos, teléfono de contacto y dirección de correo electrónico.
+          </p>
+        </section>
+
+        <section class="legal-block">
+          <h2>3. Finalidad del Tratamiento de Datos</h2>
+          <p> Sus datos personales serán tratados exclusivamente para las siguientes finalidades: </p>
+          <ul class="legal-list">
+            <li>Gestionar las peticiones de cita previa e información sobre tratamientos de estética.</li>
+            <li>Prestar los servicios profesionales solicitados en nuestro centro de estética.</li>
+            <li>Atender consultas, dudas o sugerencias formuladas por los usuarios.</li>
+          </ul>
+        </section>
+
+        <section class="legal-block">
+          <h2>4. Legitimación para el Tratamiento</h2>
+          <p>
+            La base legal para el tratamiento de sus datos es el <strong>consentimiento expreso</strong> prestado por el propio usuario al ponerse en contacto o solicitar servicios, así como la ejecución de la relación contractual de servicios de estética.
+          </p>
+        </section>
+
+        <section class="legal-block">
+          <h2>5. Plazo de Conservación de Datos</h2>
+          <p>
+            Los datos personales proporcionados se conservarán durante el tiempo necesario para cumplir con la finalidad para la que fueron recabados y mientras se mantenga la relación comercial o de servicios, o durante los plazos legales establecidos para cumplir con nuestras obligaciones fiscales y administrativas.
+          </p>
+        </section>
+
+        <section class="legal-block">
+          <h2>6. Cesión de Datos a Terceros</h2>
+          <p>
+            El <strong>Centro De Estética Lola Muñoz</strong> garantiza que no venderá, alquilará ni cederá sus datos personales a terceros bajo ninguna circunstancia, salvo que exista una obligación legal o mandato judicial explícito.
+          </p>
+        </section>
+
+        <section class="legal-block">
+          <h2>7. Derechos de los Usuarios (Derechos ARCO/RGPD)</h2>
+          <p>
+            Como titular de los datos, tiene derecho a ejercitar en cualquier momento y de forma totalmente gratuita los siguientes derechos:
+          </p>
+          <ul class="legal-list">
+            <li><strong>Acceso:</strong> Consultar qué datos personales disponemos sobre usted.</li>
+            <li><strong>Rectificación:</strong> Modificar los datos inexactos o incompletos.</li>
+            <li><strong>Supresión (Olvido):</strong> Solicitar el borrado definitivo de sus datos personales.</li>
+            <li><strong>Limitación del tratamiento:</strong> Solicitar que se limite el uso de sus datos.</li>
+            <li><strong>Oposición:</strong> Oponerse al tratamiento de sus datos personales.</li>
+          </ul>
+          <p style="margin-top: 1rem;">
+            Para ejercitar cualquiera de estos derechos, basta con enviar una comunicación por escrito adjuntando copia de su DNI a la dirección de correo electrónico <a href="mailto:lolaestetica@hotmail.com">lolaestetica@hotmail.com</a>.
+          </p>
+          <p>
+            Asimismo, le informamos que si considera violados sus derechos tiene la opción de presentar una reclamación ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">www.aepd.es</a>).
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .legal-page {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    padding-top: calc(var(--header-height, 5rem) + var(--space-2xl));
+    padding-bottom: var(--space-3xl);
+  }
+
+  .legal-page__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .legal-page__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-light);
+    color: var(--color-text);
+    margin-top: var(--space-xs);
+  }
+
+  .legal-page__subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-2xs);
+  }
+
+  .legal-page__content {
+    max-width: 800px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .legal-block {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .legal-block h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-medium);
+    color: var(--color-accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .legal-block p {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.7;
+    margin-bottom: var(--space-sm);
+  }
+
+  .legal-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  .legal-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: var(--space-sm);
+  }
+
+  .legal-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .legal-list a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .legal-list a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .legal-block {
+      padding: var(--space-lg);
+    }
+    .legal-page__title {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>

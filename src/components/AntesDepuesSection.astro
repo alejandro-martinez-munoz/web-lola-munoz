@@ -1,0 +1,620 @@
+---
+/**
+ * AntesDepuesSection — Before/After Image Comparison Carousel.
+ *
+ * Features:
+ *   - Draggable vertical divider to reveal before/after
+ *   - Arrow navigation between 5 slides
+ *   - Touch support for mobile
+ *   - Dot pagination indicators
+ *   - Dark luxe aesthetic
+ */
+
+interface Slide {
+  service: string;
+  category: string;
+  beforeImg: string;
+  afterImg: string;
+  beforeAlt: string;
+  afterAlt: string;
+}
+
+const slides: Slide[] = [
+  {
+    service: 'Higiene Facial Completa',
+    category: 'Estética Avanzada',
+    beforeImg: '/images/antes-despues/facial-antes.png',
+    afterImg: '/images/antes-despues/facial-despues.png',
+    beforeAlt: 'Antes de la higiene facial — piel apagada con impurezas',
+    afterAlt: 'Después de la higiene facial — piel luminosa e hidratada',
+  },
+  {
+    service: 'Tratamiento Antiedad',
+    category: 'Facial Cabina',
+    beforeImg: '/images/antes-despues/antiedad-antes.png',
+    afterImg: '/images/antes-despues/antiedad-despues.png',
+    beforeAlt: 'Antes del tratamiento antiedad — líneas de expresión visibles',
+    afterAlt: 'Después del tratamiento antiedad — piel firme y rejuvenecida',
+  },
+  {
+    service: 'Maderoterapia Corporal',
+    category: 'Bienestar & Masajes',
+    beforeImg: '/images/antes-despues/maderoterapia-antes.png',
+    afterImg: '/images/antes-despues/maderoterapia-despues.png',
+    beforeAlt: 'Antes de la maderoterapia — celulitis visible',
+    afterAlt: 'Después de la maderoterapia — piel tersa y firme',
+  },
+  {
+    service: 'Manicura Semipermanente',
+    category: 'Manicura & Pedicura',
+    beforeImg: '/images/antes-despues/manicura-antes.png',
+    afterImg: '/images/antes-despues/manicura-despues.png',
+    beforeAlt: 'Antes de la manicura — uñas sin tratar',
+    afterAlt: 'Después de la manicura semipermanente — uñas perfectas',
+  },
+  {
+    service: 'Diseño de Cejas con Henna',
+    category: 'Mirada & Cejas',
+    beforeImg: '/images/antes-despues/cejas-antes.png',
+    afterImg: '/images/antes-despues/cejas-despues.png',
+    beforeAlt: 'Antes del diseño de cejas — sin definición',
+    afterAlt: 'Después del diseño con henna — cejas definidas y simétricas',
+  },
+];
+---
+
+<section class="section antes-despues" id="resultados">
+  <div class="container">
+
+    <!-- Section Header (on light background) -->
+    <div class="antes-despues__header text-center">
+      <div class="reveal reveal--up stagger-1">
+        <span class="label">Resultados Reales</span>
+      </div>
+      <h2 class="antes-despues__title reveal reveal--up stagger-2">
+        El antes y <span class="text-serif-italic">después</span>
+      </h2>
+      <p class="antes-despues__subtitle reveal reveal--up stagger-3">
+        Desliza para ver la transformación
+      </p>
+    </div>
+
+    <!-- Carousel -->
+    <div class="antes-despues__carousel reveal reveal--scale stagger-3">
+
+      <!-- Prev Arrow -->
+      <button
+        class="antes-despues__arrow antes-despues__arrow--prev"
+        id="ad-prev"
+        type="button"
+        aria-label="Anterior"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <!-- Slider Viewport -->
+      <div class="antes-despues__viewport" id="ad-viewport">
+        {slides.map((slide, i) => (
+          <div
+            class={`antes-despues__slide ${i === 0 ? 'antes-despues__slide--active' : ''}`}
+            data-slide-index={i}
+          >
+            <!-- Comparison Container -->
+            <div class="antes-despues__comparison" data-comparison>
+              <!-- After Image (background, fully visible) -->
+              <div class="antes-despues__layer antes-despues__layer--after">
+                <img src={slide.afterImg} alt={slide.afterAlt} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+                <span class="antes-despues__badge antes-despues__badge--after">Después</span>
+              </div>
+
+              <!-- Before Image (foreground, clipped) -->
+              <div class="antes-despues__layer antes-despues__layer--before" data-before-layer>
+                <img src={slide.beforeImg} alt={slide.beforeAlt} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+                <span class="antes-despues__badge antes-despues__badge--before">Antes</span>
+              </div>
+
+              <!-- Draggable Divider -->
+              <div class="antes-despues__divider" data-divider>
+                <div class="antes-despues__divider-line"></div>
+                <div class="antes-despues__divider-handle" aria-label="Arrastrar para comparar antes y después">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 12L5 9M5 9L8 6M5 9H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 12L19 9M19 9L16 6M19 9H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide Info -->
+            <div class="antes-despues__slide-info">
+              <span class="antes-despues__slide-category">{slide.category}</span>
+              <h3 class="antes-despues__slide-service">{slide.service}</h3>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Next Arrow -->
+      <button
+        class="antes-despues__arrow antes-despues__arrow--next"
+        id="ad-next"
+        type="button"
+        aria-label="Siguiente"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Dot Pagination -->
+    <div class="antes-despues__dots reveal reveal--up stagger-4" id="ad-dots">
+      {slides.map((_, i) => (
+        <button
+          class={`antes-despues__dot ${i === 0 ? 'antes-despues__dot--active' : ''}`}
+          data-dot-index={i}
+          type="button"
+          aria-label={`Ir al slide ${i + 1}`}
+        />
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<!-- Carousel + Comparison Interaction Script -->
+<script>
+  function initAntesDepues(): void {
+    const viewport = document.getElementById('ad-viewport');
+    const prevBtn  = document.getElementById('ad-prev');
+    const nextBtn  = document.getElementById('ad-next');
+    const dotsWrap = document.getElementById('ad-dots');
+
+    if (!viewport || !prevBtn || !nextBtn || !dotsWrap) return;
+
+    const slides = viewport.querySelectorAll<HTMLElement>('.antes-despues__slide');
+    const dots   = dotsWrap.querySelectorAll<HTMLButtonElement>('.antes-despues__dot');
+    const total  = slides.length;
+    let current  = 0;
+
+    // --- Slide navigation ---
+    function goToSlide(index: number): void {
+      if (index < 0) index = total - 1;
+      if (index >= total) index = 0;
+
+      slides.forEach((s, i) => {
+        s.classList.toggle('antes-despues__slide--active', i === index);
+      });
+      dots.forEach((d, i) => {
+        d.classList.toggle('antes-despues__dot--active', i === index);
+      });
+
+      current = index;
+
+      // Reset divider on new slide
+      const activeSlide = slides[current];
+      const beforeLayer = activeSlide?.querySelector<HTMLElement>('[data-before-layer]');
+      const divider     = activeSlide?.querySelector<HTMLElement>('[data-divider]');
+      if (beforeLayer) beforeLayer.style.clipPath = 'inset(0 50% 0 0)';
+      if (divider) divider.style.left = '50%';
+    }
+
+    prevBtn.addEventListener('click', () => goToSlide(current - 1));
+    nextBtn.addEventListener('click', () => goToSlide(current + 1));
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.dataset.dotIndex ?? '0', 10);
+        goToSlide(idx);
+      });
+    });
+
+    // Keyboard navigation
+    viewport.setAttribute('tabindex', '0');
+    viewport.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') { goToSlide(current - 1); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { goToSlide(current + 1); e.preventDefault(); }
+    });
+
+    // --- Comparison divider drag ---
+    const comparisons = viewport.querySelectorAll<HTMLElement>('[data-comparison]');
+
+    comparisons.forEach((comp) => {
+      const beforeLayer = comp.querySelector<HTMLElement>('[data-before-layer]');
+      const divider     = comp.querySelector<HTMLElement>('[data-divider]');
+
+      if (!beforeLayer || !divider) return;
+
+      let isDragging = false;
+
+      function updatePosition(clientX: number): void {
+        const rect = comp.getBoundingClientRect();
+        let x = clientX - rect.left;
+        x = Math.max(0, Math.min(x, rect.width));
+        const pct = (x / rect.width) * 100;
+
+        beforeLayer!.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+        divider!.style.left = `${pct}%`;
+      }
+
+      // Mouse events
+      divider.addEventListener('mousedown', (e: MouseEvent) => {
+        isDragging = true;
+        e.preventDefault();
+      });
+
+      // Also allow clicking anywhere on the comparison to move the divider
+      comp.addEventListener('mousedown', (e: MouseEvent) => {
+        isDragging = true;
+        updatePosition(e.clientX);
+      });
+
+      window.addEventListener('mousemove', (e: MouseEvent) => {
+        if (!isDragging) return;
+        updatePosition(e.clientX);
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      // Touch events
+      divider.addEventListener('touchstart', (e: TouchEvent) => {
+        isDragging = true;
+        e.preventDefault();
+      }, { passive: false });
+
+      comp.addEventListener('touchstart', (e: TouchEvent) => {
+        isDragging = true;
+        if (e.touches[0]) updatePosition(e.touches[0].clientX);
+      }, { passive: true });
+
+      comp.addEventListener('touchmove', (e: TouchEvent) => {
+        if (!isDragging) return;
+        if (e.touches[0]) updatePosition(e.touches[0].clientX);
+        e.preventDefault();
+      }, { passive: false });
+
+      window.addEventListener('touchend', () => {
+        isDragging = false;
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initAntesDepues);
+  document.addEventListener('astro:page-load', initAntesDepues);
+</script>
+
+<style>
+  .antes-despues {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-on-dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Dark background block starting in the middle of the carousel arrows */
+  .antes-despues::before {
+    content: '';
+    position: absolute;
+    top: clamp(550px, 45vw + 120px, 720px);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg-dark);
+    z-index: 0;
+  }
+
+  .antes-despues .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .antes-despues__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .antes-despues__title {
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-light);
+    color: var(--color-text);
+  }
+
+  .antes-despues__subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    margin-top: var(--space-2xs);
+  }
+
+  /* Carousel Layout */
+  .antes-despues__carousel {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    position: relative;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  /* Arrow Buttons */
+  .antes-despues__arrow {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-border-on-dark);
+    background: rgba(30, 24, 20, 0.6);
+    color: var(--color-text-on-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all var(--duration-fast) var(--ease-out);
+    backdrop-filter: blur(8px);
+    z-index: 5;
+  }
+
+  .antes-despues__arrow:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+    transform: scale(1.08);
+  }
+
+  /* Viewport */
+  .antes-despues__viewport {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+  }
+
+  /* Slides */
+  .antes-despues__slide {
+    display: none;
+    flex-direction: column;
+    animation: adFadeIn 0.4s var(--ease-out);
+  }
+
+  .antes-despues__slide--active {
+    display: flex;
+  }
+
+  @keyframes adFadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* Comparison Container */
+  .antes-despues__comparison {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    cursor: ew-resize;
+    user-select: none;
+    -webkit-user-select: none;
+    background-color: var(--color-bg-dark-alt);
+    border: 1px solid var(--color-border-on-dark);
+  }
+
+  /* Image Layers */
+  .antes-despues__layer {
+    position: absolute;
+    inset: 0;
+  }
+
+  .antes-despues__layer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+
+  .antes-despues__layer--before {
+    z-index: 2;
+    clip-path: inset(0 50% 0 0);
+  }
+
+  .antes-despues__layer--after {
+    z-index: 1;
+  }
+
+  /* Badges */
+  .antes-despues__badge {
+    position: absolute;
+    top: var(--space-md);
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-full);
+    z-index: 4;
+    pointer-events: none;
+    backdrop-filter: blur(12px);
+  }
+
+  .antes-despues__badge--before {
+    left: var(--space-md);
+    background: rgba(30, 24, 20, 0.7);
+    color: var(--color-text-on-dark);
+    border: 1px solid rgba(245, 240, 232, 0.2);
+  }
+
+  .antes-despues__badge--after {
+    right: var(--space-md);
+    background: rgba(150, 123, 69, 0.25);
+    color: var(--color-accent-on-dark);
+    border: 1px solid rgba(150, 123, 69, 0.4);
+  }
+
+  /* Divider */
+  .antes-despues__divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    z-index: 3;
+    width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .antes-despues__divider-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      var(--color-accent-on-dark) 15%,
+      var(--color-accent-on-dark) 85%,
+      transparent 100%
+    );
+    transform: translateX(-50%);
+    box-shadow: 0 0 12px rgba(150, 123, 69, 0.3);
+  }
+
+  .antes-despues__divider-handle {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--color-bg-dark);
+    border: 2px solid var(--color-accent-on-dark);
+    color: var(--color-accent-on-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    cursor: ew-resize;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    transition: transform var(--duration-fast) var(--ease-out),
+                box-shadow var(--duration-fast) var(--ease-out);
+    z-index: 5;
+  }
+
+  .antes-despues__divider-handle:hover {
+    transform: scale(1.15);
+    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Slide Info */
+  .antes-despues__slide-info {
+    text-align: center;
+    padding: var(--space-md) var(--space-sm) 0;
+  }
+
+  .antes-despues__slide-category {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent-on-dark);
+  }
+
+  .antes-despues__slide-service {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-light);
+    color: var(--color-text-on-dark);
+    margin-top: 0.25rem;
+  }
+
+  /* Dot Pagination */
+  .antes-despues__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: var(--space-lg);
+  }
+
+  .antes-despues__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-border-on-dark);
+    background: transparent;
+    transition: all var(--duration-fast) var(--ease-out);
+    cursor: pointer;
+  }
+
+  .antes-despues__dot--active {
+    background: var(--color-accent-on-dark);
+    border-color: var(--color-accent-on-dark);
+    transform: scale(1.3);
+  }
+
+  .antes-despues__dot:hover:not(.antes-despues__dot--active) {
+    background: rgba(212, 184, 123, 0.3);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .antes-despues__carousel {
+      gap: var(--space-xs);
+    }
+
+    .antes-despues__arrow {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+
+    .antes-despues__arrow svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .antes-despues__comparison {
+      aspect-ratio: 3 / 4;
+    }
+
+    .antes-despues__divider-handle {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+
+    .antes-despues__divider-handle svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .antes-despues__badge {
+      font-size: 0.55rem;
+      padding: 0.2rem 0.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .antes-despues__arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 2rem;
+      height: 2rem;
+      background: rgba(30, 24, 20, 0.8);
+    }
+
+    .antes-despues__arrow--prev { left: 0.5rem; }
+    .antes-despues__arrow--next { right: 0.5rem; }
+
+    .antes-despues__carousel {
+      gap: 0;
+    }
+  }
+</style>

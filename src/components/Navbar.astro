@@ -9,10 +9,9 @@ interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-  { label: 'Inicio', href: '/#hero' },
   { label: 'Servicios', href: '/#servicios' },
   { label: 'Equipo', href: '/#equipo' },
-  { label: 'El Centro', href: '/#instalaciones' },
+  { label: 'Instalaciones', href: '/#instalaciones' },
   { label: 'Contacto', href: '/#contacto' },
 ];
 ---
@@ -22,6 +21,7 @@ const navLinks: NavLink[] = [
 
     <!-- Logo -->
     <a href="/#hero" class="navbar__logo" aria-label="Inicio">
+      <img src="/images/logo-lm.png" alt="Logo LM" class="navbar__logo-img" width="44" height="44" />
       <span class="navbar__logo-text">Lola Muñoz</span>
     </a>
 
@@ -150,6 +150,21 @@ const navLinks: NavLink[] = [
   .navbar__logo {
     text-decoration: none;
     z-index: calc(var(--z-nav) + 1);
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .navbar__logo-img {
+    width: 2.75rem;
+    height: 2.75rem;
+    object-fit: contain;
+    transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
+  }
+
+  .navbar__logo:hover .navbar__logo-img {
+    opacity: 0.85;
+    transform: scale(1.05);
   }
 
   .navbar__logo-text {

@@ -7,12 +7,12 @@
 <section class="bg-light section sobre-nosotros" id="sobre-mi">
   <div class="container sobre-nosotros__wrapper">
     
-    <!-- Left Column: Before Image (Subtle fine lines) -->
+    <!-- Left Column: Dermapen Treatment Image -->
     <div class="sobre-nosotros__card-wrap">
       <div class="sobre-nosotros__img-card">
         <img
           src="/images/woman-before.png"
-          alt="Antes del tratamiento - Piel natural"
+          alt="Lola Muñoz realizando tratamiento facial de micropunción Dermapen"
           class="sobre-nosotros__img"
           loading="lazy"
           decoding="async"
@@ -25,17 +25,17 @@
       <span class="sobre-nosotros__sub-header">CENTRO DE ESTÉTICA LOLA MUÑOZ</span>
 
       <h2 class="sobre-nosotros__main-title">
-        Cada piel tiene sus necesidades: <span class="sobre-nosotros__gold-text">Revelamos tu luz natural.</span>
+        Cada piel tiene sus necesidades: <span class="sobre-nosotros__gold-text">Revelamos tu luz natural</span>
       </h2>
 
     </div>
 
-    <!-- Right Column: After Image (Smooth radiant skin) -->
+    <!-- Right Column: Mask Treatment Image -->
     <div class="sobre-nosotros__card-wrap">
       <div class="sobre-nosotros__img-card">
         <img
           src="/images/woman-after.png"
-          alt="Después del tratamiento - Piel radiante"
+          alt="Lola Muñoz aplicando tratamiento de mascarilla facial"
           class="sobre-nosotros__img"
           loading="lazy"
           decoding="async"
@@ -49,8 +49,8 @@
 <style>
   .sobre-nosotros {
     background-color: #F5F0E8 !important;
-    padding-top: clamp(1.5rem, 2.5vw, 3rem) !important; /* Reduced top padding */
-    padding-bottom: clamp(3.5rem, 5vw, 6rem) !important;
+    padding-top: clamp(1rem, 1.5vw, 2rem) !important;
+    padding-bottom: clamp(3.5rem, 5vw, 5.5rem) !important;
     position: relative;
   }
 
@@ -162,10 +162,33 @@
 
   .sobre-nosotros__gold-text {
     font-family: var(--font-serif);
-    color: #A58F5B !important;
     font-weight: 400 !important;
     display: block;
     margin-top: 0.25rem;
+    background: linear-gradient(
+      110deg,
+      #8C733D 0%,
+      #D4B87B 38%,
+      #FFF7E6 50%,
+      #D4B87B 62%,
+      #8C733D 100%
+    );
+    background-size: 200% auto;
+    color: transparent !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: goldShimmerBreathe 8s ease-in-out infinite;
+  }
+
+  @keyframes goldShimmerBreathe {
+    0%, 100% {
+      background-position: 0% center;
+      filter: drop-shadow(0 0 0px rgba(212, 184, 123, 0));
+    }
+    50% {
+      background-position: 100% center;
+      filter: drop-shadow(0 0 10px rgba(212, 184, 123, 0.4));
+    }
   }
 
   .sobre-nosotros__tagline {

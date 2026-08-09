@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Outer circle -->
+  <circle cx="100" cy="100" r="88" stroke="#F5F0E8" stroke-width="3.5" fill="none"/>
+  
+  <!-- Letter L - light/cream elegant calligraphic stroke -->
+  <path d="M 72 52 C 72 52 70 80 70 105 Q 70 140 72 148 Q 73 152 78 152 L 98 152" 
+        stroke="#F5F0E8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- Letter M - gold, stylized calligraphic -->
+  <path d="M 82 152 C 84 140 92 80 98 55 C 100 48 102 48 104 55 L 118 115 C 119 118 121 118 122 115 L 138 55 C 139 50 140 50 141 55 L 148 152" 
+        stroke="#D4B87B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- Decorative diagonal line crossing through circle -->
+  <line x1="125" y1="30" x2="158" y2="162" stroke="#F5F0E8" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

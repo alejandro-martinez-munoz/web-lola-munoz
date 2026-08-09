@@ -13,6 +13,29 @@
   to   { opacity: 1; }
 }
 
+/* Service Card Filter Entrance & Exit Animations */
+@keyframes serviceCardEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(36px) scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes serviceCardExit {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.95);
+  }
+}
+
 /* Fade up — content reveal from below */
 @keyframes fadeUp {
   from {

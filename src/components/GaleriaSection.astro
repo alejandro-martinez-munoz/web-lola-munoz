@@ -20,29 +20,29 @@ interface GalleryItem {
 
 const galleryItems: GalleryItem[] = [
   {
-    id: 'recepcion',
-    title: 'Recepción & Bienvenida',
-    category: 'Entrada Principal',
-    imageSrc: '/images/gallery-recepcion.png',
+    id: 'cabina-principal',
+    title: 'Cabina de Tratamiento & Relax',
+    category: 'Cabina Privada',
+    imageSrc: '/images/instalaciones/espacio-1.png',
     isLarge: true,
   },
   {
-    id: 'cabina-facial',
-    title: 'Cabina de Tratamiento Facial',
-    category: 'Cabina Privada',
-    imageSrc: '/images/gallery-cabina-facial.png',
+    id: 'tocadores-dorados',
+    title: 'Zona de Tocadores & Espejos Luxe',
+    category: 'Área Avanzada',
+    imageSrc: '/images/instalaciones/espacio-2.png',
   },
   {
-    id: 'zona-unas',
-    title: 'Zona de Manicura & Pedicura',
-    category: 'Espacio Manicura',
-    imageSrc: '/images/gallery-zona-unas.png',
+    id: 'zona-confort',
+    title: 'Sillones Ergonómicos & Estética',
+    category: 'Confort & Cuidado',
+    imageSrc: '/images/instalaciones/espacio-3.png',
   },
   {
-    id: 'cabina-masajes',
-    title: 'Cabina de Masajes & Relax',
-    category: 'Cabina Holística',
-    imageSrc: '/images/gallery-masajes.png',
+    id: 'recepcion-espera',
+    title: 'Recepción & Zona de Espera Privada',
+    category: 'Atención Exclusiva',
+    imageSrc: '/images/instalaciones/espacio-4.png',
     isLarge: true,
   },
 ];
@@ -77,12 +77,6 @@ const galleryItems: GalleryItem[] = [
             loading="lazy"
             decoding="async"
           />
-
-          <!-- Overlay Caption -->
-          <div class="galeria__overlay">
-            <span class="galeria__category">{item.category}</span>
-            <h3 class="galeria__item-title">{item.title}</h3>
-          </div>
         </div>
       ))}
     </div>
@@ -94,6 +88,7 @@ const galleryItems: GalleryItem[] = [
   .galeria {
     background-color: var(--color-bg-alt);
     position: relative;
+    padding-top: clamp(3rem, 4.5vw, 5.5rem);
   }
 
   .galeria__header {
@@ -101,7 +96,7 @@ const galleryItems: GalleryItem[] = [
     flex-direction: column;
     align-items: center;
     gap: var(--space-xs);
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-xl);
   }
 
   .galeria__title {

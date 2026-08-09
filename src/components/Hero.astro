@@ -162,17 +162,13 @@ import Button from './Button.astro';
   }
 
   .hero__line {
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #D4B87B, transparent);
-  }
-
-  .hero__line--left {
-    background: linear-gradient(90deg, transparent 0%, #D4B87B 100%);
-  }
-
-  .hero__line--right {
-    background: linear-gradient(90deg, #D4B87B 0%, transparent 100%);
+    width: 48px;
+    height: 2px;
+    background-color: #D4B87B;
+    border-radius: 2px;
+    opacity: 0.85;
+    flex-shrink: 0;
+    display: block;
   }
 
   .hero__experience-group {
@@ -206,7 +202,7 @@ import Button from './Button.astro';
     align-items: center;
     justify-content: center;
     gap: var(--space-md);
-    margin-top: 0.5rem;
+    margin-top: 1.75rem;
   }
 
   .hero__scroll-indicator {

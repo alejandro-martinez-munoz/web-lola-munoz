@@ -124,7 +124,7 @@
     --space-2xl:   clamp(3rem,     2.2rem  + 3.5vw,   5rem);
     --space-3xl:   clamp(4rem,     3rem    + 4.4vw,   7rem);
 
-    --section-py:  clamp(4.5rem, 3.5rem + 5vw, 8rem);
+    --section-py:  clamp(2.5rem, 2rem + 2.5vw, 4.5rem);
     --container-max:     1240px;
     --container-padding: clamp(1.25rem, 1rem + 1.2vw, 2.5rem);
 

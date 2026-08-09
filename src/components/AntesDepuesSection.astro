@@ -316,6 +316,7 @@ const slides: Slide[] = [
     color: var(--color-text-on-dark);
     position: relative;
     overflow: hidden;
+    padding-top: clamp(2.5rem, 3.5vw, 4rem);
   }
 
   /* Dark background block starting exactly in the middle of the carousel arrows */
@@ -341,7 +342,7 @@ const slides: Slide[] = [
     flex-direction: column;
     align-items: center;
     gap: var(--space-xs);
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-lg);
   }
 
   .antes-despues__title {

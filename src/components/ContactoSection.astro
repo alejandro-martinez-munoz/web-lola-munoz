@@ -26,13 +26,13 @@ const contactInfo = {
     note: 'Atención exclusiva por llamada telefónica',
   },
   email: 'lolaestetica@hotmail.com',
-  // Horario estático de respaldo (por día, coincide con Google Maps)
+  // Horario estático de respaldo con separador claro entre turnos
   hours: [
-    { days: 'Lunes',      time: '9:00–14:00, 16:30–20:00' },
-    { days: 'Martes',     time: '9:30–13:30, 17:00–21:00' },
-    { days: 'Miércoles',  time: '9:00–14:00, 17:00–20:00' },
-    { days: 'Jueves',     time: '9:30–13:30, 17:00–21:00' },
-    { days: 'Viernes',    time: '9:30–13:30, 17:00–21:00' },
+    { days: 'Lunes',      time: '9:00–14:00 / 16:30–20:00' },
+    { days: 'Martes',     time: '9:30–13:30 / 17:00–21:00' },
+    { days: 'Miércoles',  time: '9:00–14:00 / 17:00–20:00' },
+    { days: 'Jueves',     time: '9:30–13:30 / 17:00–21:00' },
+    { days: 'Viernes',    time: '9:30–13:30 / 17:00–21:00' },
     { days: 'Sábado',     time: '9:30–14:00' },
     { days: 'Domingo',    time: 'Cerrado' },
   ],
@@ -60,7 +60,7 @@ const contactInfo = {
         <!-- Address Card -->
         <div class="contacto__card hover-lift reveal reveal--up stagger-2">
           <div class="contacto__card-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M12 21C16 16.8 19 13.1 19 9.5C19 5.36 15.86 2 12 2C8.14 2 5 5.36 5 9.5C5 13.1 8 16.8 12 21Z" />
               <circle cx="12" cy="9.5" r="3" />
             </svg>
@@ -80,55 +80,39 @@ const contactInfo = {
           </div>
         </div>
 
-        <!-- Phone Card -->
-        <div class="contacto__card hover-lift reveal reveal--up stagger-3">
-          <div class="contacto__card-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-            </svg>
-          </div>
-          <div class="contacto__card-content">
-            <h3>Teléfono & Citas</h3>
-            <p>{contactInfo.phone.display}</p>
-            <p class="contacto__note">{contactInfo.phone.note}</p>
-            <div class="contacto__card-actions">
-              <a href={`tel:${contactInfo.phone.value}`} class="contacto__card-link text-accent">
-                Llamar ahora →
-              </a>
-            </div>
-          </div>
-        </div>
-
         <!-- Hours Card -->
-        <div class="contacto__card hover-lift reveal reveal--up stagger-4">
+        <div class="contacto__card contacto__card--hours hover-lift reveal reveal--up stagger-3">
           <div class="contacto__card-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <circle cx="12" cy="12" r="10" />
               <polyline points="12 6 12 12 16 14" />
             </svg>
           </div>
           <div class="contacto__card-content">
             <div class="contacto__hours-header">
-              <h3>Horario</h3>
-              <span id="gmaps-status" class="hours-status" style="display:none" aria-live="polite"></span>
+              <h3>Horario de atención</h3>
             </div>
-            <!-- Dynamic hours container (populated by JS if API is configured) -->
-            <div id="gmaps-hours">
-              {contactInfo.hours.map((schedule) => (
-                <div class="contacto__hours-row">
-                  <span class="contacto__hours-days">{schedule.days}:</span>
-                  <span class="contacto__hours-time">{schedule.time}</span>
-                </div>
-              ))}
+            <div id="gmaps-hours" class="contacto__hours-list">
+              {contactInfo.hours.map((schedule) => {
+                const isClosed = schedule.time.toLowerCase().includes('cerrado');
+                return (
+                  <div class="contacto__hours-row">
+                    <span class="contacto__hours-days">{schedule.days}</span>
+                    <span class="contacto__hours-line"></span>
+                    <span class={`contacto__hours-time ${isClosed ? 'contacto__hours-closed' : ''}`}>
+                      {schedule.time}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
-            <p id="gmaps-source" class="contacto__note" style="display:none">Horario actualizado desde Google Business</p>
           </div>
         </div>
 
         <!-- Email Card -->
-        <div class="contacto__card hover-lift reveal reveal--up stagger-5">
+        <div class="contacto__card hover-lift reveal reveal--up stagger-4">
           <div class="contacto__card-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
               <polyline points="22,6 12,13 2,6" />
             </svg>
@@ -162,8 +146,8 @@ const contactInfo = {
 
         <div class="contacto__whatsapp-cta">
           <div class="contacto__whatsapp-text">
-            <h4>¿Quieres pedir cita o resolver tus dudas?</h4>
-            <p>Atención directa y personalizada por llamada telefónica.</p>
+            <h4>¿Con dudas?</h4>
+            <p>Atención directa por llamada telefónica.</p>
           </div>
           <Button
             href={`tel:${contactInfo.phone.value}`}
@@ -187,8 +171,6 @@ const contactInfo = {
     if (!googleApiKey || !googlePlaceId) return;
 
     const container = document.getElementById('gmaps-hours');
-    const statusEl  = document.getElementById('gmaps-status');
-    const sourceEl  = document.getElementById('gmaps-source');
     if (!container) return;
 
     try {
@@ -206,31 +188,19 @@ const contactInfo = {
       const hours = data.currentOpeningHours ?? data.regularOpeningHours;
       if (!hours?.weekdayDescriptions?.length) throw new Error('No hours data');
 
-      // --- Status badge: Abierto / Cerrado ---
-      if (statusEl && hours.openNow !== undefined) {
-        statusEl.textContent = hours.openNow ? '● Abierto ahora' : '● Cerrado ahora';
-        statusEl.className   = `hours-status ${hours.openNow ? 'hours-status--open' : 'hours-status--closed'}`;
-        statusEl.style.display = 'inline-block';
-      }
-
-      // --- Render days ---
-      // weekdayDescriptions (es): ["lunes: 9:00–14:00, 16:30–20:00", "martes: ...", ...]
-      // Google returns Mon(0)…Sun(6); reorder so Monday is first
       container.innerHTML = hours.weekdayDescriptions.map((desc) => {
         const colonIdx = desc.indexOf(':');
         const rawDay   = desc.slice(0, colonIdx).trim();
-        const time     = desc.slice(colonIdx + 1).trim();
+        const timeStr  = desc.slice(colonIdx + 1).trim().replace(/,\s*/g, ' / ');
         const day      = rawDay.charAt(0).toUpperCase() + rawDay.slice(1);
-        const isClosed = time.toLowerCase() === 'cerrado' || time.toLowerCase() === 'closed';
+        const isClosed = timeStr.toLowerCase().includes('cerrado') || timeStr.toLowerCase().includes('closed');
 
         return `<div class="contacto__hours-row">
-          <span class="contacto__hours-days">${day}:</span>
-          <span class="contacto__hours-time${isClosed ? ' hours-closed' : ''}">${time}</span>
+          <span class="contacto__hours-days">${day}</span>
+          <span class="contacto__hours-line"></span>
+          <span class="contacto__hours-time ${isClosed ? 'contacto__hours-closed' : ''}">${isClosed ? 'Cerrado' : timeStr}</span>
         </div>`;
       }).join('');
-
-      // Show "updated from Google" note
-      if (sourceEl) sourceEl.style.display = 'block';
 
     } catch (err) {
       // Silent fail — static hours remain visible
@@ -253,7 +223,7 @@ const contactInfo = {
     flex-direction: column;
     align-items: center;
     gap: var(--space-xs);
-    margin-bottom: var(--space-2xl);
+    margin-bottom: clamp(2.5rem, 4vw, 4.5rem);
   }
 
   .contacto__title {
@@ -299,16 +269,17 @@ const contactInfo = {
   }
 
   .contacto__card-icon {
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: var(--radius-lg);
-    background-color: var(--color-bg-elevated, #1E1E1E);
-    color: var(--color-accent);
+    width: 2.85rem;
+    height: 2.85rem;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    color: #836733;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    border: 1px solid var(--color-border);
+    border: 1px solid rgba(131, 103, 51, 0.25);
+    box-shadow: 0 2px 8px rgba(44, 36, 30, 0.05);
   }
 
   .contacto__card-content {
@@ -374,50 +345,53 @@ const contactInfo = {
     margin-bottom: 0.2rem;
   }
 
-  /* "Abierto" / "Cerrado" badge */
-  .hours-status {
-    font-family: var(--font-sans);
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.15rem 0.5rem;
-    border-radius: 9999px;
-    line-height: 1.4;
-    flex-shrink: 0;
-  }
-
-  .hours-status--open {
-    background-color: rgba(74, 222, 128, 0.12);
-    color: #4ade80;
-    border: 1px solid rgba(74, 222, 128, 0.3);
-  }
-
-  .hours-status--closed {
-    background-color: rgba(248, 113, 113, 0.12);
-    color: #f87171;
-    border: 1px solid rgba(248, 113, 113, 0.3);
-  }
-
-  .hours-closed {
-    color: var(--color-text-muted);
-    font-style: italic;
-  }
-
-  .contacto__hours-row {
+  :global(.contacto__hours-list) {
     display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 0.6rem;
+    width: 100%;
+  }
+
+  :global(.contacto__hours-row) {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    gap: var(--space-sm);
-    font-size: var(--text-xs);
+    gap: 0.5rem;
+    padding: 0.25rem 0;
   }
 
-  .contacto__hours-days {
-    color: var(--color-text-muted);
+  :global(.contacto__hours-days) {
+    font-family: var(--font-sans) !important;
+    font-size: 1rem !important; /* 16px */
+    font-weight: 700 !important;
+    color: #836733 !important;
+    white-space: nowrap !important;
+    min-width: 6.2rem !important;
   }
 
-  .contacto__hours-time {
-    color: var(--color-text);
-    font-weight: var(--weight-medium);
+  :global(.contacto__hours-line) {
+    flex: 1;
+    height: 1px;
+    border-bottom: 1px dashed rgba(131, 103, 51, 0.25) !important;
+    margin-inline: 0.5rem !important;
+  }
+
+  :global(.contacto__hours-time) {
+    font-family: var(--font-sans) !important;
+    color: #2C241E !important;
+    font-weight: 600 !important;
+    font-size: 1.0625rem !important; /* 17px - large, crisp & readable */
+    white-space: nowrap !important;
+    text-align: right !important;
+    letter-spacing: 0.01em !important;
+  }
+
+  :global(.contacto__hours-closed) {
+    color: #8C7C72 !important;
+    font-style: italic !important;
+    font-weight: 400 !important;
+    font-size: 1rem !important;
   }
 
   /* Map Container */
@@ -443,7 +417,6 @@ const contactInfo = {
     width: 100%;
     height: 100%;
     min-height: 320px;
-    filter: grayscale(0.6) contrast(0.85) brightness(0.8);
   }
 
   .contacto__whatsapp-cta {

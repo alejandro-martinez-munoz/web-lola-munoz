@@ -21,7 +21,7 @@ const team: TeamMember[] = [
   {
     id: 'lola',
     name: 'Lola Muñoz',
-    role: 'Fundadora & Estética Avanzada',
+    role: 'Estética Avanzada',
     imageSrc: '/images/equipo/lola.png',
     isFounder: true,
   },
@@ -62,8 +62,9 @@ const team: TeamMember[] = [
     <!-- Team Grid (4 Members) -->
     <div class="equipo__grid">
       {team.map((member, index) => (
-        <article class={`team-card hover-lift reveal reveal--up stagger-${index + 1}`}>
+        <article class={`team-card ${member.isFounder ? 'team-card--founder' : ''} hover-lift reveal reveal--up stagger-${index + 1}`}>
           
+
           <!-- Photo Container -->
           <div class="team-card__image-wrap">
             <img
@@ -73,10 +74,6 @@ const team: TeamMember[] = [
               loading="lazy"
               decoding="async"
             />
-
-            {member.isFounder && (
-              <span class="team-card__founder-badge">Fundadora</span>
-            )}
           </div>
 
           <!-- Condensed Info -->
@@ -103,7 +100,7 @@ const team: TeamMember[] = [
     flex-direction: column;
     align-items: center;
     gap: var(--space-2xs);
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-lg);
   }
 
   .equipo__title {
@@ -117,6 +114,7 @@ const team: TeamMember[] = [
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-lg);
+    padding-top: 1.75rem; /* Room for floating eyebrow header */
   }
 
   @media (min-width: 1024px) {
@@ -130,7 +128,7 @@ const team: TeamMember[] = [
     background-color: var(--color-bg-alt);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
-    overflow: hidden;
+    position: relative;
     display: flex;
     flex-direction: column;
     transition:
@@ -143,11 +141,23 @@ const team: TeamMember[] = [
     border-color: var(--color-accent);
   }
 
+  /* Founder Card Highlight */
+  .team-card--founder {
+    border-color: rgba(197, 160, 89, 0.45);
+    box-shadow: 0 8px 30px rgba(131, 103, 51, 0.14), 0 0 16px rgba(197, 160, 89, 0.12);
+  }
+
+  .team-card--founder:hover {
+    border-color: #D4B87B;
+    box-shadow: 0 12px 36px rgba(131, 103, 51, 0.22), 0 0 20px rgba(212, 184, 123, 0.25);
+  }
+
   .team-card__image-wrap {
     position: relative;
     width: 100%;
     aspect-ratio: 4 / 5;
     overflow: hidden;
+    border-radius: calc(var(--radius-xl) - 1px) calc(var(--radius-xl) - 1px) 0 0;
     background-color: var(--color-bg-elevated, #1E1E1E);
   }
 
@@ -164,20 +174,20 @@ const team: TeamMember[] = [
     transform: scale(1.04);
   }
 
-  .team-card__founder-badge {
+  .team-card__founder-label {
     position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    background-color: var(--color-accent);
-    color: var(--color-bg);
+    top: -1.65rem;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
     font-family: var(--font-sans);
-    font-size: 0.65rem;
-    font-weight: var(--weight-semibold);
-    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    padding: 0.3em 0.8em;
-    border-radius: var(--radius-full);
-    box-shadow: var(--shadow-xs);
+    color: #FFFFFF;
+    pointer-events: none;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   }
 
   .team-card__content {

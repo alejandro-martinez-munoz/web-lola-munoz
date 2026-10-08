@@ -119,12 +119,18 @@ const team: TeamMember[] = [
     color: var(--color-text);
   }
 
-  /* Grid Layout (4 columns on desktop, 2 on tablet/mobile) */
+  /* Grid Layout */
   .equipo__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-lg);
-    padding-top: 1.75rem; /* Room for floating eyebrow header */
+    gap: var(--space-md);
+    padding-top: 1.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .equipo__grid {
+      gap: var(--space-lg);
+    }
   }
 
   @media (min-width: 1024px) {
@@ -210,11 +216,17 @@ const team: TeamMember[] = [
 
   .team-card__name {
     font-family: var(--font-serif);
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
     font-weight: var(--weight-light);
     color: var(--color-text);
     line-height: 1.2;
     margin: 0;
+  }
+
+  @media (min-width: 640px) {
+    .team-card__name {
+      font-size: var(--text-2xl);
+    }
   }
 
   .team-card__role {
@@ -223,5 +235,11 @@ const team: TeamMember[] = [
     font-weight: var(--weight-medium);
     letter-spacing: var(--tracking-wide);
     color: var(--color-text-muted);
+  }
+
+  @media (max-width: 639px) {
+    .team-card__content {
+      padding: var(--space-sm);
+    }
   }
 </style>

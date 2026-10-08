@@ -168,9 +168,16 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 6rem;
+    width: 2.5rem;
     z-index: 2;
     pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    .marcas-ticker__viewport::before,
+    .marcas-ticker__viewport::after {
+      width: 6rem;
+    }
   }
 
   .marcas-ticker__viewport::before {
@@ -186,9 +193,15 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
   .marcas-ticker__track {
     display: flex;
     align-items: center;
-    gap: 7rem;
+    gap: 3.5rem;
     width: max-content;
     will-change: transform;
+  }
+
+  @media (min-width: 768px) {
+    .marcas-ticker__track {
+      gap: 7rem;
+    }
   }
 
   .marcas-ticker__item {
@@ -206,7 +219,7 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
   }
 
   .marcas-ticker__logo {
-    height: 75px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -214,9 +227,19 @@ const repeatBrands = [...brands, ...brands, ...brands, ...brands];
   }
 
   .marcas-ticker__logo svg {
-    height: 75px;
+    height: 50px;
     width: auto;
     display: block;
     overflow: visible;
+  }
+
+  @media (min-width: 768px) {
+    .marcas-ticker__logo {
+      height: 75px;
+    }
+
+    .marcas-ticker__logo svg {
+      height: 75px;
+    }
   }
 </style>

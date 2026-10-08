@@ -260,9 +260,20 @@ const socialLinks = [
 
   .footer__link {
     font-size: var(--text-sm);
-    color: #E2DBCF; /* Crisp readable light text */
+    color: #E2DBCF;
     text-decoration: none;
+    padding-block: 0.35rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  @media (min-width: 1024px) {
+    .footer__link {
+      min-height: auto;
+      padding-block: 0;
+    }
   }
 
   .footer__link:hover {
@@ -312,6 +323,7 @@ const socialLinks = [
   .footer__legal-link {
     color: #B8B0A5;
     text-decoration: none;
+    padding-block: 0.5rem;
     transition: color var(--duration-fast) var(--ease-out);
   }
 
@@ -333,6 +345,8 @@ const socialLinks = [
     text-transform: uppercase;
     color: #E2DBCF;
     text-decoration: none;
+    padding: 0.5rem;
+    min-height: 44px;
     transition: color var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
   }
 

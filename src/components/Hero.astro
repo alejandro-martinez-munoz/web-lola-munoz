@@ -113,7 +113,7 @@ import heroSpaBg from '../assets/images/hero-spa.png';
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding-top: calc(6rem + var(--space-2xl));
+    padding-top: calc(5rem + var(--space-xl));
     padding-bottom: var(--space-3xl);
     width: 100%;
   }
@@ -133,7 +133,7 @@ import heroSpaBg from '../assets/images/hero-spa.png';
   }
 
   .hero__title {
-    font-size: clamp(3.5rem, 5.5vw, 5.75rem);
+    font-size: clamp(2.25rem, 5.5vw, 5.75rem);
     font-weight: 300;
     line-height: 1.05;
     letter-spacing: -0.02em;
@@ -238,6 +238,42 @@ import heroSpaBg from '../assets/images/hero-spa.png';
 
   .hero__scroll-indicator:hover {
     color: #D4B87B;
+  }
+
+  @media (max-width: 640px) {
+    .hero__container {
+      padding-top: calc(4.5rem + var(--space-md));
+      padding-bottom: var(--space-2xl);
+    }
+
+    .hero__content {
+      gap: 1rem;
+    }
+
+    .hero__description {
+      font-size: clamp(1rem, 1.2vw, 1.5rem);
+    }
+
+    .hero__line {
+      width: 28px;
+    }
+
+    .hero__exp-num {
+      font-size: 1.5rem;
+    }
+
+    .hero__exp-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+    }
+
+    .hero__actions {
+      margin-top: 1rem;
+    }
+
+    .hero__scroll-indicator {
+      bottom: 1rem;
+    }
   }
 
   @keyframes bounce {

@@ -268,6 +268,32 @@ const slides: Slide[] = [
       if (e.key === 'ArrowRight') { goToSlide(current + 1); e.preventDefault(); }
     });
 
+    // --- Swipe gesture for slide navigation ---
+    let swipeStartX = 0;
+    let swipeStartY = 0;
+    let isSwiping = false;
+
+    viewport.addEventListener('touchstart', (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (!touch) return;
+      swipeStartX = touch.clientX;
+      swipeStartY = touch.clientY;
+      isSwiping = true;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e: TouchEvent) => {
+      if (!isSwiping) return;
+      isSwiping = false;
+      const touch = e.changedTouches[0];
+      if (!touch) return;
+      const dx = touch.clientX - swipeStartX;
+      const dy = touch.clientY - swipeStartY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        if (dx < 0) goToSlide(current + 1);
+        else goToSlide(current - 1);
+      }
+    }, { passive: true });
+
     // --- Comparison divider drag ---
     const comparisons = viewport.querySelectorAll<HTMLElement>('[data-comparison]');
 
@@ -598,13 +624,21 @@ const slides: Slide[] = [
   }
 
   .antes-despues__dot {
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 0.625rem;
+    height: 0.625rem;
     border-radius: 50%;
     border: 1px solid var(--color-border-on-dark);
     background: transparent;
     transition: all var(--duration-fast) var(--ease-out);
     cursor: pointer;
+    padding: 0;
+    position: relative;
+  }
+
+  .antes-despues__dot::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
   }
 
   .antes-despues__dot--active {
@@ -624,8 +658,8 @@ const slides: Slide[] = [
     }
 
     .antes-despues__arrow {
-      width: 2.25rem;
-      height: 2.25rem;
+      width: 2.75rem;
+      height: 2.75rem;
     }
 
     .antes-despues__arrow svg {
@@ -638,18 +672,18 @@ const slides: Slide[] = [
     }
 
     .antes-despues__divider-handle {
-      width: 2.25rem;
-      height: 2.25rem;
+      width: 2.5rem;
+      height: 2.5rem;
     }
 
     .antes-despues__divider-handle svg {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
     }
 
     .antes-despues__badge {
-      font-size: 0.55rem;
-      padding: 0.2rem 0.5rem;
+      font-size: 0.625rem;
+      padding: 0.25rem 0.6rem;
     }
   }
 
@@ -659,8 +693,8 @@ const slides: Slide[] = [
       top: 50%;
       transform: translateY(-50%);
       z-index: 10;
-      width: 2rem;
-      height: 2rem;
+      width: 2.75rem;
+      height: 2.75rem;
       background: rgba(30, 24, 20, 0.8);
     }
 

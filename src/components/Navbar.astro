@@ -231,13 +231,13 @@ const navLinks: NavLink[] = [
     flex-direction: column;
     justify-content: center;
     gap: 6px;
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2.75rem;
+    height: 2.75rem;
     background: none;
     border: none;
     cursor: pointer;
     z-index: calc(var(--z-nav) + 1);
-    padding: 0;
+    padding: 4px;
   }
 
   .navbar__toggle-bar {
@@ -299,6 +299,10 @@ const navLinks: NavLink[] = [
     font-weight: var(--weight-regular);
     color: #F9F6F0;
     text-decoration: none;
+    padding: 0.5rem 1rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
     transition: color var(--duration-fast) var(--ease-out);
   }
 

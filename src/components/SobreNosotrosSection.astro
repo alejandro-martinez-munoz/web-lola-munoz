@@ -119,9 +119,26 @@ import womanAfter from '../assets/images/woman-after.png';
   }
 
   @media (max-width: 767px) {
+    .sobre-nosotros__wrapper {
+      gap: 1.25rem;
+    }
+
+    .sobre-nosotros__card-wrap:last-child {
+      display: none;
+    }
+
+    .sobre-nosotros__card-wrap {
+      max-width: 100%;
+    }
+
     .sobre-nosotros__img-card {
-      height: 300px;
-      max-width: 220px;
+      height: 220px;
+      max-width: 100%;
+      border-radius: 16px;
+    }
+
+    .sobre-nosotros__main-title {
+      font-size: clamp(1.75rem, 3.8vw, 4.25rem) !important;
     }
   }
 

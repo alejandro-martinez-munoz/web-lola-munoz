@@ -50,20 +50,20 @@ const navLinks: NavLink[] = [
     </button>
 
   </nav>
-
-  <!-- Mobile menu overlay -->
-  <div class="navbar__mobile" id="nav-mobile" aria-hidden="true">
-    <ul class="navbar__mobile-links">
-      {navLinks.map((link, i) => (
-        <li style={`--stagger: ${i}`}>
-          <a href={link.href} class="navbar__mobile-link">
-            {link.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
 </header>
+
+<!-- Mobile menu overlay (outside header to avoid backdrop-filter containing block) -->
+<div class="navbar__mobile" id="nav-mobile" aria-hidden="true">
+  <ul class="navbar__mobile-links">
+    {navLinks.map((link, i) => (
+      <li style={`--stagger: ${i}`}>
+        <a href={link.href} class="navbar__mobile-link">
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
 
 <script>
   function initNavbar(): void {
@@ -88,6 +88,7 @@ const navLinks: NavLink[] = [
 
     function toggleMenu(): void {
       isOpen = !isOpen;
+      navbar!.classList.toggle('navbar--menu-open', isOpen);
       toggle!.classList.toggle('navbar__toggle--active', isOpen);
       toggle!.setAttribute('aria-expanded', String(isOpen));
       mobile!.classList.toggle('navbar__mobile--open', isOpen);
@@ -98,6 +99,7 @@ const navLinks: NavLink[] = [
     function closeMenu(): void {
       if (!isOpen) return;
       isOpen = false;
+      navbar!.classList.remove('navbar--menu-open');
       toggle!.classList.remove('navbar__toggle--active');
       toggle!.setAttribute('aria-expanded', 'false');
       mobile!.classList.remove('navbar__mobile--open');
@@ -140,6 +142,10 @@ const navLinks: NavLink[] = [
     box-shadow: 0 1px 0 rgba(245, 240, 232, 0.12);
   }
 
+  .navbar--menu-open {
+    z-index: calc(var(--z-nav) + 5);
+  }
+
   .navbar__inner {
     display: flex;
     align-items: center;
@@ -149,7 +155,7 @@ const navLinks: NavLink[] = [
 
   .navbar__logo {
     text-decoration: none;
-    z-index: calc(var(--z-nav) + 1);
+    z-index: calc(var(--z-nav) + 3);
     display: flex;
     align-items: center;
     gap: 0.65rem;
@@ -236,7 +242,7 @@ const navLinks: NavLink[] = [
     background: none;
     border: none;
     cursor: pointer;
-    z-index: calc(var(--z-nav) + 1);
+    z-index: calc(var(--z-nav) + 3);
     padding: 4px;
   }
 
@@ -266,7 +272,7 @@ const navLinks: NavLink[] = [
   .navbar__mobile {
     position: fixed;
     inset: 0;
-    z-index: var(--z-nav);
+    z-index: calc(var(--z-nav) + 2);
     background-color: rgba(44, 36, 30, 0.98);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);

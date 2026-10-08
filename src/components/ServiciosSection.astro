@@ -103,9 +103,6 @@ import Button from './Button.astro';
 
       <div class="service-modal__header">
         <span class="service-modal__category" id="modal-category"></span>
-        <div class="service-modal__price-tag">
-          <span class="service-modal__price" id="modal-price"></span>
-        </div>
       </div>
 
       <h3 class="service-modal__title" id="modal-title"></h3>
@@ -134,7 +131,8 @@ import Button from './Button.astro';
 
       <div class="service-modal__footer">
         <Button href="tel:953501451" variant="primary" size="md">
-          Llamar para Reservar (953 50 14 51)
+          <span class="modal-cta-short">Llamar al 953 50 14 51</span>
+          <span class="modal-cta-full">Llamar para Reservar (953 50 14 51)</span>
         </Button>
       </div>
     </div>
@@ -157,7 +155,8 @@ import Button from './Button.astro';
     if (!wrapper || !expandBtn) return;
 
     let isExpanded = false;
-    const COLLAPSED_HEIGHT = '900px'; // ~4.5 rows
+    const isMobile = window.innerWidth < 640;
+    const COLLAPSED_HEIGHT = isMobile ? '480px' : '900px';
 
     // Initial collapsed state
     wrapper.style.maxHeight = COLLAPSED_HEIGHT;
@@ -198,14 +197,10 @@ import Button from './Button.astro';
     function updateIndicatorPosition(targetTab: HTMLElement, animate = true): void {
       if (!indicator || !tabsContainer || !targetTab) return;
 
-      const targetRect = targetTab.getBoundingClientRect();
-      const containerRect = tabsContainer.getBoundingClientRect();
-      const currentRect = currentActiveTab ? currentActiveTab.getBoundingClientRect() : targetRect;
-
-      const left = targetRect.left - containerRect.left;
-      const top = targetRect.top - containerRect.top;
-      const width = targetRect.width;
-      const height = targetRect.height;
+      const left = targetTab.offsetLeft;
+      const top = targetTab.offsetTop;
+      const width = targetTab.offsetWidth;
+      const height = targetTab.offsetHeight;
 
       if (!animate) {
         indicator.style.transition = 'none';
@@ -233,6 +228,12 @@ import Button from './Button.astro';
     window.addEventListener('resize', () => {
       if (currentActiveTab) updateIndicatorPosition(currentActiveTab, false);
     });
+
+    if (tabsContainer) {
+      tabsContainer.addEventListener('scroll', () => {
+        if (currentActiveTab) updateIndicatorPosition(currentActiveTab, false);
+      }, { passive: true });
+    }
 
     function getColsCount(): number {
       if (window.innerWidth >= 1024) return 3;
@@ -309,14 +310,34 @@ import Button from './Button.astro';
         updateIndicatorPosition(tab, true);
         triggerCardsEntrance(0);
 
-        // If filtered, show all and hide expand btn
-        if (category !== 'all') {
-          wrapper.style.maxHeight = 'none';
-          wrapper.style.overflow = 'visible';
-          if (fadeOverlay) fadeOverlay.style.opacity = '0';
-          if (expandWrap) expandWrap.style.display = 'none';
-        } else {
-          // Reset to collapsed
+        if (tabsContainer && window.innerWidth <= 768) {
+          const tabsArray = Array.from(tabs);
+          const tabIndex = tabsArray.indexOf(tab);
+          const nextTab = tabsArray[tabIndex + 1];
+          const containerWidth = tabsContainer.offsetWidth;
+          const tabCenter = tab.offsetLeft + tab.offsetWidth / 2;
+          let scrollTarget = tabCenter - containerWidth / 2;
+
+          if (nextTab) {
+            const minScroll = nextTab.offsetLeft + nextTab.offsetWidth * 0.35 - containerWidth;
+            if (scrollTarget < minScroll) scrollTarget = minScroll;
+          }
+
+          scrollTarget = Math.max(0, Math.min(scrollTarget, tabsContainer.scrollWidth - containerWidth));
+          tabsContainer.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+        }
+
+        // Count visible services in current category
+        const visibleCount = Array.from(cards).filter(card => {
+          const cardCategory = card.dataset.serviceCategory;
+          return category === 'all' || cardCategory === category;
+        }).length;
+
+        // Show expand button if more than 8 services (2 rows of 4 in desktop)
+        const shouldShowExpandBtn = visibleCount > 8;
+
+        if (shouldShowExpandBtn) {
+          // Reset to collapsed state when switching categories
           isExpanded = false;
           wrapper.style.maxHeight = COLLAPSED_HEIGHT;
           wrapper.style.overflow = 'hidden';
@@ -324,6 +345,12 @@ import Button from './Button.astro';
           if (expandWrap) expandWrap.style.display = '';
           if (expandText) expandText.textContent = 'Ver todos los servicios';
           if (expandIcon) expandIcon.style.transform = 'rotate(0deg)';
+        } else {
+          // Few services: show all and hide expand button
+          wrapper.style.maxHeight = 'none';
+          wrapper.style.overflow = 'visible';
+          if (fadeOverlay) fadeOverlay.style.opacity = '0';
+          if (expandWrap) expandWrap.style.display = 'none';
         }
       });
     });
@@ -534,8 +561,14 @@ import Button from './Button.astro';
   .servicios__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
+    gap: 0.5rem;
     width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .servicios__grid {
+      gap: var(--space-lg);
+    }
   }
 
   @media (min-width: 640px) {
@@ -547,6 +580,12 @@ import Button from './Button.astro';
   @media (min-width: 1024px) {
     .servicios__grid {
       grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .servicios__grid {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
@@ -775,20 +814,6 @@ import Button from './Button.astro';
     color: #836733;
   }
 
-  .service-modal__price-tag {
-    background-color: #F5F0E8;
-    border: 1px solid rgba(44, 36, 30, 0.12);
-    padding: 0.3rem 0.85rem;
-    border-radius: var(--radius-full);
-  }
-
-  .service-modal__price {
-    font-family: var(--font-serif);
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #2C241E;
-  }
-
   .service-modal__title {
     font-family: var(--font-serif);
     font-size: var(--text-2xl);
@@ -850,5 +875,18 @@ import Button from './Button.astro';
   .service-modal__footer :global(button) {
     width: 100%;
     justify-content: center;
+  }
+
+  :global(.modal-cta-full) {
+    display: none;
+  }
+
+  @media (min-width: 480px) {
+    :global(.modal-cta-short) {
+      display: none;
+    }
+    :global(.modal-cta-full) {
+      display: inline;
+    }
   }
 </style>

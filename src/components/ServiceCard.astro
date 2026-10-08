@@ -24,19 +24,13 @@ const { item } = Astro.props;
 >
   
   <div class="service-card__main">
-    <!-- Top Bar: Category Tag & Price -->
     <div class="service-card__header">
       <span class="service-card__category">{item.categoryLabel}</span>
-      
-      <div class="service-card__price-tag">
-        <span class="service-card__price">{item.price}</span>
-      </div>
     </div>
 
-    <!-- Body: Title & Meta Info -->
     <div class="service-card__body">
       <h3 class="service-card__title">{item.title}</h3>
-      
+
       <div class="service-card__meta">
         {item.duration && (
           <span class="service-card__duration">
@@ -44,15 +38,6 @@ const { item } = Astro.props;
               <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 16 14"/>
             </svg>
             {item.duration}
-          </span>
-        )}
-
-        {item.priceDetail && (
-          <span class="service-card__bonus">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            {item.priceDetail}
           </span>
         )}
       </div>
@@ -131,23 +116,7 @@ const { item } = Astro.props;
     color: #836733;
   }
 
-  .service-card__price-tag {
-    background-color: #F5F0E8;
-    border: 1px solid rgba(44, 36, 30, 0.12);
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-full);
-    flex-shrink: 0;
-  }
-
-  .service-card__price {
-    font-family: var(--font-serif);
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #2C241E;
-    white-space: nowrap;
-  }
-
-  .service-card__body {
+.service-card__body {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
@@ -170,19 +139,13 @@ const { item } = Astro.props;
     margin-top: 0.15rem;
   }
 
-  .service-card__duration,
-  .service-card__bonus {
+  .service-card__duration {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
     font-size: 0.8125rem;
     font-weight: 500;
     color: #4A3F35;
-  }
-
-  .service-card__bonus {
-    color: #836733;
-    font-weight: 600;
   }
 
   .service-card__actions {
@@ -220,6 +183,76 @@ const { item } = Astro.props;
 
   .service-card__toggle-btn:hover .service-card__toggle-icon {
     transform: scale(1.15);
+  }
+
+  /* ── Mobile compact list layout ── */
+  @media (max-width: 639px) {
+    .service-card {
+      flex-direction: row;
+      align-items: center;
+      border-radius: var(--radius-lg);
+      box-shadow: none;
+      border-color: rgba(44, 36, 30, 0.08);
+    }
+
+    .service-card__main {
+      padding: 0.7rem 0.85rem;
+      gap: 0.2rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .service-card__header {
+      display: none;
+    }
+
+    .service-card__body {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .service-card__title {
+      font-size: 0.95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .service-card__meta {
+      margin-top: 0;
+      flex-shrink: 0;
+    }
+
+    .service-card__duration {
+      font-size: 0.7rem;
+      opacity: 0.6;
+    }
+
+    .service-card__duration svg {
+      display: none;
+    }
+
+    .service-card__actions {
+      border-top: none;
+      border-left: 1px solid rgba(44, 36, 30, 0.08);
+      background-color: transparent;
+      margin-top: 0;
+    }
+
+    .service-card__toggle-btn {
+      padding: 0.7rem 0.65rem;
+      justify-content: center;
+    }
+
+    .service-card__toggle-text {
+      display: none;
+    }
+
+    .service-card__toggle-icon {
+      width: 18px;
+      height: 18px;
+    }
   }
 </style>
 

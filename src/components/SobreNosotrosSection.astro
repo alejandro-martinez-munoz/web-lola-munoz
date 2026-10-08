@@ -2,6 +2,9 @@
 /**
  * SobreNosotrosSection — Philosophy Section with Before/After Labels.
  */
+import { Image } from 'astro:assets';
+import womanBefore from '../assets/images/woman-before.png';
+import womanAfter from '../assets/images/woman-after.png';
 ---
 
 <section class="bg-light section sobre-nosotros" id="sobre-mi">
@@ -10,12 +13,14 @@
     <!-- Left Column: Dermapen Treatment Image -->
     <div class="sobre-nosotros__card-wrap reveal reveal--up stagger-1">
       <div class="sobre-nosotros__img-card">
-        <img
-          src="/images/woman-before.png"
+        <Image
+          src={womanBefore}
           alt="Lola Muñoz realizando tratamiento facial de micropunción Dermapen"
           class="sobre-nosotros__img"
           loading="lazy"
-          decoding="async"
+          format="webp"
+          quality={85}
+          widths={[220, 260, 440, 520]}
         />
       </div>
     </div>
@@ -33,12 +38,14 @@
     <!-- Right Column: Mask Treatment Image -->
     <div class="sobre-nosotros__card-wrap reveal reveal--up stagger-3">
       <div class="sobre-nosotros__img-card">
-        <img
-          src="/images/woman-after.png"
+        <Image
+          src={womanAfter}
           alt="Lola Muñoz aplicando tratamiento de mascarilla facial"
           class="sobre-nosotros__img"
           loading="lazy"
-          decoding="async"
+          format="webp"
+          quality={85}
+          widths={[220, 260, 440, 520]}
         />
       </div>
     </div>

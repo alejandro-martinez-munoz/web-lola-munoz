@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout
+  title="Página no encontrada"
+  description="La página que buscas no existe o ha sido movida."
+>
+  <Navbar slot="header" />
+
+  <main class="error-page">
+    <div class="container">
+      <div class="error-page__content">
+        <div class="error-page__icon">
+          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+        </div>
+
+        <h1 class="error-page__code">404</h1>
+        <h2 class="error-page__title">Página no encontrada</h2>
+        <p class="error-page__message">
+          Lo sentimos, la página que buscas no existe o ha sido movida.
+        </p>
+
+        <div class="error-page__actions">
+          <Button href="/" variant="primary" size="lg">
+            Volver al inicio
+          </Button>
+          <Button href="/#contacto" variant="secondary" size="lg">
+            Contactar
+          </Button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .error-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg);
+    padding-block: var(--space-3xl);
+  }
+
+  .error-page__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  .error-page__icon {
+    color: var(--color-accent);
+    margin-bottom: var(--space-lg);
+    opacity: 0.8;
+  }
+
+  .error-page__code {
+    font-family: var(--font-serif);
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: var(--weight-light);
+    color: var(--color-text);
+    line-height: 1;
+    margin-bottom: var(--space-sm);
+  }
+
+  .error-page__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
+  }
+
+  .error-page__message {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-xl);
+  }
+
+  .error-page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+  }
+</style>

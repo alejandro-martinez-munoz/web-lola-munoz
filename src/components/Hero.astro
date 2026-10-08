@@ -2,18 +2,23 @@
 /**
  * Hero Component — Central Flanked Experience Credential Accent.
  */
+import { Image } from 'astro:assets';
 import Button from './Button.astro';
+import heroSpaBg from '../assets/images/hero-spa.png';
 ---
 
 <section class="bg-dark hero" id="hero">
   <!-- Background Image -->
   <div class="hero__bg">
-    <img
-      src="/images/hero-spa.png"
+    <Image
+      src={heroSpaBg}
       alt="Interior del Centro de Estética Lola Muñoz"
       class="hero__bg-img"
       loading="eager"
-      decoding="async"
+      format="webp"
+      quality={80}
+      widths={[640, 768, 1024, 1280, 1536, 1920]}
+      sizes="100vw"
     />
     <div class="hero__bg-overlay"></div>
   </div>

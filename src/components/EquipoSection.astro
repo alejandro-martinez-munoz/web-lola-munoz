@@ -8,12 +8,20 @@
  *   - Subtle founder badge
  *   - Image hover zoom effect
  */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// Import team member photos
+import lolaImg from '../assets/images/equipo/lola.png';
+import palomaImg from '../assets/images/equipo/paloma.png';
+import veroImg from '../assets/images/equipo/vero.png';
+import loliImg from '../assets/images/equipo/loli.png';
 
 interface TeamMember {
   id: string;
   name: string;
   role: string;
-  imageSrc: string;
+  imageSrc: ImageMetadata;
   isFounder?: boolean;
 }
 
@@ -22,26 +30,26 @@ const team: TeamMember[] = [
     id: 'lola',
     name: 'Lola Muñoz',
     role: 'Estética Avanzada',
-    imageSrc: '/images/equipo/lola.png',
+    imageSrc: lolaImg,
     isFounder: true,
   },
   {
     id: 'paloma',
     name: 'Paloma',
     role: 'Estética Facial & Aparatología',
-    imageSrc: '/images/equipo/paloma.png',
+    imageSrc: palomaImg,
   },
   {
     id: 'vero',
     name: 'Vero',
     role: 'Estética Corporal & Mirada',
-    imageSrc: '/images/equipo/vero.png',
+    imageSrc: veroImg,
   },
   {
     id: 'loli',
     name: 'Loli',
     role: 'Manicura, Pedicura & Relax',
-    imageSrc: '/images/equipo/loli.png',
+    imageSrc: loliImg,
   },
 ];
 ---
@@ -67,12 +75,14 @@ const team: TeamMember[] = [
 
           <!-- Photo Container -->
           <div class="team-card__image-wrap">
-            <img
+            <Image
               src={member.imageSrc}
               alt={`Fotografía de ${member.name}`}
               class="team-card__img"
               loading="lazy"
-              decoding="async"
+              format="webp"
+              quality={85}
+              widths={[250, 300, 500, 600]}
             />
           </div>
 

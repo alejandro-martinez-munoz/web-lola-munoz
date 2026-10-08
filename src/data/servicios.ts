@@ -65,7 +65,7 @@ export const SERVICIOS_LIST: ServiceItem[] = [
     categoryLabel: 'Facial Cabina',
     title: 'Tratamiento de Oxígeno',
     price: '60€',
-    description: 'Infusión de oxígeno puro para ilumninar el rostro, difuminar la fatiga y reactivar la microcirculación.',
+    description: 'Infusión de oxígeno puro para iluminar el rostro, difuminar la fatiga y reactivar la microcirculación.',
     duration: '60 min',
   },
   {
